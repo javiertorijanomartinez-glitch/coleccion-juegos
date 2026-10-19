@@ -1,0 +1,18 @@
+{
+  "name": "Juegos de la Infancia",
+  "short_name": "Minijuegos",
+  "description": "Colección de minijuegos clásicos de mesa de la infancia",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#121420",
+  "theme_color": "#1a1c2e",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

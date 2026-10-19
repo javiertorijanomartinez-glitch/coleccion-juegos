@@ -1,0 +1,477 @@
+export const lessonsData = {
+  "curriculumVersion": "1.0.0",
+  "curriculumTitle": "Curso Integral de Piano para Principiantes",
+  "totalLessons": 15,
+  "modules": [
+    {
+      "id": 1,
+      "title": "Módulo 1: Fundamentos y Primeros Contactos",
+      "description": "Postura, reconocimiento del teclado, numeración de los dedos e independencia básica entre ambas manos.",
+      "lessons": [
+        {
+          "id": "lesson-01",
+          "module": 1,
+          "lessonNumber": 1,
+          "title": "Conociendo el Teclado",
+          "subtitle": "Teclas blancas y negras, el Do Central (C4) y dedos 1 al 5",
+          "theory": "El teclado del piano sigue un patrón repetitivo de teclas negras en grupos de 2 y de 3. La tecla blanca situada inmediatamente a la izquierda del grupo de dos teclas negras es siempre un Do (C). El Do Central (C4) se encuentra en el centro del instrumento. En el piano, numeramos los dedos del 1 al 5: 1=Pulgar, 2=Índice, 3=Medio, 4=Anular, 5=Meñique.",
+          "clef": "treble",
+          "timeSignature": { "num": 4, "denom": 4 },
+          "tempo": 60,
+          "targetHand": "right",
+          "validationType": "single_note",
+          "tolerance": { "pitch": true, "timingMs": 500 },
+          "steps": [
+            {
+              "stepId": 1,
+              "instruction": "Encuentra el Do Central (C4) con el dedo pulgar de tu mano derecha (Dedo 1).",
+              "hand": "right",
+              "finger": 1,
+              "targetNotes": ["C4"],
+              "noteName": "C4",
+              "hint": "Busca el grupo de dos teclas negras en el centro del piano. La tecla blanca a la izquierda es C4."
+            },
+            {
+              "stepId": 2,
+              "instruction": "Toca la tecla Re (D4) con el dedo índice (Dedo 2).",
+              "hand": "right",
+              "finger": 2,
+              "targetNotes": ["D4"],
+              "noteName": "D4",
+              "hint": "Está justo a la derecha de C4, entre las dos teclas negras."
+            },
+            {
+              "stepId": 3,
+              "instruction": "Toca la tecla Mi (E4) con el dedo medio (Dedo 3).",
+              "hand": "right",
+              "finger": 3,
+              "targetNotes": ["E4"],
+              "noteName": "E4",
+              "hint": "A la derecha del grupo de dos teclas negras."
+            }
+          ]
+        },
+        {
+          "id": "lesson-02",
+          "module": 1,
+          "lessonNumber": 2,
+          "title": "La Mano Derecha (Melodía)",
+          "subtitle": "Las primeras 5 notas (C4, D4, E4, F4, G4) con dedos 1 al 5",
+          "theory": "Coloca tu mano derecha en 'Posición de Do': Dedo 1 en C4, 2 en D4, 3 en E4, 4 en F4 y 5 en G4. Mantén la mano relajada como si sostuvieras una pelota pequeña. Tocaremos las 5 notas subiendo y bajando de forma fluida.",
+          "clef": "treble",
+          "timeSignature": { "num": 4, "denom": 4 },
+          "tempo": 70,
+          "targetHand": "right",
+          "validationType": "sequence",
+          "tolerance": { "pitch": true, "timingMs": 400 },
+          "steps": [
+            { "stepId": 1, "note": "C4", "hand": "right", "finger": 1, "duration": 1 },
+            { "stepId": 2, "note": "D4", "hand": "right", "finger": 2, "duration": 1 },
+            { "stepId": 3, "note": "E4", "hand": "right", "finger": 3, "duration": 1 },
+            { "stepId": 4, "note": "F4", "hand": "right", "finger": 4, "duration": 1 },
+            { "stepId": 5, "note": "G4", "hand": "right", "finger": 5, "duration": 2 },
+            { "stepId": 6, "note": "F4", "hand": "right", "finger": 4, "duration": 1 },
+            { "stepId": 7, "note": "E4", "hand": "right", "finger": 3, "duration": 1 },
+            { "stepId": 8, "note": "D4", "hand": "right", "finger": 2, "duration": 1 },
+            { "stepId": 9, "note": "C4", "hand": "right", "finger": 1, "duration": 2 }
+          ]
+        },
+        {
+          "id": "lesson-03",
+          "module": 1,
+          "lessonNumber": 3,
+          "title": "La Mano Izquierda (Bajos)",
+          "subtitle": "Las 5 notas graves en Clave de Fa con los dedos 5 al 1",
+          "theory": "La mano izquierda se encarga tradicionalmente de los bajos y el acompañamiento, leyéndose en la Clave de Fa. Colocaremos la mano izquierda en la octava baja (C3 a G3): Dedo 5 (meñique) en C3, 4 en D3, 3 en E3, 2 en F3 y 1 (pulgar) en G3.",
+          "clef": "bass",
+          "timeSignature": { "num": 4, "denom": 4 },
+          "tempo": 70,
+          "targetHand": "left",
+          "validationType": "sequence",
+          "tolerance": { "pitch": true, "timingMs": 400 },
+          "steps": [
+            { "stepId": 1, "note": "C3", "hand": "left", "finger": 5, "duration": 1 },
+            { "stepId": 2, "note": "D3", "hand": "left", "finger": 4, "duration": 1 },
+            { "stepId": 3, "note": "E3", "hand": "left", "finger": 3, "duration": 1 },
+            { "stepId": 4, "note": "F3", "hand": "left", "finger": 2, "duration": 1 },
+            { "stepId": 5, "note": "G3", "hand": "left", "finger": 1, "duration": 2 },
+            { "stepId": 6, "note": "F3", "hand": "left", "finger": 2, "duration": 1 },
+            { "stepId": 7, "note": "E3", "hand": "left", "finger": 3, "duration": 1 },
+            { "stepId": 8, "note": "D3", "hand": "left", "finger": 4, "duration": 1 },
+            { "stepId": 9, "note": "C3", "hand": "left", "finger": 5, "duration": 2 }
+          ]
+        },
+        {
+          "id": "lesson-04",
+          "module": 1,
+          "lessonNumber": 4,
+          "title": "Juntando las Manos",
+          "subtitle": "Alternancia e independencia bimanual básica",
+          "theory": "Tocar el piano requiere que ambos hemisferios cerebrales dialoguen. En este ejercicio alternarás una nota con la mano derecha y otra con la izquierda, manteniendo un pulso constante sin tensar los hombros.",
+          "clef": "grand",
+          "timeSignature": { "num": 4, "denom": 4 },
+          "tempo": 65,
+          "targetHand": "both",
+          "validationType": "hands_alternating",
+          "tolerance": { "pitch": true, "timingMs": 400 },
+          "steps": [
+            { "stepId": 1, "note": "C4", "hand": "right", "finger": 1, "duration": 1 },
+            { "stepId": 2, "note": "C3", "hand": "left", "finger": 5, "duration": 1 },
+            { "stepId": 3, "note": "D4", "hand": "right", "finger": 2, "duration": 1 },
+            { "stepId": 4, "note": "D3", "hand": "left", "finger": 4, "duration": 1 },
+            { "stepId": 5, "note": "E4", "hand": "right", "finger": 3, "duration": 1 },
+            { "stepId": 6, "note": "E3", "hand": "left", "finger": 3, "duration": 1 },
+            { "stepId": 7, "note": "F4", "hand": "right", "finger": 4, "duration": 1 },
+            { "stepId": 8, "note": "F3", "hand": "left", "finger": 2, "duration": 1 },
+            { "stepId": 9, "note": "G4", "hand": "right", "finger": 5, "duration": 2 },
+            { "stepId": 10, "note": "C3", "hand": "left", "finger": 5, "duration": 2 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Módulo 2: Escalas, Ritmo y Armonía Básica",
+      "description": "Duración de figuras musicales, la escala completa con pase de pulgar y la formación de acordes tríadas.",
+      "lessons": [
+        {
+          "id": "lesson-05",
+          "module": 2,
+          "lessonNumber": 5,
+          "title": "El Compás y el Ritmo",
+          "subtitle": "Redonda (4 tiempos), Blanca (2 tiempos) y Negra (1 tiempo) en 4/4",
+          "theory": "En un compás de 4/4 caben 4 pulsos por compás. Una 'Redonda' dura 4 tiempos completos, una 'Blanca' dura 2 tiempos y una 'Negra' dura 1 tiempo. Tocarás la nota C4 sosteniéndola exactamente el valor indicado por el metrónomo.",
+          "clef": "treble",
+          "timeSignature": { "num": 4, "denom": 4 },
+          "tempo": 60,
+          "targetHand": "right",
+          "validationType": "rhythm_timing",
+          "tolerance": { "pitch": true, "timingMs": 300, "durationTolerancePercent": 25 },
+          "steps": [
+            { "stepId": 1, "note": "C4", "hand": "right", "finger": 1, "durationBeats": 4, "figure": "redonda", "instruction": "Toca C4 y sostenla durante 4 pulsos del metrónomo." },
+            { "stepId": 2, "note": "C4", "hand": "right", "finger": 1, "durationBeats": 2, "figure": "blanca", "instruction": "Toca C4 y sostenla 2 pulsos." },
+            { "stepId": 3, "note": "C4", "hand": "right", "finger": 1, "durationBeats": 2, "figure": "blanca", "instruction": "Toca C4 y sostenla 2 pulsos." },
+            { "stepId": 4, "note": "C4", "hand": "right", "finger": 1, "durationBeats": 1, "figure": "negra", "instruction": "Toca 1 tiempo." },
+            { "stepId": 5, "note": "C4", "hand": "right", "finger": 1, "durationBeats": 1, "figure": "negra", "instruction": "Toca 1 tiempo." },
+            { "stepId": 6, "note": "C4", "hand": "right", "finger": 1, "durationBeats": 1, "figure": "negra", "instruction": "Toca 1 tiempo." },
+            { "stepId": 7, "note": "C4", "hand": "right", "finger": 1, "durationBeats": 1, "figure": "negra", "instruction": "Toca 1 tiempo." }
+          ]
+        },
+        {
+          "id": "lesson-06",
+          "module": 2,
+          "lessonNumber": 6,
+          "title": "La Escala de Do Mayor (Una Octava)",
+          "subtitle": "Escala diatónica completa con cruce de pulgar (Thumb-Under)",
+          "theory": "Como solo tenemos 5 dedos pero la escala tiene 8 notas (C a C), usamos la técnica fundamental del piano: el 'cruce de pulgar'. Tocamos C4(1), D4(2), E4(3), y mientras el dedo 3 suena, el pulgar pasa suavemente por debajo para tocar F4(1), seguido de G4(2), A4(3), B4(4) y C5(5).",
+          "clef": "treble",
+          "timeSignature": { "num": 4, "denom": 4 },
+          "tempo": 70,
+          "targetHand": "right",
+          "validationType": "sequence",
+          "tolerance": { "pitch": true, "timingMs": 400 },
+          "steps": [
+            { "stepId": 1, "note": "C4", "hand": "right", "finger": 1, "duration": 1, "technique": "inicio" },
+            { "stepId": 2, "note": "D4", "hand": "right", "finger": 2, "duration": 1 },
+            { "stepId": 3, "note": "E4", "hand": "right", "finger": 3, "duration": 1, "technique": "preparar-cruce" },
+            { "stepId": 4, "note": "F4", "hand": "right", "finger": 1, "duration": 1, "technique": "cruce-pulgar" },
+            { "stepId": 5, "note": "G4", "hand": "right", "finger": 2, "duration": 1 },
+            { "stepId": 6, "note": "A4", "hand": "right", "finger": 3, "duration": 1 },
+            { "stepId": 7, "note": "B4", "hand": "right", "finger": 4, "duration": 1 },
+            { "stepId": 8, "note": "C5", "hand": "right", "finger": 5, "duration": 2, "technique": "meta" }
+          ]
+        },
+        {
+          "id": "lesson-07",
+          "module": 2,
+          "lessonNumber": 7,
+          "title": "Tu Primer Acorde (Triada)",
+          "subtitle": "La tríada de Do Mayor (C - E - G) en bloque",
+          "theory": "Un acorde es un conjunto de 3 o más notas que suenan simultáneamente. La tríada básica de Do Mayor está formada por la Fundamental (Do), la Tercera mayor (Mi) y la Quinta justa (Sol). En la mano derecha usamos los dedos 1-3-5; en la izquierda 5-3-1. Todas las notas deben sonar exactamente al mismo instante.",
+          "clef": "grand",
+          "timeSignature": { "num": 4, "denom": 4 },
+          "tempo": 60,
+          "targetHand": "both",
+          "validationType": "simultaneous_chord",
+          "tolerance": { "pitch": true, "simultaneousWindowMs": 140 },
+          "steps": [
+            {
+              "stepId": 1,
+              "instruction": "Toca la tríada de Do Mayor con la mano derecha: C4 + E4 + G4 (dedos 1-3-5).",
+              "chordName": "C Mayor",
+              "hand": "right",
+              "targetNotes": ["C4", "E4", "G4"],
+              "fingers": [1, 3, 5],
+              "duration": 4
+            },
+            {
+              "stepId": 2,
+              "instruction": "Ahora tócala con la mano izquierda: C3 + E3 + G3 (dedos 5-3-1).",
+              "chordName": "C Mayor (Bajo)",
+              "hand": "left",
+              "targetNotes": ["C3", "E3", "G3"],
+              "fingers": [5, 3, 1],
+              "duration": 4
+            },
+            {
+              "stepId": 3,
+              "instruction": "¡Ambas manos juntas! Acorde de Do Mayor simultáneo.",
+              "chordName": "C Mayor (Ambas)",
+              "hand": "both",
+              "targetNotes": ["C3", "E3", "G3", "C4", "E4", "G4"],
+              "duration": 4
+            }
+          ]
+        },
+        {
+          "id": "lesson-08",
+          "module": 2,
+          "lessonNumber": 8,
+          "title": "Progresión Básica de Acordes",
+          "subtitle": "Los tres pilares de la música occidental: Do (I), Fa (IV) y Sol (V)",
+          "theory": "Cientos de canciones populares se basan en los acordes I, IV y V: Do Mayor (C), Fa Mayor (F: F-A-C) y Sol Mayor (G: G-B-D). Practicaremos la transición suave entre ellos manteniendo la forma de la mano.",
+          "clef": "treble",
+          "timeSignature": { "num": 4, "denom": 4 },
+          "tempo": 65,
+          "targetHand": "right",
+          "validationType": "chord_progression",
+          "tolerance": { "pitch": true, "simultaneousWindowMs": 150 },
+          "steps": [
+            { "stepId": 1, "chordName": "C", "targetNotes": ["C4", "E4", "G4"], "duration": 4, "hand": "right" },
+            { "stepId": 2, "chordName": "F", "targetNotes": ["F4", "A4", "C5"], "duration": 4, "hand": "right" },
+            { "stepId": 3, "chordName": "G", "targetNotes": ["G4", "B4", "D5"], "duration": 4, "hand": "right" },
+            { "stepId": 4, "chordName": "C", "targetNotes": ["C4", "E4", "G4"], "duration": 4, "hand": "right" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Módulo 3: Musicalidad y Coordinación Avanzada",
+      "description": "Acordes menores, arpegios fluidos, combinación de melodía y armonía, y dinámicas de pulsación (Forte y Piano).",
+      "lessons": [
+        {
+          "id": "lesson-09",
+          "module": 3,
+          "lessonNumber": 9,
+          "title": "Acordes Menores y Emoción",
+          "subtitle": "El acorde de La menor (Am) y la progresión pop I - V - vi - IV",
+          "theory": "Mientras los acordes mayores suenan brillantes o alegres, los acordes menores tienen un color más nostálgico o reflexivo. El acorde de La menor (Am) se forma con A, C y E. La progresión C - G - Am - F es la base de canciones de The Beatles, Adele y Elton John.",
+          "clef": "grand",
+          "timeSignature": { "num": 4, "denom": 4 },
+          "tempo": 70,
+          "targetHand": "right",
+          "validationType": "chord_progression",
+          "tolerance": { "pitch": true, "simultaneousWindowMs": 150 },
+          "steps": [
+            { "stepId": 1, "chordName": "C", "targetNotes": ["C4", "E4", "G4"], "duration": 4 },
+            { "stepId": 2, "chordName": "G", "targetNotes": ["G4", "B4", "D5"], "duration": 4 },
+            { "stepId": 3, "chordName": "Am", "targetNotes": ["A4", "C5", "E5"], "duration": 4 },
+            { "stepId": 4, "chordName": "F", "targetNotes": ["F4", "A4", "C5"], "duration": 4 }
+          ]
+        },
+        {
+          "id": "lesson-10",
+          "module": 3,
+          "lessonNumber": 10,
+          "title": "Arpegios (Acordes Desglosados)",
+          "subtitle": "Fluidez y acompañamiento elegante con notas sucesivas",
+          "theory": "Un arpegio (del italiano 'arpeggiare', tocar el arpa) consiste en tocar las notas de un acorde una por una en lugar de todas a la vez. Es uno de los recursos de acompañamiento más utilizados al piano clásico y contemporáneo.",
+          "clef": "bass",
+          "timeSignature": { "num": 4, "denom": 4 },
+          "tempo": 75,
+          "targetHand": "left",
+          "validationType": "sequence",
+          "tolerance": { "pitch": true, "timingMs": 350 },
+          "steps": [
+            { "stepId": 1, "note": "C3", "hand": "left", "finger": 5, "duration": 1 },
+            { "stepId": 2, "note": "E3", "hand": "left", "finger": 3, "duration": 1 },
+            { "stepId": 3, "note": "G3", "hand": "left", "finger": 1, "duration": 1 },
+            { "stepId": 4, "note": "E3", "hand": "left", "finger": 3, "duration": 1 },
+            { "stepId": 5, "note": "C3", "hand": "left", "finger": 5, "duration": 1 },
+            { "stepId": 6, "note": "E3", "hand": "left", "finger": 3, "duration": 1 },
+            { "stepId": 7, "note": "G3", "hand": "left", "finger": 1, "duration": 1 },
+            { "stepId": 8, "note": "C3", "hand": "left", "finger": 5, "duration": 2 }
+          ]
+        },
+        {
+          "id": "lesson-11",
+          "module": 3,
+          "lessonNumber": 11,
+          "title": "Melodía + Acorde",
+          "subtitle": "Polifonía real: mano izquierda acompañando mientras la derecha canta",
+          "theory": "En esta lección coordinaremos dos roles distintos: la mano izquierda sostiene el acorde de C (C3-E3-G3) en el pulso 1 de cada compás, mientras la mano derecha toca una melodía en negras.",
+          "clef": "grand",
+          "timeSignature": { "num": 4, "denom": 4 },
+          "tempo": 70,
+          "targetHand": "both",
+          "validationType": "melody_plus_harmony",
+          "tolerance": { "pitch": true, "timingMs": 380, "simultaneousWindowMs": 140 },
+          "steps": [
+            {
+              "stepId": 1,
+              "instruction": "Compás 1: Toca el acorde con la izquierda y la nota C4 con la derecha simultáneamente.",
+              "targetNotes": [
+                { "note": "C3", "hand": "left", "duration": 4 },
+                { "note": "E3", "hand": "left", "duration": 4 },
+                { "note": "G3", "hand": "left", "duration": 4 },
+                { "note": "C4", "hand": "right", "duration": 1 }
+              ]
+            },
+            {
+              "stepId": 2,
+              "instruction": "Tiempo 2: Mano derecha toca D4.",
+              "targetNotes": [{ "note": "D4", "hand": "right", "duration": 1 }]
+            },
+            {
+              "stepId": 3,
+              "instruction": "Tiempo 3: Mano derecha toca E4.",
+              "targetNotes": [{ "note": "E4", "hand": "right", "duration": 1 }]
+            },
+            {
+              "stepId": 4,
+              "instruction": "Tiempo 4: Mano derecha toca D4.",
+              "targetNotes": [{ "note": "D4", "hand": "right", "duration": 1 }]
+            },
+            {
+              "stepId": 5,
+              "instruction": "Compás 2: Cierra con C3 en la izquierda y C4 en la derecha sostenidos.",
+              "targetNotes": [
+                { "note": "C3", "hand": "left", "duration": 4 },
+                { "note": "C4", "hand": "right", "duration": 4 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lesson-12",
+          "module": 3,
+          "lessonNumber": 12,
+          "title": "Dinámicas (Fuerte y Suave)",
+          "subtitle": "Sensibilidad de pulsación: el significado de Piano (p) y Forte (f)",
+          "theory": "El nombre completo del piano es 'Pianoforte', que en italiano significa 'suave y fuerte'. A diferencia del clavecín, el piano permite regular el volumen según la velocidad con la que el martillo golpea la cuerda (Velocity MIDI 0-127). Aprenderás a pulsar con delicadeza (Piano) y con peso firme (Forte).",
+          "clef": "treble",
+          "timeSignature": { "num": 4, "denom": 4 },
+          "tempo": 60,
+          "targetHand": "right",
+          "validationType": "velocity_dynamic",
+          "tolerance": { "pitch": true },
+          "steps": [
+            {
+              "stepId": 1,
+              "instruction": "Toca C4 en Piano (p): toque suave y ligero.",
+              "note": "C4",
+              "hand": "right",
+              "expectedDynamic": "piano",
+              "minVelocity": 0.05,
+              "maxVelocity": 0.45,
+              "hint": "Usa solo el peso de las yemas de los dedos, sin empujar desde el hombro."
+            },
+            {
+              "stepId": 2,
+              "instruction": "Ahora toca C4 en Forte (f): toque enérgico y resonante.",
+              "note": "C4",
+              "hand": "right",
+              "expectedDynamic": "forte",
+              "minVelocity": 0.70,
+              "maxVelocity": 1.0,
+              "hint": "Deja caer el peso natural del brazo para obtener un sonido profundo y pleno."
+            },
+            {
+              "stepId": 3,
+              "instruction": "Toca E4 en Mezzoforte (mf): volumen medio equilibrado.",
+              "note": "E4",
+              "hand": "right",
+              "expectedDynamic": "mezzoforte",
+              "minVelocity": 0.46,
+              "maxVelocity": 0.69
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Módulo 4: Lectura y Canciones",
+      "description": "Lectura fluida en pentagrama (Clave de Sol y Clave de Fa) y ejecución de tu primera pieza musical completa a dos manos.",
+      "lessons": [
+        {
+          "id": "lesson-13",
+          "module": 4,
+          "lessonNumber": 13,
+          "title": "Lectura Básica (Clave de Sol)",
+          "subtitle": "Líneas y espacios del pentagrama superior",
+          "theory": "En la Clave de Sol, la 2ª línea marca la nota Sol (G4). Las líneas de abajo hacia arriba son: Mi (E4), Sol (G4), Si (B4), Re (D5), Fa (F5). Los espacios son: Fa (F4), La (A4), Do (C5), Mi (E5). Reconocerás y tocarás notas directamente desde la notación del pentagrama.",
+          "clef": "treble",
+          "timeSignature": { "num": 4, "denom": 4 },
+          "tempo": 65,
+          "targetHand": "right",
+          "validationType": "sight_reading",
+          "tolerance": { "pitch": true, "timingMs": 800 },
+          "steps": [
+            { "stepId": 1, "note": "E4", "hand": "right", "duration": 2, "prompt": "1ª Línea del pentagrama" },
+            { "stepId": 2, "note": "G4", "hand": "right", "duration": 2, "prompt": "2ª Línea del pentagrama (Nota Sol de la Clave)" },
+            { "stepId": 3, "note": "F4", "hand": "right", "duration": 2, "prompt": "1er Espacio del pentagrama" },
+            { "stepId": 4, "note": "A4", "hand": "right", "duration": 2, "prompt": "2º Espacio del pentagrama" },
+            { "stepId": 5, "note": "B4", "hand": "right", "duration": 2, "prompt": "3ª Línea del pentagrama" },
+            { "stepId": 6, "note": "C5", "hand": "right", "duration": 4, "prompt": "3er Espacio del pentagrama (Do agudo)" }
+          ]
+        },
+        {
+          "id": "lesson-14",
+          "module": 4,
+          "lessonNumber": 14,
+          "title": "Lectura Básica (Clave de Fa)",
+          "subtitle": "Líneas y espacios del pentagrama inferior",
+          "theory": "En la Clave de Fa, los dos puntos encierran la 4ª línea, que es Fa (F3). Las líneas son: Sol (G2), Si (B2), Re (D3), Fa (F3), La (A3). Los espacios son: La (A2), Do (C3), Mi (E3), Sol (G3). Dominar esta lectura es la clave del acompañamiento pianístico.",
+          "clef": "bass",
+          "timeSignature": { "num": 4, "denom": 4 },
+          "tempo": 65,
+          "targetHand": "left",
+          "validationType": "sight_reading",
+          "tolerance": { "pitch": true, "timingMs": 800 },
+          "steps": [
+            { "stepId": 1, "note": "C3", "hand": "left", "duration": 2, "prompt": "2º Espacio: Do" },
+            { "stepId": 2, "note": "E3", "hand": "left", "duration": 2, "prompt": "3er Espacio: Mi" },
+            { "stepId": 3, "note": "F3", "hand": "left", "duration": 2, "prompt": "4ª Línea: Fa (Línea central de la clave)" },
+            { "stepId": 4, "note": "G3", "hand": "left", "duration": 2, "prompt": "4º Espacio: Sol" },
+            { "stepId": 5, "note": "A3", "hand": "left", "duration": 2, "prompt": "5ª Línea: La" }
+          ]
+        },
+        {
+          "id": "lesson-15",
+          "module": 4,
+          "lessonNumber": 15,
+          "title": "Tu Primera Canción Completa",
+          "subtitle": "Himno a la Alegría (L. v. Beethoven) a dos manos",
+          "theory": "¡Enhorabuena por llegar a la lección culminante! Pondremos en práctica todo el currículo: lectura de Gran Pentagrama, melodía con mano derecha, acordes de bajo con mano izquierda, compás de 4/4 y control rítmico.",
+          "clef": "grand",
+          "timeSignature": { "num": 4, "denom": 4 },
+          "tempo": 84,
+          "targetHand": "both",
+          "validationType": "full_piece_performance",
+          "tolerance": { "pitch": true, "timingMs": 350, "simultaneousWindowMs": 130 },
+          "steps": [
+            { "stepId": 1, "notes": [{ "note": "C3", "hand": "left" }, { "note": "E4", "hand": "right" }], "duration": 1 },
+            { "stepId": 2, "notes": [{ "note": "E4", "hand": "right" }], "duration": 1 },
+            { "stepId": 3, "notes": [{ "note": "F4", "hand": "right" }], "duration": 1 },
+            { "stepId": 4, "notes": [{ "note": "G4", "hand": "right" }], "duration": 1 },
+            { "stepId": 5, "notes": [{ "note": "G3", "hand": "left" }, { "note": "G4", "hand": "right" }], "duration": 1 },
+            { "stepId": 6, "notes": [{ "note": "F4", "hand": "right" }], "duration": 1 },
+            { "stepId": 7, "notes": [{ "note": "E4", "hand": "right" }], "duration": 1 },
+            { "stepId": 8, "notes": [{ "note": "D4", "hand": "right" }], "duration": 1 },
+            { "stepId": 9, "notes": [{ "note": "C3", "hand": "left" }, { "note": "C4", "hand": "right" }], "duration": 1 },
+            { "stepId": 10, "notes": [{ "note": "C4", "hand": "right" }], "duration": 1 },
+            { "stepId": 11, "notes": [{ "note": "D4", "hand": "right" }], "duration": 1 },
+            { "stepId": 12, "notes": [{ "note": "E4", "hand": "right" }], "duration": 1 },
+            { "stepId": 13, "notes": [{ "note": "G3", "hand": "left" }, { "note": "E4", "hand": "right" }], "duration": 1.5 },
+            { "stepId": 14, "notes": [{ "note": "D4", "hand": "right" }], "duration": 0.5 },
+            { "stepId": 15, "notes": [{ "note": "C3", "hand": "left" }, { "note": "D4", "hand": "right" }], "duration": 2 }
+          ]
+        }
+      ]
+    }
+  ]
+}
+;
+export default lessonsData;

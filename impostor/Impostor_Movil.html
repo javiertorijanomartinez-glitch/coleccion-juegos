@@ -1,0 +1,2655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#090b12" />
+  <meta name="description" content="Impostor - Juego de palabras y deducción social para móviles y grupos." />
+  
+  <title>Impostor</title>
+
+  <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       IMPOSTOR - Complete Mobile CSS Design System
+       ========================================================================== */
+    :root {
+      --bg-base: #090b12;
+      --bg-surface: #121626;
+      --bg-surface-elevated: #1a1f36;
+      --bg-surface-glass: rgba(26, 31, 54, 0.75);
+      --border-glass: rgba(255, 255, 255, 0.1);
+      --border-glass-strong: rgba(255, 255, 255, 0.2);
+
+      --crimson: #ff2d55;
+      --crimson-glow: rgba(255, 45, 85, 0.35);
+      --crimson-dark: #b81436;
+      
+      --cyan: #00f2fe;
+      --cyan-glow: rgba(0, 242, 254, 0.3);
+
+      --violet: #8a2be2;
+      --violet-glow: rgba(138, 43, 226, 0.35);
+
+      --emerald: #00e676;
+      --emerald-glow: rgba(0, 230, 118, 0.3);
+
+      --amber: #ffb703;
+
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-subtle: #64748b;
+      --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.55);
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      --max-width: 480px;
+
+      --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.5;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      touch-action: manipulation;
+    }
+
+    /* Ambient Lighting */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 45, 85, 0.15) 0%, rgba(138, 43, 226, 0.1) 40%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.1) 0%, rgba(138, 43, 226, 0.08) 45%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .app-root {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 12px);
+      padding-left: env(safe-area-inset-left, 12px);
+      padding-right: env(safe-area-inset-right, 12px);
+    }
+
+    .view-container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 16px 16px 24px;
+    }
+
+    h1, h2, h3, h4, .font-heading {
+      font-family: var(--font-heading);
+      letter-spacing: -0.02em;
+      font-weight: 700;
+    }
+
+    .app-header {
+      width: 100%;
+      max-width: var(--max-width);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      z-index: 10;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .header-logo {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--crimson), var(--violet));
+      border-radius: var(--radius-sm);
+      box-shadow: 0 2px 10px var(--crimson-glow);
+    }
+
+    .header-logo svg {
+      width: 20px;
+      height: 20px;
+      fill: #fff;
+    }
+
+    .app-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: linear-gradient(120deg, #ffffff 40%, var(--crimson) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-glass);
+      background: var(--bg-surface-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .icon-btn:active {
+      transform: scale(0.92);
+      background: var(--bg-surface-elevated);
+    }
+
+    .icon-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .glass-card {
+      background: var(--bg-surface-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 15px 22px;
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      text-decoration: none;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--crimson) 0%, #ff5277 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 20px var(--crimson-glow);
+    }
+
+    .btn-cyan {
+      background: linear-gradient(135deg, #00d2ff 0%, var(--cyan) 100%);
+      color: #090b12;
+      font-weight: 800;
+      box-shadow: 0 4px 20px var(--cyan-glow);
+    }
+
+    .btn-secondary {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-glass-strong);
+      color: var(--text-main);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px dashed var(--border-glass);
+    }
+
+    .btn-sm {
+      padding: 8px 14px;
+      font-size: 0.88rem;
+      border-radius: var(--radius-sm);
+      width: auto;
+    }
+
+    /* Steppers */
+    .stepper-control {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 6px 8px;
+    }
+
+    .stepper-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-glass);
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+      font-size: 1.3rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .stepper-btn:active:not(:disabled) {
+      transform: scale(0.92);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .stepper-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .stepper-value {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stepper-number {
+      font-family: var(--font-heading);
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .stepper-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 3px;
+    }
+
+    /* Segmented Control */
+    .segmented-control {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .segmented-btn {
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 2px;
+    }
+
+    .segmented-btn.active {
+      background: linear-gradient(135deg, rgba(255, 45, 85, 0.2), rgba(138, 43, 226, 0.2));
+      border: 1px solid var(--crimson);
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(255, 45, 85, 0.25);
+    }
+
+    .segmented-btn .sub-text {
+      font-size: 0.72rem;
+      font-weight: 400;
+      opacity: 0.8;
+    }
+
+    /* Category Chips */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .category-chip {
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-glass);
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-align: left;
+    }
+
+    .category-chip.active {
+      background: rgba(0, 242, 254, 0.12);
+      border-color: var(--cyan);
+      color: #fff;
+    }
+
+    .category-chip .chip-icon {
+      font-size: 1.1rem;
+    }
+
+    /* Player List */
+    .player-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 220px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .player-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-sm);
+    }
+
+    .player-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .player-name-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      border-bottom: 1px dashed transparent;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      font-weight: 600;
+      outline: none;
+      padding: 4px 0;
+    }
+
+    .player-name-input:focus {
+      border-bottom-color: var(--cyan);
+    }
+
+    /* Hold to Reveal */
+    .reveal-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      width: 100%;
+    }
+
+    .reveal-card {
+      position: relative;
+      width: 100%;
+      min-height: 360px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-glass-strong);
+      background: var(--bg-surface-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      transition: all 0.3s ease;
+    }
+
+    .reveal-card.is-revealed {
+      border-color: var(--crimson);
+      box-shadow: 0 0 35px var(--crimson-glow);
+    }
+
+    .reveal-card.is-revealed.civilian {
+      border-color: var(--cyan);
+      box-shadow: 0 0 35px var(--cyan-glow);
+    }
+
+    .secret-content {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .reveal-card.is-revealed .secret-content {
+      display: flex;
+    }
+
+    .reveal-card.is-revealed .cover-content {
+      display: none;
+    }
+
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .role-badge.impostor {
+      background: rgba(255, 45, 85, 0.2);
+      border: 1px solid var(--crimson);
+      color: #ff5277;
+    }
+
+    .role-badge.civilian {
+      background: rgba(0, 242, 254, 0.2);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+    }
+
+    .secret-word-title {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .secret-word {
+      font-family: var(--font-heading);
+      font-size: 2.3rem;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      text-shadow: 0 2px 15px rgba(255, 255, 255, 0.3);
+      margin-bottom: 12px;
+    }
+
+    .category-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--bg-surface-elevated);
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hold-zone {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .hold-button {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, #1f2544, #12162a);
+      border: 2px solid var(--crimson);
+      box-shadow: 0 0 25px var(--crimson-glow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .hold-button:active, .hold-button.pressing {
+      transform: scale(0.92);
+      box-shadow: 0 0 40px rgba(255, 45, 85, 0.8);
+      border-color: #ff6080;
+    }
+
+    .hold-button svg {
+      width: 44px;
+      height: 44px;
+      fill: var(--crimson);
+      transition: fill 0.2s ease;
+    }
+
+    .hold-button.pressing svg {
+      fill: #ffffff;
+    }
+
+    .hold-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* Timer */
+    .timer-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 20px 0;
+      position: relative;
+    }
+
+    .timer-svg {
+      width: 220px;
+      height: 220px;
+      transform: rotate(-90deg);
+    }
+
+    .timer-circle-bg {
+      fill: none;
+      stroke: var(--bg-surface-elevated);
+      stroke-width: 8;
+    }
+
+    .timer-circle-progress {
+      fill: none;
+      stroke: var(--cyan);
+      stroke-width: 8;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.5s linear, stroke 0.3s ease;
+    }
+
+    .timer-circle-progress.urgent {
+      stroke: var(--crimson);
+      filter: drop-shadow(0 0 8px var(--crimson));
+    }
+
+    .timer-inner-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .timer-digits {
+      font-family: var(--font-heading);
+      font-size: 3.2rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .timer-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+
+    /* Voting */
+    .suspects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      width: 100%;
+      margin-top: 14px;
+    }
+
+    .suspect-card {
+      position: relative;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 14px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      text-align: center;
+    }
+
+    .suspect-card.selected {
+      border-color: var(--crimson);
+      background: rgba(255, 45, 85, 0.15);
+      box-shadow: 0 0 16px var(--crimson-glow);
+      transform: scale(1.02);
+    }
+
+    .suspect-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .suspect-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 120px;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(9, 11, 18, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 100;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-glass-strong);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-height: 85vh;
+      overflow-y: auto;
+      animation: modalPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .input-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .text-input {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-size: 0.95rem;
+      font-family: var(--font-body);
+      outline: none;
+      transition: border-color var(--transition-fast);
+    }
+
+    .text-input:focus {
+      border-color: var(--cyan);
+    }
+
+    /* Keyframes */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes modalPop { from { opacity: 0; transform: scale(0.92) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 15px rgba(255, 45, 85, 0.4); }
+      50% { box-shadow: 0 0 32px rgba(255, 45, 85, 0.85); }
+    }
+    @keyframes cardFlipIn {
+      0% { transform: rotateY(90deg) scale(0.9); opacity: 0; }
+      60% { transform: rotateY(-10deg) scale(1.02); }
+      100% { transform: rotateY(0deg) scale(1); opacity: 1; }
+    }
+
+    .anim-fade-in { animation: fadeIn 0.25s ease-out forwards; }
+    .anim-fade-in-up { animation: fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .anim-card-flip { animation: cardFlipIn 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+    .anim-pulse-glow { animation: pulseGlow 2s infinite ease-in-out; }
+
+    .confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 99;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="app-root"></div>
+
+  <script>
+    /* ==========================================================================
+       IMPOSTOR - Standalone All-In-One Mobile Application
+       ========================================================================== */
+
+    // --- 1. PROCEDURAL SOUND ENGINE (Web Audio API) ---
+    class SoundEngine {
+      constructor() {
+        this.ctx = null;
+        this.enabled = localStorage.getItem('impostor_sound_enabled') !== 'false';
+        this.holdOscillator = null;
+        this.holdGain = null;
+        this.holdFilter = null;
+      }
+
+      initContext() {
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx) this.ctx = new AudioCtx();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      toggleSound() {
+        this.enabled = !this.enabled;
+        localStorage.setItem('impostor_sound_enabled', this.enabled ? 'true' : 'false');
+        if (this.enabled) {
+          this.initContext();
+          this.playTap();
+        }
+        return this.enabled;
+      }
+
+      isSoundEnabled() {
+        return this.enabled;
+      }
+
+      vibrate(pattern = 30) {
+        if ('vibrate' in navigator) {
+          try { navigator.vibrate(pattern); } catch (e) {}
+        }
+      }
+
+      playTap() {
+        if (!this.enabled) return;
+        this.initContext();
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const now = this.ctx.currentTime;
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(480, now);
+        osc.frequency.exponentialRampToValueAtTime(240, now + 0.06);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.06);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.06);
+        this.vibrate(15);
+      }
+
+      startHoldTension() {
+        if (!this.enabled) return;
+        this.initContext();
+        if (!this.ctx) return;
+        this.stopHoldTension();
+
+        const now = this.ctx.currentTime;
+        this.holdOscillator = this.ctx.createOscillator();
+        this.holdFilter = this.ctx.createBiquadFilter();
+        this.holdGain = this.ctx.createGain();
+
+        this.holdOscillator.type = 'sawtooth';
+        this.holdOscillator.frequency.setValueAtTime(75, now);
+        this.holdOscillator.frequency.linearRampToValueAtTime(140, now + 2.5);
+
+        this.holdFilter.type = 'lowpass';
+        this.holdFilter.frequency.setValueAtTime(180, now);
+        this.holdFilter.frequency.linearRampToValueAtTime(450, now + 2.5);
+
+        this.holdGain.gain.setValueAtTime(0.01, now);
+        this.holdGain.gain.linearRampToValueAtTime(0.18, now + 0.5);
+
+        this.holdOscillator.connect(this.holdFilter);
+        this.holdFilter.connect(this.holdGain);
+        this.holdGain.connect(this.ctx.destination);
+
+        this.holdOscillator.start(now);
+        this.vibrate([20, 80, 20]);
+      }
+
+      stopHoldTension() {
+        if (this.holdGain && this.ctx) {
+          const now = this.ctx.currentTime;
+          try {
+            this.holdGain.gain.linearRampToValueAtTime(0.001, now + 0.1);
+            if (this.holdOscillator) this.holdOscillator.stop(now + 0.1);
+          } catch (e) {}
+        }
+        this.holdOscillator = null;
+        this.holdGain = null;
+        this.holdFilter = null;
+      }
+
+      playReveal() {
+        if (!this.enabled) return;
+        this.initContext();
+        if (!this.ctx) return;
+        const notes = [329.63, 440, 554.37, 659.25];
+        const now = this.ctx.currentTime;
+        notes.forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const startTime = now + idx * 0.06;
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, startTime);
+          gain.gain.setValueAtTime(0.2, startTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.4);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(startTime);
+          osc.stop(startTime + 0.45);
+        });
+        this.vibrate([40, 40, 60]);
+      }
+
+      playTurn() {
+        if (!this.enabled) return;
+        this.initContext();
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const now = this.ctx.currentTime;
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(300, now);
+        osc.frequency.exponentialRampToValueAtTime(600, now + 0.12);
+        gain.gain.setValueAtTime(0.15, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.12);
+        this.vibrate(20);
+      }
+
+      playTick(isUrgent = false) {
+        if (!this.enabled) return;
+        this.initContext();
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const now = this.ctx.currentTime;
+        osc.type = isUrgent ? 'sawtooth' : 'sine';
+        const freq = isUrgent ? 880 : 520;
+        osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(isUrgent ? 0.3 : 0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + (isUrgent ? 0.1 : 0.05));
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.1);
+        if (isUrgent) this.vibrate(30);
+      }
+
+      playGong() {
+        if (!this.enabled) return;
+        this.initContext();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+
+        const subOsc = this.ctx.createOscillator();
+        const subGain = this.ctx.createGain();
+        subOsc.type = 'sine';
+        subOsc.frequency.setValueAtTime(90, now);
+        subOsc.frequency.exponentialRampToValueAtTime(45, now + 1.2);
+        subGain.gain.setValueAtTime(0.4, now);
+        subGain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+        subOsc.connect(subGain);
+        subGain.connect(this.ctx.destination);
+        subOsc.start(now);
+        subOsc.stop(now + 1.2);
+
+        const bellOsc = this.ctx.createOscillator();
+        const bellGain = this.ctx.createGain();
+        bellOsc.type = 'triangle';
+        bellOsc.frequency.setValueAtTime(220, now);
+        bellGain.gain.setValueAtTime(0.25, now);
+        bellGain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
+        bellOsc.connect(bellGain);
+        bellGain.connect(this.ctx.destination);
+        bellOsc.start(now);
+        bellOsc.stop(now + 1.5);
+
+        this.vibrate([80, 50, 150]);
+      }
+
+      playVictory() {
+        if (!this.enabled) return;
+        this.initContext();
+        if (!this.ctx) return;
+        const notes = [
+          { f: 392, d: 0.15 }, { f: 523.25, d: 0.15 },
+          { f: 659.25, d: 0.18 }, { f: 783.99, d: 0.45 }
+        ];
+        let start = this.ctx.currentTime;
+        notes.forEach((n) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(n.f, start);
+          gain.gain.setValueAtTime(0.28, start);
+          gain.gain.exponentialRampToValueAtTime(0.001, start + n.d);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(start);
+          osc.stop(start + n.d);
+          start += n.d * 0.85;
+        });
+        this.vibrate([60, 40, 60, 40, 150]);
+      }
+
+      playDefeat() {
+        if (!this.enabled) return;
+        this.initContext();
+        if (!this.ctx) return;
+        const notes = [
+          { f: 440, d: 0.25 }, { f: 415.3, d: 0.25 },
+          { f: 392, d: 0.3 }, { f: 349.23, d: 0.6 }
+        ];
+        let start = this.ctx.currentTime;
+        notes.forEach((n) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(n.f, start);
+          gain.gain.setValueAtTime(0.2, start);
+          gain.gain.exponentialRampToValueAtTime(0.001, start + n.d);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(start);
+          osc.stop(start + n.d);
+          start += n.d * 0.9;
+        });
+        this.vibrate([100, 60, 200]);
+      }
+    }
+
+    const sound = new SoundEngine();
+
+    // --- 2. WORD DATABASE & CATEGORIES ---
+    const CATEGORIES = [
+      { id: 'all', name: 'Todas las categorías', icon: '✨' },
+      { id: 'lugares', name: 'Lugares', icon: '🏖️' },
+      { id: 'comida', name: 'Comida & Bebida', icon: '🍕' },
+      { id: 'objetos', name: 'Objetos', icon: '🎒' },
+      { id: 'animales', name: 'Animales', icon: '🦁' },
+      { id: 'ocio', name: 'Cine, Deportes & Ocio', icon: '🎬' },
+      { id: 'custom', name: 'Personalizadas', icon: '✍️' }
+    ];
+
+    const DEFAULT_WORD_PAIRS = [
+      // Lugares
+      { civil: 'Playa', impostor: 'Piscina', category: 'lugares' },
+      { civil: 'Aeropuerto', impostor: 'Estación de tren', category: 'lugares' },
+      { civil: 'Hospital', impostor: 'Centro de salud', category: 'lugares' },
+      { civil: 'Cine', impostor: 'Teatro', category: 'lugares' },
+      { civil: 'Hotel', impostor: 'Hostal', category: 'lugares' },
+      { civil: 'Gimnasio', impostor: 'Spa', category: 'lugares' },
+      { civil: 'Museo', impostor: 'Biblioteca', category: 'lugares' },
+      { civil: 'Selva', impostor: 'Bosque', category: 'lugares' },
+      { civil: 'Restaurante', impostor: 'Cafetería', category: 'lugares' },
+      { civil: 'Castillo', impostor: 'Palacio', category: 'lugares' },
+      { civil: 'Parque de atracciones', impostor: 'Circo', category: 'lugares' },
+      { civil: 'Desierto', impostor: 'Playa', category: 'lugares' },
+
+      // Comida & Bebida
+      { civil: 'Pizza', impostor: 'Hamburguesa', category: 'comida' },
+      { civil: 'Café', impostor: 'Té', category: 'comida' },
+      { civil: 'Manzana', impostor: 'Pera', category: 'comida' },
+      { civil: 'Helado', impostor: 'Yogur helado', category: 'comida' },
+      { civil: 'Tacos', impostor: 'Burritos', category: 'comida' },
+      { civil: 'Paella', impostor: 'Risotto', category: 'comida' },
+      { civil: 'Chocolate', impostor: 'Turrón', category: 'comida' },
+      { civil: 'Cerveza', impostor: 'Vino', category: 'comida' },
+      { civil: 'Sushi', impostor: 'Sashimi', category: 'comida' },
+      { civil: 'Naranja', impostor: 'Mandarina', category: 'comida' },
+      { civil: 'Queso', impostor: 'Mantequilla', category: 'comida' },
+      { civil: 'Galleta', impostor: 'Bizcocho', category: 'comida' },
+      { civil: 'Tortilla de patatas', impostor: 'Revuelto', category: 'comida' },
+
+      // Objetos
+      { civil: 'Teléfono móvil', impostor: 'Tablet', category: 'objetos' },
+      { civil: 'Reloj', impostor: 'Pulsera', category: 'objetos' },
+      { civil: 'Gafas de sol', impostor: 'Lentillas', category: 'objetos' },
+      { civil: 'Coche', impostor: 'Moto', category: 'objetos' },
+      { civil: 'Guitarra', impostor: 'Ukelele', category: 'objetos' },
+      { civil: 'Mochila', impostor: 'Maleta', category: 'objetos' },
+      { civil: 'Cuchillo', impostor: 'Tijeras', category: 'objetos' },
+      { civil: 'Libro', impostor: 'Revista', category: 'objetos' },
+      { civil: 'Auriculares', impostor: 'Altavoz', category: 'objetos' },
+      { civil: 'Lápiz', impostor: 'Bolígrafo', category: 'objetos' },
+      { civil: 'Paraguas', impostor: 'Chubasquero', category: 'objetos' },
+      { civil: 'Zapatillas', impostor: 'Botas', category: 'objetos' },
+      { civil: 'Silla', impostor: 'Sillón', category: 'objetos' },
+
+      // Animales
+      { civil: 'Perro', impostor: 'Lobo', category: 'animales' },
+      { civil: 'León', impostor: 'Tigre', category: 'animales' },
+      { civil: 'Delfín', impostor: 'Ballena', category: 'animales' },
+      { civil: 'Gato', impostor: 'Pantera', category: 'animales' },
+      { civil: 'Caballo', impostor: 'Cebra', category: 'animales' },
+      { civil: 'Águila', impostor: 'Halcón', category: 'animales' },
+      { civil: 'Serpiente', impostor: 'Lagarto', category: 'animales' },
+      { civil: 'Pingüino', impostor: 'Pato', category: 'animales' },
+      { civil: 'Oso polar', impostor: 'Oso pardo', category: 'animales' },
+      { civil: 'Mono', impostor: 'Chimpancé', category: 'animales' },
+      { civil: 'Ratón', impostor: 'Hámster', category: 'animales' },
+      { civil: 'Elefante', impostor: 'Rinoceronte', category: 'animales' },
+
+      // Ocio
+      { civil: 'Película', impostor: 'Serie', category: 'ocio' },
+      { civil: 'Fútbol', impostor: 'Baloncesto', category: 'ocio' },
+      { civil: 'Tenis', impostor: 'Pádel', category: 'ocio' },
+      { civil: 'Ajedrez', impostor: 'Damas', category: 'ocio' },
+      { civil: 'Pintura', impostor: 'Fotografía', category: 'ocio' },
+      { civil: 'Concierto', impostor: 'Festival', category: 'ocio' },
+      { civil: 'Detective', impostor: 'Policía', category: 'ocio' },
+      { civil: 'Actor', impostor: 'Presentador', category: 'ocio' },
+      { civil: 'Avión', impostor: 'Helicóptero', category: 'ocio' },
+      { civil: 'Barco', impostor: 'Submarino', category: 'ocio' }
+    ];
+
+    class CustomWordsStore {
+      static getAll() {
+        try {
+          const data = localStorage.getItem('impostor_custom_words');
+          return data ? JSON.parse(data) : [];
+        } catch (e) { return []; }
+      }
+
+      static save(words) {
+        try { localStorage.setItem('impostor_custom_words', JSON.stringify(words)); } catch (e) {}
+      }
+
+      static addWord(civil, impostor) {
+        if (!civil || !impostor) return false;
+        const words = this.getAll();
+        const newWord = {
+          id: 'custom_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+          civil: civil.trim(),
+          impostor: impostor.trim(),
+          category: 'custom'
+        };
+        words.unshift(newWord);
+        this.save(words);
+        return newWord;
+      }
+
+      static removeWord(id) {
+        let words = this.getAll().filter(w => w.id !== id);
+        this.save(words);
+        return words;
+      }
+
+      static getPlayableWords(categoryId = 'all') {
+        const customWords = this.getAll();
+        if (categoryId === 'custom') return customWords;
+        if (categoryId === 'all') return [...DEFAULT_WORD_PAIRS, ...customWords];
+        return DEFAULT_WORD_PAIRS.filter(w => w.category === categoryId);
+      }
+    }
+
+    // --- 3. PRECISION TIMER ---
+    class Timer {
+      constructor({ duration = 90, onTick = null, onComplete = null } = {}) {
+        this.totalDuration = duration;
+        this.remainingSeconds = duration;
+        this.isRunning = false;
+        this.intervalId = null;
+        this.onTick = onTick;
+        this.onComplete = onComplete;
+      }
+
+      start(duration = null) {
+        if (duration !== null) {
+          this.totalDuration = duration;
+          this.remainingSeconds = duration;
+        }
+        this.pause();
+        if (this.totalDuration === 0) {
+          this.isRunning = true;
+          if (this.onTick) this.onTick(0, 0);
+          return;
+        }
+
+        this.isRunning = true;
+        if (this.onTick) this.onTick(this.remainingSeconds, this.totalDuration);
+
+        this.intervalId = setInterval(() => {
+          if (!this.isRunning) return;
+          this.remainingSeconds--;
+          if (this.onTick) this.onTick(this.remainingSeconds, this.totalDuration);
+          if (this.remainingSeconds <= 0) {
+            this.pause();
+            if (this.onComplete) this.onComplete();
+          }
+        }, 1000);
+      }
+
+      pause() {
+        this.isRunning = false;
+        if (this.intervalId) {
+          clearInterval(this.intervalId);
+          this.intervalId = null;
+        }
+      }
+
+      resume() {
+        if (!this.isRunning && this.remainingSeconds > 0) {
+          this.isRunning = true;
+          this.start();
+        }
+      }
+
+      addTime(seconds = 30) {
+        this.remainingSeconds += seconds;
+        this.totalDuration = Math.max(this.totalDuration, this.remainingSeconds);
+        if (this.onTick) this.onTick(this.remainingSeconds, this.totalDuration);
+      }
+    }
+
+    // --- 4. GAME ENGINE & STATE MACHINE ---
+    const GAME_STATES = {
+      LOBBY: 'LOBBY',
+      REVEAL: 'REVEAL',
+      CLUES: 'CLUES',
+      DEBATE: 'DEBATE',
+      VOTING: 'VOTING',
+      RESOLUTION: 'RESOLUTION',
+      GUESS: 'GUESS',
+      GAME_OVER: 'GAME_OVER'
+    };
+
+    const PLAYER_COLORS = [
+      '#ff2d55', '#00f2fe', '#8a2be2', '#00e676', '#ffb703',
+      '#ff007f', '#00b4d8', '#70e000', '#f72585', '#4cc9f0', '#fb8500', '#9d4edd'
+    ];
+
+    class GameEngine {
+      constructor() {
+        this.state = GAME_STATES.LOBBY;
+        this.playerCount = 5;
+        this.impostorCount = 1;
+        this.mode = 'classic'; // 'classic' or 'trap'
+        this.categoryId = 'all';
+        this.debateDuration = 90;
+        this.totalClueRounds = 1;
+
+        this.customPlayerNames = {};
+        this.players = [];
+        this.currentPair = null;
+        this.revealIndex = 0;
+
+        this.speakerOrder = [];
+        this.currentSpeakerIndex = 0;
+        this.currentRound = 1;
+
+        this.selectedSuspectId = null;
+        this.eliminatedPlayer = null;
+        this.winner = null;
+        this.winReason = '';
+        this.guessAttempt = '';
+
+        this.stateChangeListeners = [];
+      }
+
+      onStateChange(callback) { this.stateChangeListeners.push(callback); }
+      setState(newState) {
+        this.state = newState;
+        this.stateChangeListeners.forEach(fn => fn(this.state, this));
+      }
+
+      setPlayerCount(count) {
+        this.playerCount = Math.max(3, Math.min(12, count));
+        const maxImpostors = Math.min(3, Math.floor((this.playerCount - 1) / 2));
+        if (this.impostorCount > maxImpostors) this.impostorCount = maxImpostors;
+      }
+
+      setImpostorCount(count) {
+        const maxImpostors = Math.min(3, Math.floor((this.playerCount - 1) / 2));
+        this.impostorCount = Math.max(1, Math.min(maxImpostors, count));
+      }
+
+      setMode(mode) { this.mode = mode === 'trap' ? 'trap' : 'classic'; }
+      setCategory(categoryId) { this.categoryId = categoryId; }
+      setDebateDuration(seconds) { this.debateDuration = seconds; }
+      setClueRounds(rounds) { this.totalClueRounds = rounds; }
+
+      setPlayerName(index, name) {
+        if (name && name.trim()) this.customPlayerNames[index] = name.trim();
+        else delete this.customPlayerNames[index];
+      }
+
+      getPlayerName(index) {
+        return this.customPlayerNames[index] || `Jugador ${index + 1}`;
+      }
+
+      startGame() {
+        const playableWords = CustomWordsStore.getPlayableWords(this.categoryId);
+        if (!playableWords || playableWords.length === 0) {
+          throw new Error('No hay palabras disponibles en esta categoría.');
+        }
+        const randomIndex = Math.floor(Math.random() * playableWords.length);
+        this.currentPair = playableWords[randomIndex];
+
+        this.players = [];
+        for (let i = 0; i < this.playerCount; i++) {
+          this.players.push({
+            id: i + 1,
+            index: i,
+            name: this.getPlayerName(i),
+            color: PLAYER_COLORS[i % PLAYER_COLORS.length],
+            isImpostor: false,
+            role: 'CIVIL',
+            word: this.currentPair.civil,
+            isEliminated: false,
+            hasRevealed: false
+          });
+        }
+
+        const indices = Array.from({ length: this.playerCount }, (_, i) => i);
+        for (let i = indices.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [indices[i], indices[j]] = [indices[j], indices[i]];
+        }
+
+        const impostorIndices = indices.slice(0, this.impostorCount);
+        impostorIndices.forEach(idx => {
+          const p = this.players[idx];
+          p.isImpostor = true;
+          p.role = 'IMPOSTOR';
+          p.word = this.mode === 'classic' ? null : this.currentPair.impostor;
+        });
+
+        this.revealIndex = 0;
+        this.setState(GAME_STATES.REVEAL);
+      }
+
+      getCurrentRevealPlayer() { return this.players[this.revealIndex] || null; }
+      markPlayerRevealed(playerId) {
+        const player = this.players.find(p => p.id === playerId);
+        if (player) player.hasRevealed = true;
+      }
+
+      nextRevealPlayer() {
+        if (this.revealIndex < this.players.length - 1) {
+          this.revealIndex++;
+          this.setState(GAME_STATES.REVEAL);
+        } else {
+          this.startCluesPhase();
+        }
+      }
+
+      startCluesPhase() {
+        const activePlayerIds = this.players.filter(p => !p.isEliminated).map(p => p.id);
+        for (let i = activePlayerIds.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [activePlayerIds[i], activePlayerIds[j]] = [activePlayerIds[j], activePlayerIds[i]];
+        }
+        this.speakerOrder = activePlayerIds;
+        this.currentSpeakerIndex = 0;
+        this.currentRound = 1;
+        this.setState(GAME_STATES.CLUES);
+      }
+
+      getCurrentSpeaker() {
+        const id = this.speakerOrder[this.currentSpeakerIndex];
+        return this.players.find(p => p.id === id) || null;
+      }
+
+      getNextSpeaker() {
+        const nextIdx = (this.currentSpeakerIndex + 1) % this.speakerOrder.length;
+        const id = this.speakerOrder[nextIdx];
+        return this.players.find(p => p.id === id) || null;
+      }
+
+      advanceSpeaker() {
+        if (this.currentSpeakerIndex < this.speakerOrder.length - 1) {
+          this.currentSpeakerIndex++;
+          this.setState(GAME_STATES.CLUES);
+        } else {
+          if (this.currentRound < this.totalClueRounds) {
+            this.currentRound++;
+            this.currentSpeakerIndex = 0;
+            this.setState(GAME_STATES.CLUES);
+          } else {
+            this.startDebatePhase();
+          }
+        }
+      }
+
+      startDebatePhase() { this.setState(GAME_STATES.DEBATE); }
+      startVotingPhase() {
+        this.selectedSuspectId = null;
+        this.setState(GAME_STATES.VOTING);
+      }
+
+      getActivePlayers() { return this.players.filter(p => !p.isEliminated); }
+      selectSuspect(playerId) { this.selectedSuspectId = playerId; }
+
+      confirmElimination(playerId = null) {
+        const targetId = playerId || this.selectedSuspectId;
+        if (!targetId) return;
+        this.eliminatedPlayer = this.players.find(p => p.id === targetId);
+        if (!this.eliminatedPlayer) return;
+        this.eliminatedPlayer.isEliminated = true;
+        this.setState(GAME_STATES.RESOLUTION);
+      }
+
+      triggerImpostorGuess() { this.setState(GAME_STATES.GUESS); }
+
+      evaluateGuess(wordAttempt) {
+        this.guessAttempt = wordAttempt.trim();
+        const cleanAttempt = this.normalizeWord(this.guessAttempt);
+        const cleanSecret = this.normalizeWord(this.currentPair.civil);
+        const isCorrect = cleanAttempt.length > 0 && cleanAttempt === cleanSecret;
+
+        if (isCorrect) {
+          this.winner = 'IMPOSTOR';
+          this.winReason = `¡El Impostor acertó la palabra secreta ("${this.currentPair.civil}") en su última oportunidad!`;
+          this.setState(GAME_STATES.GAME_OVER);
+          return true;
+        } else {
+          this.checkAfterImpostorEliminated();
+          return false;
+        }
+      }
+
+      impostorGivesUp() {
+        this.guessAttempt = '';
+        this.checkAfterImpostorEliminated();
+      }
+
+      checkAfterImpostorEliminated() {
+        const remainingImpostors = this.players.filter(p => p.isImpostor && !p.isEliminated);
+        if (remainingImpostors.length === 0) {
+          this.winner = 'CIVIL';
+          this.winReason = `¡Los Civiles ganan! Todos los impostores han sido neutralizados y no acertaron la palabra secreta.`;
+          this.setState(GAME_STATES.GAME_OVER);
+        } else {
+          this.startCluesPhase();
+        }
+      }
+
+      continueAfterCivilianEliminated() {
+        const remainingCivilians = this.players.filter(p => !p.isImpostor && !p.isEliminated);
+        const remainingImpostors = this.players.filter(p => p.isImpostor && !p.isEliminated);
+        if (remainingImpostors.length >= remainingCivilians.length) {
+          this.winner = 'IMPOSTOR';
+          this.winReason = `¡Los Impostores ganan! Superan o igualan en número a los civiles supervivientes.`;
+          this.setState(GAME_STATES.GAME_OVER);
+        } else {
+          this.startCluesPhase();
+        }
+      }
+
+      endGameWithImpostorVictory(reason = null) {
+        this.winner = 'IMPOSTOR';
+        this.winReason = reason || `¡Victoria del Impostor! Los civiles expulsaron a un inocente.`;
+        this.setState(GAME_STATES.GAME_OVER);
+      }
+
+      normalizeWord(str) {
+        if (!str) return '';
+        return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '').trim();
+      }
+
+      restartGame() { this.startGame(); }
+      resetToLobby() {
+        this.state = GAME_STATES.LOBBY;
+        this.players = [];
+        this.currentPair = null;
+        this.winner = null;
+        this.winReason = '';
+        this.eliminatedPlayer = null;
+        this.selectedSuspectId = null;
+        this.setState(GAME_STATES.LOBBY);
+      }
+    }
+
+    // --- 5. MODALS (RULES & CUSTOM WORDS) ---
+    class RulesModal {
+      static render() {
+        const existing = document.getElementById('rules-modal');
+        if (existing) existing.remove();
+        const modal = document.createElement('div');
+        modal.id = 'rules-modal';
+        modal.className = 'modal-backdrop';
+        modal.innerHTML = `
+          <div class="modal-card anim-card-flip">
+            <div class="modal-header">
+              <h2 class="modal-title font-heading">¿Cómo jugar a Impostor?</h2>
+              <button id="close-rules-btn" class="icon-btn" aria-label="Cerrar">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 14px; font-size: 0.92rem; color: var(--text-muted); line-height: 1.6;">
+              <div style="background: var(--bg-surface); padding: 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--crimson);">
+                <strong style="color: #fff;">🎭 Dinámica y Roles:</strong>
+                <p style="margin-top: 4px;">• <strong style="color: var(--cyan);">Civiles:</strong> Reciben la misma palabra secreta (ej. <em>Playa</em>).</p>
+                <p style="margin-top: 4px;">• <strong style="color: var(--crimson);">Impostor (Modo Clásico):</strong> No recibe palabra. Solo sabe que es el impostor y debe camuflarse.</p>
+                <p style="margin-top: 4px;">• <strong style="color: var(--amber);">Impostor (Modo Trampa):</strong> Recibe una palabra similar (ej. <em>Piscina</em>) sin saber si es el impostor o un civil.</p>
+              </div>
+              <div style="background: var(--bg-surface); padding: 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--cyan);">
+                <strong style="color: #fff;">🔄 Fases de la Partida:</strong>
+                <p style="margin-top: 6px;"><strong>1. Revelación Secreta:</strong> Pasa el móvil. Mantén pulsado para ver tu palabra y suelta para ocultarla antes de pasar al siguiente.</p>
+                <p style="margin-top: 6px;"><strong>2. Rondas de Pistas:</strong> La app indica el orden. Cada uno dice una pista sutil en voz alta sin ser obvio.</p>
+                <p style="margin-top: 6px;"><strong>3. Debate y Votación:</strong> Discutid con el temporizador quién parece sospechoso y votad en pantalla para expulsarlo.</p>
+                <p style="margin-top: 6px;"><strong>4. Última Oportunidad:</strong> Si el impostor es descubierto, tiene un último intento para adivinar la palabra de los civiles. ¡Si acierta, gana él!</p>
+              </div>
+            </div>
+            <button id="understood-btn" class="btn btn-primary" style="margin-top: 6px;">¡Entendido, a jugar!</button>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        const close = () => { sound.playTap(); modal.remove(); };
+        modal.querySelector('#close-rules-btn').addEventListener('click', close);
+        modal.querySelector('#understood-btn').addEventListener('click', close);
+        modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+      }
+    }
+
+    class CustomWordsModal {
+      static render(onUpdate = null) {
+        const existing = document.getElementById('custom-words-modal');
+        if (existing) existing.remove();
+        const modal = document.createElement('div');
+        modal.id = 'custom-words-modal';
+        modal.className = 'modal-backdrop';
+        modal.innerHTML = `
+          <div class="modal-card anim-card-flip">
+            <div class="modal-header">
+              <h2 class="modal-title font-heading">Palabras Personalizadas</h2>
+              <button id="close-custom-modal-btn" class="icon-btn" aria-label="Cerrar">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">
+              Añade tus propias parejas de palabras (Palabra Civil + Palabra Trampa similar para el modo trampa).
+            </p>
+            <form id="add-word-form" style="display: flex; flex-direction: column; gap: 10px; background: var(--bg-surface); padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-glass);">
+              <div class="input-group">
+                <label class="input-label">Palabra Civil (Secreta):</label>
+                <input type="text" id="custom-civil-input" class="text-input" placeholder="Ej. Hamburguesa" required />
+              </div>
+              <div class="input-group">
+                <label class="input-label">Palabra Trampa (Impostor):</label>
+                <input type="text" id="custom-impostor-input" class="text-input" placeholder="Ej. Perrito caliente" required />
+              </div>
+              <button type="submit" class="btn btn-cyan btn-sm" style="margin-top: 4px;">+ Añadir Pareja</button>
+            </form>
+            <div style="margin-top: 6px;">
+              <h4 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">Tus Palabras Guardadas:</h4>
+              <div id="custom-words-list" style="display: flex; flex-direction: column; gap: 8px; max-height: 180px; overflow-y: auto;"></div>
+            </div>
+            <button id="close-custom-done-btn" class="btn btn-secondary">Listo</button>
+          </div>
+        `;
+        document.body.appendChild(modal);
+
+        const listContainer = modal.querySelector('#custom-words-list');
+        const form = modal.querySelector('#add-word-form');
+        const civilInput = modal.querySelector('#custom-civil-input');
+        const impostorInput = modal.querySelector('#custom-impostor-input');
+
+        const renderList = () => {
+          const words = CustomWordsStore.getAll();
+          if (words.length === 0) {
+            listContainer.innerHTML = '<div style="text-align: center; color: var(--text-subtle); padding: 12px; font-size: 0.85rem;">No has añadido palabras personalizadas todavía.</div>';
+            return;
+          }
+          listContainer.innerHTML = words.map(w => `
+            <div style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-surface); border: 1px solid var(--border-glass); border-radius: var(--radius-sm); padding: 8px 12px;">
+              <div style="display: flex; flex-direction: column;">
+                <span style="font-weight: 700; color: #fff; font-size: 0.92rem;">${w.civil}</span>
+                <span style="font-size: 0.76rem; color: var(--text-muted);">Trampa: ${w.impostor}</span>
+              </div>
+              <button data-delete-id="${w.id}" class="icon-btn" style="width: 28px; height: 28px; color: var(--crimson); border-color: rgba(255, 45, 85, 0.3);" title="Eliminar">
+                <svg viewBox="0 0 24 24" style="width: 14px; height: 14px;"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+              </button>
+            </div>
+          `).join('');
+
+          listContainer.querySelectorAll('[data-delete-id]').forEach(btn => {
+            btn.addEventListener('click', () => {
+              sound.playTap();
+              CustomWordsStore.removeWord(btn.getAttribute('data-delete-id'));
+              renderList();
+              if (onUpdate) onUpdate();
+            });
+          });
+        };
+
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (civilInput.value && impostorInput.value) {
+            sound.playTap();
+            CustomWordsStore.addWord(civilInput.value, impostorInput.value);
+            civilInput.value = '';
+            impostorInput.value = '';
+            renderList();
+            if (onUpdate) onUpdate();
+          }
+        });
+
+        const close = () => { sound.playTap(); modal.remove(); };
+        modal.querySelector('#close-custom-modal-btn').addEventListener('click', close);
+        modal.querySelector('#close-custom-done-btn').addEventListener('click', close);
+        modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+        renderList();
+      }
+    }
+
+    // --- 6. APP CONTROLLER & VIEWS ---
+    class ImpostorApp {
+      constructor() {
+        this.appRoot = document.getElementById('app');
+        this.engine = new GameEngine();
+        this.timer = null;
+        this.showPlayerNames = false;
+        this.selectedSuspectId = null;
+        this.voteCounts = {};
+        this.hasRevealedCurrent = false;
+        this.isPressingReveal = false;
+
+        this.init();
+      }
+
+      init() {
+        const unlock = () => {
+          sound.initContext();
+          window.removeEventListener('pointerdown', unlock);
+          window.removeEventListener('touchstart', unlock);
+        };
+        window.addEventListener('pointerdown', unlock, { once: true });
+        window.addEventListener('touchstart', unlock, { once: true });
+
+        this.engine.onStateChange((state) => this.renderState(state));
+        this.renderState(this.engine.state);
+      }
+
+      renderState(state) {
+        window.scrollTo(0, 0);
+        switch (state) {
+          case GAME_STATES.LOBBY: this.renderLobby(); break;
+          case GAME_STATES.REVEAL: this.renderReveal(); break;
+          case GAME_STATES.CLUES: this.renderClues(); break;
+          case GAME_STATES.DEBATE: this.renderDebate(); break;
+          case GAME_STATES.VOTING: this.renderVoting(); break;
+          case GAME_STATES.RESOLUTION: this.renderResolution(); break;
+          case GAME_STATES.GUESS: this.renderGuess(); break;
+          case GAME_STATES.GAME_OVER: this.renderGameOver(); break;
+        }
+      }
+
+      // --- VIEW: LOBBY ---
+      renderLobby() {
+        this.appRoot.innerHTML = `
+          <div class="view-container anim-fade-in-up">
+            <header class="app-header">
+              <div class="header-brand">
+                <div class="header-logo">
+                  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-1.82.62-3.49 1.64-4.83 1.43 1.83 3.61 3.01 6.09 3.06-.8 1.1-1.33 2.4-1.55 3.82-.41-.12-.84-.2-1.29-.2-2.21 0-4 1.79-4 4 0 .39.06.77.16 1.12C6.88 19.46 9.3 20 12 20zm5.84-2.88c-.61-.98-1.52-1.74-2.61-2.17.2-.67.32-1.38.32-2.11 0-1.82-.62-3.49-1.64-4.83 2.48-.05 4.66-1.23 6.09-3.06C21.38 6.51 22 8.18 22 10c0 3.28-1.82 6.13-4.16 7.12z"/></svg>
+                </div>
+                <h1 class="app-title">Impostor</h1>
+              </div>
+              <div class="header-actions">
+                <button id="custom-words-btn" class="icon-btn" title="Palabras Personalizadas">
+                  <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                </button>
+                <button id="rules-btn" class="icon-btn" title="Reglas">
+                  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm1.07-7.75l-.9.92C12.45 11.9 12 12.5 12 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+                </button>
+                <button id="sound-btn" class="icon-btn" title="Sonido">
+                  <svg id="sound-icon" viewBox="0 0 24 24"><path d="${sound.isSoundEnabled() ? 'M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z' : 'M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z'}"/></svg>
+                </button>
+              </div>
+            </header>
+
+            <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px;">
+              <!-- Players & Impostors -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="glass-card" style="padding: 12px;">
+                  <span class="stepper-label">Jugadores</span>
+                  <div class="stepper-control" style="margin-top: 6px;">
+                    <button id="dec-players" class="stepper-btn" ${this.engine.playerCount <= 3 ? 'disabled' : ''}>-</button>
+                    <div class="stepper-value"><span class="stepper-number">${this.engine.playerCount}</span></div>
+                    <button id="inc-players" class="stepper-btn" ${this.engine.playerCount >= 12 ? 'disabled' : ''}>+</button>
+                  </div>
+                </div>
+
+                <div class="glass-card" style="padding: 12px;">
+                  <span class="stepper-label" style="color: var(--crimson);">Impostores</span>
+                  <div class="stepper-control" style="margin-top: 6px; border-color: rgba(255, 45, 85, 0.3);">
+                    <button id="dec-impostors" class="stepper-btn" ${this.engine.impostorCount <= 1 ? 'disabled' : ''}>-</button>
+                    <div class="stepper-value"><span class="stepper-number" style="color: var(--crimson);">${this.engine.impostorCount}</span></div>
+                    <button id="inc-impostors" class="stepper-btn" ${this.engine.impostorCount >= Math.min(3, Math.floor((this.engine.playerCount - 1) / 2)) ? 'disabled' : ''}>+</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Game Mode -->
+              <div class="glass-card" style="padding: 12px;">
+                <span class="stepper-label">Modo para el Impostor</span>
+                <div class="segmented-control" style="margin-top: 6px;">
+                  <button id="mode-classic" class="segmented-btn ${this.engine.mode === 'classic' ? 'active' : ''}">
+                    <span>Modo Clásico</span>
+                    <span class="sub-text">"Eres el Impostor" (Sin palabra)</span>
+                  </button>
+                  <button id="mode-trap" class="segmented-btn ${this.engine.mode === 'trap' ? 'active' : ''}">
+                    <span>Palabra Trampa</span>
+                    <span class="sub-text">Palabra señuelo similar</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Category -->
+              <div class="glass-card" style="padding: 12px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                  <span class="stepper-label">Categoría</span>
+                  <button id="manage-custom-words-link" style="background: none; border: none; color: var(--cyan); font-size: 0.76rem; font-weight: 700; cursor: pointer;">
+                    + Añadir propias
+                  </button>
+                </div>
+                <div class="categories-grid">
+                  ${CATEGORIES.map(cat => `
+                    <button class="category-chip ${this.engine.categoryId === cat.id ? 'active' : ''}" data-cat-id="${cat.id}">
+                      <span class="chip-icon">${cat.icon}</span>
+                      <span>${cat.name}</span>
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- Debate Time & Clue Rounds -->
+              <div class="glass-card" style="padding: 12px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                  <div>
+                    <span class="stepper-label">Tiempo Debate</span>
+                    <select id="timer-select" class="text-input" style="margin-top: 4px; padding: 8px; font-weight: 700;">
+                      <option value="30" ${this.engine.debateDuration === 30 ? 'selected' : ''}>30 seg</option>
+                      <option value="60" ${this.engine.debateDuration === 60 ? 'selected' : ''}>60 seg</option>
+                      <option value="90" ${this.engine.debateDuration === 90 ? 'selected' : ''}>90 seg (Estándar)</option>
+                      <option value="120" ${this.engine.debateDuration === 120 ? 'selected' : ''}>120 seg</option>
+                      <option value="0" ${this.engine.debateDuration === 0 ? 'selected' : ''}>Sin límite</option>
+                    </select>
+                  </div>
+                  <div>
+                    <span class="stepper-label">Rondas Pistas</span>
+                    <select id="rounds-select" class="text-input" style="margin-top: 4px; padding: 8px; font-weight: 700;">
+                      <option value="1" ${this.engine.totalClueRounds === 1 ? 'selected' : ''}>1 Ronda</option>
+                      <option value="2" ${this.engine.totalClueRounds === 2 ? 'selected' : ''}>2 Rondas</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Player Names Customizer -->
+              <div class="glass-card" style="padding: 12px;">
+                <button id="toggle-player-names-btn" style="width: 100%; display: flex; align-items: center; justify-content: space-between; background: none; border: none; color: var(--text-main); font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; cursor: pointer;">
+                  <span>Nombres (${this.engine.playerCount} jugadores)</span>
+                  <span>${this.showPlayerNames ? '▲' : '▼'}</span>
+                </button>
+                <div id="player-names-list" class="player-list" style="margin-top: 10px; display: ${this.showPlayerNames ? 'flex' : 'none'};">
+                  ${Array.from({ length: this.engine.playerCount }, (_, i) => `
+                    <div class="player-item">
+                      <div class="player-avatar" style="background: ${PLAYER_COLORS[i % PLAYER_COLORS.length]};">${i + 1}</div>
+                      <input type="text" class="player-name-input" data-player-idx="${i}" value="${this.engine.getPlayerName(i)}" placeholder="Jugador ${i + 1}" maxlength="20" />
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+
+            <button id="start-game-btn" class="btn btn-primary anim-pulse-glow" style="margin-top: auto; font-size: 1.15rem;">
+              <svg viewBox="0 0 24 24" style="width: 22px; height: 22px; fill: currentColor;"><path d="M8 5v14l11-7z"/></svg>
+              ¡Comenzar Partida!
+            </button>
+          </div>
+        `;
+
+        // Event bindings
+        this.appRoot.querySelector('#sound-btn').addEventListener('click', () => {
+          sound.toggleSound();
+          this.renderLobby();
+        });
+        this.appRoot.querySelector('#rules-btn').addEventListener('click', () => {
+          sound.playTap();
+          RulesModal.render();
+        });
+        const openCustom = () => { sound.playTap(); CustomWordsModal.render(); };
+        this.appRoot.querySelector('#custom-words-btn').addEventListener('click', openCustom);
+        this.appRoot.querySelector('#manage-custom-words-link').addEventListener('click', openCustom);
+
+        this.appRoot.querySelector('#dec-players').addEventListener('click', () => {
+          sound.playTap();
+          this.engine.setPlayerCount(this.engine.playerCount - 1);
+          this.renderLobby();
+        });
+        this.appRoot.querySelector('#inc-players').addEventListener('click', () => {
+          sound.playTap();
+          this.engine.setPlayerCount(this.engine.playerCount + 1);
+          this.renderLobby();
+        });
+        this.appRoot.querySelector('#dec-impostors').addEventListener('click', () => {
+          sound.playTap();
+          this.engine.setImpostorCount(this.engine.impostorCount - 1);
+          this.renderLobby();
+        });
+        this.appRoot.querySelector('#inc-impostors').addEventListener('click', () => {
+          sound.playTap();
+          this.engine.setImpostorCount(this.engine.impostorCount + 1);
+          this.renderLobby();
+        });
+
+        this.appRoot.querySelector('#mode-classic').addEventListener('click', () => {
+          sound.playTap();
+          this.engine.setMode('classic');
+          this.renderLobby();
+        });
+        this.appRoot.querySelector('#mode-trap').addEventListener('click', () => {
+          sound.playTap();
+          this.engine.setMode('trap');
+          this.renderLobby();
+        });
+
+        this.appRoot.querySelectorAll('.category-chip').forEach(chip => {
+          chip.addEventListener('click', () => {
+            sound.playTap();
+            this.engine.setCategory(chip.getAttribute('data-cat-id'));
+            this.renderLobby();
+          });
+        });
+
+        this.appRoot.querySelector('#timer-select').addEventListener('change', (e) => {
+          this.engine.setDebateDuration(parseInt(e.target.value, 10));
+        });
+        this.appRoot.querySelector('#rounds-select').addEventListener('change', (e) => {
+          this.engine.setClueRounds(parseInt(e.target.value, 10));
+        });
+
+        this.appRoot.querySelector('#toggle-player-names-btn').addEventListener('click', () => {
+          sound.playTap();
+          this.showPlayerNames = !this.showPlayerNames;
+          this.renderLobby();
+        });
+
+        this.appRoot.querySelectorAll('.player-name-input').forEach(input => {
+          input.addEventListener('change', (e) => {
+            const idx = parseInt(e.target.getAttribute('data-player-idx'), 10);
+            this.engine.setPlayerName(idx, e.target.value);
+          });
+        });
+
+        this.appRoot.querySelector('#start-game-btn').addEventListener('click', () => {
+          sound.playTap();
+          try {
+            this.engine.startGame();
+          } catch (err) {
+            alert(err.message || 'Error al iniciar partida');
+          }
+        });
+      }
+
+      // --- VIEW: REVEAL (Pass & Play) ---
+      renderReveal() {
+        const player = this.engine.getCurrentRevealPlayer();
+        const isLast = this.engine.revealIndex >= this.engine.players.length - 1;
+        const catObj = CATEGORIES.find(c => c.id === this.engine.currentPair?.category) || { name: 'General', icon: '✨' };
+
+        let roleBadgeHtml = '';
+        let wordTitle = 'Tu Palabra Secreta:';
+        let wordText = '';
+        let adviceText = '';
+        let isCivilianStyle = false;
+
+        if (player.isImpostor) {
+          if (this.engine.mode === 'classic') {
+            roleBadgeHtml = '<span class="role-badge impostor">🎭 Eres el Impostor</span>';
+            wordTitle = 'Tu Misión:';
+            wordText = '¡NO TIENES PALABRA!';
+            adviceText = 'Escucha con atención las pistas de los demás e intenta deducir de qué están hablando sin ser descubierto.';
+          } else {
+            roleBadgeHtml = '<span class="role-badge" style="background: rgba(138, 43, 226, 0.2); border: 1px solid var(--violet); color: #c084fc;">Palabra Asignada</span>';
+            wordTitle = 'Tu Palabra Secreta:';
+            wordText = player.word;
+            adviceText = 'Di una pista sobre tu palabra sin ser evidente. ¡Cuidado con el impostor!';
+          }
+        } else {
+          isCivilianStyle = true;
+          roleBadgeHtml = '<span class="role-badge civilian">🛡️ Eres Civil</span>';
+          wordTitle = 'Tu Palabra Secreta:';
+          wordText = player.word;
+          adviceText = 'Los demás civiles tienen tu misma palabra. Da pistas sutiles para identificar al impostor.';
+        }
+
+        this.hasRevealedCurrent = false;
+
+        this.appRoot.innerHTML = `
+          <div class="view-container anim-fade-in-up">
+            <div style="text-align: center; margin-bottom: 16px;">
+              <div style="display: inline-flex; align-items: center; gap: 8px; background: var(--bg-surface-glass); padding: 6px 16px; border-radius: var(--radius-full); border: 1px solid var(--border-glass); margin-bottom: 8px;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+                  Pase de Turno • ${this.engine.revealIndex + 1} de ${this.engine.players.length}
+                </span>
+              </div>
+              <h2 class="font-heading" style="font-size: 1.6rem; color: #fff;">
+                Pasa el móvil a <span style="color: ${player.color};">${player.name}</span>
+              </h2>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                Asegúrate de que nadie más esté mirando la pantalla
+              </p>
+            </div>
+
+            <div class="reveal-wrapper">
+              <div id="reveal-card" class="reveal-card ${isCivilianStyle ? 'civilian' : ''}">
+                <div class="cover-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;">
+                  <div style="width: 70px; height: 70px; border-radius: var(--radius-full); background: var(--bg-surface-elevated); display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-glass-strong);">
+                    <svg viewBox="0 0 24 24" style="width: 36px; height: 36px; fill: var(--text-muted);"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                  </div>
+                  <h3 style="color: #fff; font-size: 1.25rem;">Palabra Oculta</h3>
+                  <p style="color: var(--text-muted); font-size: 0.86rem; max-width: 240px; line-height: 1.4;">
+                    Mantén presionado el botón inferior para revelar tu secreto.
+                  </p>
+                </div>
+
+                <div class="secret-content">
+                  ${roleBadgeHtml}
+                  <span class="category-tag" style="margin-bottom: 12px;">
+                    ${catObj.icon} Categoría: <strong>${catObj.name}</strong>
+                  </span>
+                  <span class="secret-word-title">${wordTitle}</span>
+                  <div class="secret-word" style="color: ${player.isImpostor && this.engine.mode === 'classic' ? 'var(--crimson)' : 'var(--cyan)'};">
+                    ${wordText}
+                  </div>
+                  <p style="font-size: 0.85rem; color: var(--text-muted); max-width: 280px; margin-top: 6px; line-height: 1.4;">
+                    ${adviceText}
+                  </p>
+                  <div style="margin-top: 14px; font-size: 0.75rem; color: var(--crimson); font-weight: 700; text-transform: uppercase;">
+                    ⚠️ Suelta para ocultar inmediatamente
+                  </div>
+                </div>
+              </div>
+
+              <div class="hold-zone">
+                <div id="hold-trigger-btn" class="hold-button" role="button">
+                  <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                </div>
+                <span class="hold-text" id="hold-instruction-text">
+                  Mantén pulsado para ver tu palabra
+                </span>
+              </div>
+            </div>
+
+            <button id="next-player-btn" class="btn btn-secondary" style="margin-top: 20px;" disabled>
+              ${isLast ? '¡Todos listos! Comenzar Pistas' : 'Siguiente Jugador →'}
+            </button>
+          </div>
+        `;
+
+        const card = this.appRoot.querySelector('#reveal-card');
+        const holdBtn = this.appRoot.querySelector('#hold-trigger-btn');
+        const nextBtn = this.appRoot.querySelector('#next-player-btn');
+        const instruction = this.appRoot.querySelector('#hold-instruction-text');
+
+        const startReveal = (e) => {
+          e.preventDefault();
+          if (this.isPressingReveal) return;
+          this.isPressingReveal = true;
+          holdBtn.classList.add('pressing');
+          card.classList.add('is-revealed');
+          instruction.textContent = '¡Soltando se ocultará de inmediato!';
+          instruction.style.color = 'var(--crimson)';
+          sound.startHoldTension();
+          sound.playReveal();
+
+          this.hasRevealedCurrent = true;
+          this.engine.markPlayerRevealed(player.id);
+          nextBtn.removeAttribute('disabled');
+          nextBtn.classList.remove('btn-secondary');
+          nextBtn.classList.add('btn-primary');
+        };
+
+        const stopReveal = () => {
+          if (!this.isPressingReveal) return;
+          this.isPressingReveal = false;
+          holdBtn.classList.remove('pressing');
+          card.classList.remove('is-revealed');
+          instruction.textContent = 'Mantén pulsado para volver a mirar';
+          instruction.style.color = 'var(--text-muted)';
+          sound.stopHoldTension();
+        };
+
+        holdBtn.addEventListener('pointerdown', startReveal);
+        window.addEventListener('pointerup', stopReveal);
+        window.addEventListener('pointercancel', stopReveal);
+
+        nextBtn.addEventListener('click', () => {
+          sound.playTap();
+          sound.stopHoldTension();
+          this.engine.nextRevealPlayer();
+        });
+      }
+
+      // --- VIEW: CLUES ---
+      renderClues() {
+        const speaker = this.engine.getCurrentSpeaker();
+        const nextSpeaker = this.engine.getNextSpeaker();
+        const isLastInRound = this.engine.currentSpeakerIndex >= this.engine.speakerOrder.length - 1;
+        const isFinalRound = this.engine.currentRound >= this.engine.totalClueRounds;
+
+        this.appRoot.innerHTML = `
+          <div class="view-container anim-fade-in-up">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+              <div style="display: inline-flex; align-items: center; gap: 6px; background: var(--bg-surface-glass); padding: 6px 14px; border-radius: var(--radius-full); border: 1px solid var(--border-glass);">
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--cyan); text-transform: uppercase;">
+                  Ronda ${this.engine.currentRound} de ${this.engine.totalClueRounds}
+                </span>
+              </div>
+              <span style="font-size: 0.82rem; color: var(--text-muted);">
+                Turno ${this.engine.currentSpeakerIndex + 1} de ${this.engine.speakerOrder.length}
+              </span>
+            </div>
+
+            <div class="glass-card anim-fade-in" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 36px 20px; text-align: center; margin: auto 0; border: 2px solid ${speaker.color}; box-shadow: 0 0 30px ${speaker.color}33;">
+              <span style="font-size: 0.88rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;">
+                🎙️ Turno de hablar en voz alta
+              </span>
+
+              <div style="width: 90px; height: 90px; border-radius: var(--radius-full); background: ${speaker.color}; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 16px; box-shadow: 0 4px 20px ${speaker.color}66;">
+                ${speaker.name.charAt(0).toUpperCase()}
+              </div>
+
+              <h2 class="font-heading" style="font-size: 2.2rem; color: #fff; line-height: 1.1; margin-bottom: 12px;">
+                ${speaker.name}
+              </h2>
+
+              <p style="font-size: 0.95rem; color: var(--text-muted); max-width: 290px; line-height: 1.5;">
+                Di una sola palabra o pista sutil relacionada con tu palabra secreta.
+              </p>
+
+              ${nextSpeaker && nextSpeaker.id !== speaker.id ? `
+                <div style="margin-top: 24px; padding: 8px 16px; background: var(--bg-surface); border-radius: var(--radius-full); border: 1px solid var(--border-glass); font-size: 0.82rem; color: var(--text-subtle);">
+                  Siguiente turno: <strong style="color: #fff;">${nextSpeaker.name}</strong>
+                </div>
+              ` : ''}
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: auto;">
+              <button id="next-speaker-btn" class="btn btn-primary" style="font-size: 1.1rem;">
+                ${isLastInRound && isFinalRound ? '¡Finalizar Pistas e Ir a Debate!' : 'Siguiente Pista →'}
+              </button>
+              <button id="skip-to-debate-btn" class="btn btn-ghost btn-sm">
+                Ir a Debate ahora
+              </button>
+            </div>
+          </div>
+        `;
+
+        this.appRoot.querySelector('#next-speaker-btn').addEventListener('click', () => {
+          sound.playTurn();
+          this.engine.advanceSpeaker();
+        });
+        this.appRoot.querySelector('#skip-to-debate-btn').addEventListener('click', () => {
+          sound.playTap();
+          this.engine.startDebatePhase();
+        });
+      }
+
+      // --- VIEW: DEBATE ---
+      renderDebate() {
+        const isManual = this.engine.debateDuration === 0;
+        const activePlayers = this.engine.getActivePlayers();
+
+        this.appRoot.innerHTML = `
+          <div class="view-container anim-fade-in-up">
+            <div style="text-align: center; margin-bottom: 10px;">
+              <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 45, 85, 0.15); padding: 6px 16px; border-radius: var(--radius-full); border: 1px solid var(--crimson); margin-bottom: 8px;">
+                <span style="font-size: 0.8rem; font-weight: 800; color: var(--crimson); text-transform: uppercase;">
+                  🗣️ Fase de Debate
+                </span>
+              </div>
+              <h2 class="font-heading" style="font-size: 1.7rem; color: #fff;">
+                ¿Quién es el Impostor?
+              </h2>
+              <p style="font-size: 0.86rem; color: var(--text-muted); max-width: 320px; margin: 4px auto 0;">
+                Discutid las pistas que ha dicho cada uno y exponed sospechas.
+              </p>
+            </div>
+
+            <div class="timer-container">
+              ${isManual ? `
+                <div style="width: 180px; height: 180px; border-radius: var(--radius-full); background: var(--bg-surface-glass); border: 2px dashed var(--border-glass-strong); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+                  <span style="font-size: 2rem;">⏳</span>
+                  <span style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: #fff; margin-top: 6px;">Tiempo Libre</span>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">Debatid sin límite</span>
+                </div>
+              ` : `
+                <svg class="timer-svg" viewBox="0 0 100 100">
+                  <circle class="timer-circle-bg" cx="50" cy="50" r="42" />
+                  <circle id="timer-progress" class="timer-circle-progress" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="0" />
+                </svg>
+                <div class="timer-inner-content">
+                  <span id="timer-number" class="timer-digits">${this.engine.debateDuration}</span>
+                  <span class="timer-label">segundos</span>
+                </div>
+              `}
+            </div>
+
+            ${!isManual ? `
+              <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px;">
+                <button id="toggle-pause-btn" class="btn btn-secondary btn-sm" style="display: flex; align-items: center; gap: 6px;">
+                  <span id="pause-icon">⏸️</span>
+                  <span id="pause-text">Pausar</span>
+                </button>
+                <button id="add-time-btn" class="btn btn-secondary btn-sm">+30 seg</button>
+              </div>
+            ` : ''}
+
+            <div class="glass-card" style="padding: 12px; margin-bottom: 20px;">
+              <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 8px;">
+                Jugadores en juego (${activePlayers.length}):
+              </span>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                ${activePlayers.map(p => `
+                  <div style="display: flex; align-items: center; gap: 6px; background: var(--bg-surface); border: 1px solid var(--border-glass); padding: 4px 10px; border-radius: var(--radius-full); font-size: 0.84rem;">
+                    <span style="width: 10px; height: 10px; border-radius: 50%; background: ${p.color};"></span>
+                    <span style="font-weight: 600; color: #fff;">${p.name}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <button id="start-voting-btn" class="btn btn-primary anim-pulse-glow" style="margin-top: auto; font-size: 1.15rem;">
+              <svg viewBox="0 0 24 24" style="width: 22px; height: 22px; fill: currentColor;"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+              Iniciar Votación en Pantalla
+            </button>
+          </div>
+        `;
+
+        const goToVoting = () => {
+          sound.playTap();
+          if (this.timer) this.timer.pause();
+          this.engine.startVotingPhase();
+        };
+
+        this.appRoot.querySelector('#start-voting-btn').addEventListener('click', goToVoting);
+
+        if (!isManual) {
+          const timerNumber = this.appRoot.querySelector('#timer-number');
+          const timerProgress = this.appRoot.querySelector('#timer-progress');
+          const pauseBtn = this.appRoot.querySelector('#toggle-pause-btn');
+          const pauseIcon = this.appRoot.querySelector('#pause-icon');
+          const pauseText = this.appRoot.querySelector('#pause-text');
+          const addTimeBtn = this.appRoot.querySelector('#add-time-btn');
+          const circumference = 2 * Math.PI * 42;
+
+          this.timer = new Timer({
+            duration: this.engine.debateDuration,
+            onTick: (left, total) => {
+              timerNumber.textContent = left;
+              const offset = circumference - (left / total) * circumference;
+              timerProgress.style.strokeDashoffset = offset;
+              if (left <= 15) {
+                timerProgress.classList.add('urgent');
+                sound.playTick(true);
+              } else {
+                timerProgress.classList.remove('urgent');
+                sound.playTick(false);
+              }
+            },
+            onComplete: () => {
+              sound.playGong();
+              this.engine.startVotingPhase();
+            }
+          });
+
+          this.timer.start();
+
+          pauseBtn.addEventListener('click', () => {
+            sound.playTap();
+            if (this.timer.isRunning) {
+              this.timer.pause();
+              pauseIcon.textContent = '▶️';
+              pauseText.textContent = 'Reanudar';
+            } else {
+              this.timer.resume();
+              pauseIcon.textContent = '⏸️';
+              pauseText.textContent = 'Pausar';
+            }
+          });
+
+          addTimeBtn.addEventListener('click', () => {
+            sound.playTap();
+            this.timer.addTime(30);
+          });
+        }
+      }
+
+      // --- VIEW: VOTING ---
+      renderVoting() {
+        const activePlayers = this.engine.getActivePlayers();
+        activePlayers.forEach(p => {
+          if (!(p.id in this.voteCounts)) this.voteCounts[p.id] = 0;
+        });
+
+        this.appRoot.innerHTML = `
+          <div class="view-container anim-fade-in-up">
+            <div style="text-align: center; margin-bottom: 12px;">
+              <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 45, 85, 0.15); padding: 6px 16px; border-radius: var(--radius-full); border: 1px solid var(--crimson); margin-bottom: 8px;">
+                <span style="font-size: 0.8rem; font-weight: 800; color: var(--crimson); text-transform: uppercase;">
+                  🗳️ Votación Grupal
+                </span>
+              </div>
+              <h2 class="font-heading" style="font-size: 1.7rem; color: #fff;">
+                ¿A quién queréis expulsar?
+              </h2>
+              <p style="font-size: 0.86rem; color: var(--text-muted); margin-top: 4px;">
+                Tocad sobre el jugador sospechoso para seleccionarlo
+              </p>
+            </div>
+
+            <div class="suspects-grid">
+              ${activePlayers.map(p => `
+                <div class="suspect-card ${this.selectedSuspectId === p.id ? 'selected' : ''}" data-player-id="${p.id}">
+                  <div class="suspect-avatar" style="background: ${p.color};">
+                    ${p.name.charAt(0).toUpperCase()}
+                  </div>
+                  <span class="suspect-name">${p.name}</span>
+                  <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px;">
+                    <button class="icon-btn vote-add-btn" data-vote-id="${p.id}" style="width: 28px; height: 28px; font-size: 0.8rem; font-weight: 800;" title="Añadir voto">+1</button>
+                    <span class="vote-count-label" data-label-id="${p.id}" style="font-size: 0.82rem; font-weight: 700; color: ${this.voteCounts[p.id] > 0 ? 'var(--crimson)' : 'var(--text-subtle)'};">
+                      ${this.voteCounts[p.id]} votos
+                    </span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+
+            <div style="margin-top: auto; padding-top: 16px;">
+              <button id="eliminate-btn" class="btn btn-primary" ${!this.selectedSuspectId ? 'disabled' : ''} style="font-size: 1.1rem;">
+                ${this.selectedSuspectId ? `Expulsar a ${activePlayers.find(p => p.id === this.selectedSuspectId)?.name}` : 'Selecciona un sospechoso'}
+              </button>
+            </div>
+          </div>
+        `;
+
+        const eliminateBtn = this.appRoot.querySelector('#eliminate-btn');
+
+        this.appRoot.querySelectorAll('.suspect-card').forEach(card => {
+          card.addEventListener('click', (e) => {
+            if (e.target.closest('.vote-add-btn')) return;
+            sound.playTap();
+            const pId = parseInt(card.getAttribute('data-player-id'), 10);
+            this.selectedSuspectId = pId;
+            this.engine.selectSuspect(pId);
+            this.appRoot.querySelectorAll('.suspect-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            const chosen = activePlayers.find(p => p.id === pId);
+            eliminateBtn.removeAttribute('disabled');
+            eliminateBtn.textContent = `Expulsar a ${chosen?.name}`;
+          });
+        });
+
+        this.appRoot.querySelectorAll('.vote-add-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sound.playTap();
+            const id = parseInt(btn.getAttribute('data-vote-id'), 10);
+            this.voteCounts[id] = (this.voteCounts[id] || 0) + 1;
+
+            let max = 0;
+            let topId = null;
+            Object.entries(this.voteCounts).forEach(([k, v]) => {
+              if (v > max) { max = v; topId = parseInt(k, 10); }
+            });
+
+            if (topId) {
+              this.selectedSuspectId = topId;
+              this.engine.selectSuspect(topId);
+              this.appRoot.querySelectorAll('.suspect-card').forEach(c => {
+                c.classList.toggle('selected', parseInt(c.getAttribute('data-player-id'), 10) === topId);
+              });
+              const chosen = activePlayers.find(p => p.id === topId);
+              eliminateBtn.removeAttribute('disabled');
+              eliminateBtn.textContent = `Expulsar a ${chosen?.name} (${max} votos)`;
+            }
+
+            const label = this.appRoot.querySelector(`[data-label-id="${id}"]`);
+            if (label) {
+              label.textContent = `${this.voteCounts[id]} votos`;
+              label.style.color = 'var(--crimson)';
+            }
+          });
+        });
+
+        eliminateBtn.addEventListener('click', () => {
+          if (!this.selectedSuspectId) return;
+          sound.playGong();
+          this.engine.confirmElimination(this.selectedSuspectId);
+        });
+      }
+
+      // --- VIEW: RESOLUTION ---
+      renderResolution() {
+        const eliminated = this.engine.eliminatedPlayer;
+        const isImpostor = eliminated?.isImpostor;
+        const remainingCivilians = this.engine.players.filter(p => !p.isImpostor && !p.isEliminated);
+        const remainingImpostors = this.engine.players.filter(p => p.isImpostor && !p.isEliminated);
+        const canContinue = !isImpostor && remainingCivilians.length > remainingImpostors.length;
+
+        this.appRoot.innerHTML = `
+          <div class="view-container anim-fade-in-up" style="justify-content: center; text-align: center;">
+            <div class="glass-card anim-card-flip" style="padding: 36px 20px; border: 2px solid ${isImpostor ? 'var(--crimson)' : 'var(--cyan)'}; box-shadow: 0 0 35px ${isImpostor ? 'var(--crimson-glow)' : 'var(--cyan-glow)'};">
+              <div style="width: 80px; height: 80px; border-radius: var(--radius-full); background: ${eliminated.color}; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: 900; color: #fff;">
+                ${eliminated.name.charAt(0).toUpperCase()}
+              </div>
+
+              <h3 style="color: var(--text-muted); font-size: 1.1rem; text-transform: uppercase;">
+                El grupo ha expulsado a:
+              </h3>
+              <h2 class="font-heading" style="font-size: 2.2rem; color: #fff; margin: 4px 0 16px;">
+                ${eliminated.name}
+              </h2>
+
+              ${isImpostor ? `
+                <div style="background: rgba(255, 45, 85, 0.2); border: 1.5px solid var(--crimson); border-radius: var(--radius-md); padding: 18px; margin-top: 12px;">
+                  <span style="font-size: 2.5rem; display: block; margin-bottom: 6px;">🎭</span>
+                  <h3 class="font-heading" style="font-size: 1.8rem; color: #ff3366;">¡ERA EL IMPOSTOR!</h3>
+                  <p style="font-size: 0.9rem; color: #fff; margin-top: 6px; line-height: 1.4;">
+                    ¡Bien jugado! Habéis descubierto al impostor. Pero las reglas le conceden una <strong>última oportunidad</strong> para adivinar la palabra secreta...
+                  </p>
+                </div>
+              ` : `
+                <div style="background: rgba(0, 242, 254, 0.15); border: 1.5px solid var(--cyan); border-radius: var(--radius-md); padding: 18px; margin-top: 12px;">
+                  <span style="font-size: 2.5rem; display: block; margin-bottom: 6px;">🛡️</span>
+                  <h3 class="font-heading" style="font-size: 1.8rem; color: var(--cyan);">¡ERA UN INOCENTE CIVIL!</h3>
+                  <p style="font-size: 0.9rem; color: #fff; margin-top: 6px; line-height: 1.4;">
+                    ¡El grupo se ha equivocado! El verdadero impostor sigue libre entre vosotros.
+                  </p>
+                </div>
+              `}
+            </div>
+
+            <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 10px;">
+              ${isImpostor ? `
+                <button id="impostor-guess-btn" class="btn btn-primary anim-pulse-glow" style="font-size: 1.1rem;">
+                  🎯 Última Oportunidad del Impostor
+                </button>
+              ` : canContinue ? `
+                <button id="continue-round-btn" class="btn btn-primary">
+                  Continuar Partida (Siguiente Ronda de Pistas)
+                </button>
+                <button id="end-impostor-win-btn" class="btn btn-ghost btn-sm">
+                  Declarar Victoria del Impostor
+                </button>
+              ` : `
+                <button id="end-game-btn" class="btn btn-primary">
+                  Ver Resultados Finales
+                </button>
+              `}
+            </div>
+          </div>
+        `;
+
+        if (isImpostor) {
+          this.appRoot.querySelector('#impostor-guess-btn').addEventListener('click', () => {
+            sound.playTap();
+            this.engine.triggerImpostorGuess();
+          });
+        } else if (canContinue) {
+          this.appRoot.querySelector('#continue-round-btn').addEventListener('click', () => {
+            sound.playTap();
+            this.engine.continueAfterCivilianEliminated();
+          });
+          this.appRoot.querySelector('#end-impostor-win-btn').addEventListener('click', () => {
+            sound.playDefeat();
+            this.engine.endGameWithImpostorVictory('Los civiles eliminaron a un inocente y acordaron finalizar la partida.');
+          });
+        } else {
+          this.appRoot.querySelector('#end-game-btn').addEventListener('click', () => {
+            sound.playDefeat();
+            this.engine.continueAfterCivilianEliminated();
+          });
+        }
+      }
+
+      // --- VIEW: GUESS ---
+      renderGuess() {
+        const impostor = this.engine.eliminatedPlayer;
+
+        this.appRoot.innerHTML = `
+          <div class="view-container anim-fade-in-up">
+            <div style="text-align: center; margin-bottom: 16px;">
+              <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 45, 85, 0.2); padding: 6px 16px; border-radius: var(--radius-full); border: 1px solid var(--crimson); margin-bottom: 10px;">
+                <span style="font-size: 0.8rem; font-weight: 800; color: #ff5277; text-transform: uppercase;">
+                  🎯 Última Oportunidad
+                </span>
+              </div>
+              <h2 class="font-heading" style="font-size: 1.8rem; color: #fff;">
+                ¿Cuál era la palabra secreta?
+              </h2>
+              <p style="font-size: 0.88rem; color: var(--text-muted); max-width: 320px; margin: 6px auto 0; line-height: 1.4;">
+                <strong style="color: ${impostor.color};">${impostor.name}</strong>, si adivinas la palabra exacta de los civiles tras escuchar sus pistas, <strong>¡ganas la partida!</strong>
+              </p>
+            </div>
+
+            <div class="glass-card" style="padding: 24px 18px; margin: auto 0; display: flex; flex-direction: column; gap: 16px;">
+              <div class="input-group">
+                <label class="input-label" style="font-size: 0.9rem;">Escribe la palabra secreta de los civiles:</label>
+                <input type="text" id="guess-input" class="text-input" placeholder="Ej. Playa..." style="font-size: 1.2rem; font-weight: 700; text-align: center; padding: 14px;" autocomplete="off" autofocus />
+              </div>
+              <div id="guess-feedback" style="display: none; text-align: center; color: var(--crimson); font-size: 0.9rem; font-weight: 700;">
+                ❌ Palabra incorrecta. ¡No era esa!
+              </div>
+              <button id="submit-guess-btn" class="btn btn-primary" style="font-size: 1.1rem;">Comprobar Palabra</button>
+            </div>
+
+            <div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px;">
+              <button id="give-up-btn" class="btn btn-ghost">No la sé / Rendirme</button>
+            </div>
+          </div>
+        `;
+
+        const input = this.appRoot.querySelector('#guess-input');
+        const submitBtn = this.appRoot.querySelector('#submit-guess-btn');
+        const giveUpBtn = this.appRoot.querySelector('#give-up-btn');
+        const feedback = this.appRoot.querySelector('#guess-feedback');
+
+        const doGuess = () => {
+          const val = input.value.trim();
+          if (!val) { input.focus(); return; }
+          const ok = this.engine.evaluateGuess(val);
+          if (ok) sound.playVictory();
+          else {
+            sound.playDefeat();
+            feedback.style.display = 'block';
+          }
+        };
+
+        submitBtn.addEventListener('click', () => { sound.playTap(); doGuess(); });
+        input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); doGuess(); } });
+        giveUpBtn.addEventListener('click', () => {
+          sound.playDefeat();
+          this.engine.impostorGivesUp();
+        });
+      }
+
+      // --- VIEW: GAME OVER ---
+      renderGameOver() {
+        const isCivilianWin = this.engine.winner === 'CIVIL';
+        const pair = this.engine.currentPair;
+
+        this.appRoot.innerHTML = `
+          <div class="view-container anim-fade-in-up">
+            <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+            <div style="text-align: center; margin-bottom: 20px;">
+              <div style="width: 72px; height: 72px; border-radius: var(--radius-full); background: ${isCivilianWin ? 'rgba(0, 242, 254, 0.2)' : 'rgba(255, 45, 85, 0.2)'}; border: 2px solid ${isCivilianWin ? 'var(--cyan)' : 'var(--crimson)'}; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; margin: 0 auto 12px; box-shadow: 0 0 25px ${isCivilianWin ? 'var(--cyan-glow)' : 'var(--crimson-glow)'};">
+                ${isCivilianWin ? '🏆' : '🎭'}
+              </div>
+
+              <h2 class="font-heading" style="font-size: 2rem; color: #fff; line-height: 1.2;">
+                ${isCivilianWin ? '¡Victoria de los Civiles!' : '¡Victoria del Impostor!'}
+              </h2>
+              <p style="font-size: 0.9rem; color: var(--text-muted); max-width: 320px; margin: 6px auto 0; line-height: 1.4;">
+                ${this.engine.winReason}
+              </p>
+            </div>
+
+            <div class="glass-card" style="padding: 16px; margin-bottom: 16px; border-color: var(--border-glass-strong);">
+              <span class="stepper-label" style="display: block; margin-bottom: 10px;">Palabras Jugadas:</span>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-surface); padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
+                  <span style="font-size: 0.85rem; color: var(--cyan); font-weight: 700;">🛡️ Palabra Civil:</span>
+                  <strong style="color: #fff; font-size: 1.1rem; font-family: var(--font-heading);">${pair?.civil || '---'}</strong>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-surface); padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
+                  <span style="font-size: 0.85rem; color: var(--crimson); font-weight: 700;">🎭 Palabra Impostor:</span>
+                  <strong style="color: #fff; font-size: 1.1rem; font-family: var(--font-heading);">
+                    ${this.engine.mode === 'trap' ? pair?.impostor : '(Ninguna / Modo Clásico)'}
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-card" style="padding: 16px; margin-bottom: 20px; flex: 1; display: flex; flex-direction: column;">
+              <span class="stepper-label" style="display: block; margin-bottom: 10px;">Identidad de los jugadores:</span>
+              <div style="display: flex; flex-direction: column; gap: 8px; max-height: 220px; overflow-y: auto;">
+                ${this.engine.players.map(p => `
+                  <div style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-surface); border: 1px solid ${p.isImpostor ? 'rgba(255, 45, 85, 0.4)' : 'rgba(0, 242, 254, 0.2)'}; padding: 8px 12px; border-radius: var(--radius-sm);">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span style="width: 28px; height: 28px; border-radius: 50%; background: ${p.color}; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.8rem; color: #fff;">
+                        ${p.name.charAt(0).toUpperCase()}
+                      </span>
+                      <div>
+                        <div style="font-weight: 700; color: #fff; font-size: 0.92rem;">
+                          ${p.name}
+                          ${p.isEliminated ? '<span style="font-size: 0.72rem; color: var(--crimson); margin-left: 4px;">(Expulsado)</span>' : ''}
+                        </div>
+                      </div>
+                    </div>
+                    <div style="text-align: right;">
+                      ${p.isImpostor ? '<span class="role-badge impostor" style="padding: 2px 8px; font-size: 0.72rem; margin: 0;">Impostor</span>' : '<span class="role-badge civilian" style="padding: 2px 8px; font-size: 0.72rem; margin: 0;">Civil</span>'}
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: auto;">
+              <button id="restart-game-btn" class="btn btn-primary anim-pulse-glow" style="font-size: 1.1rem;">
+                🔄 Jugar otra partida (Mismos ajustes)
+              </button>
+              <button id="back-lobby-btn" class="btn btn-secondary">
+                ⚙️ Cambiar ajustes / Menú Principal
+              </button>
+            </div>
+          </div>
+        `;
+
+        this.startConfetti();
+        this.appRoot.querySelector('#restart-game-btn').addEventListener('click', () => {
+          sound.playTap();
+          this.engine.restartGame();
+        });
+        this.appRoot.querySelector('#back-lobby-btn').addEventListener('click', () => {
+          sound.playTap();
+          this.engine.resetToLobby();
+        });
+      }
+
+      startConfetti() {
+        const canvas = this.appRoot.querySelector('#confetti-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const colors = ['#ff2d55', '#00f2fe', '#8a2be2', '#ffb703', '#00e676'];
+        const particles = Array.from({ length: 60 }, () => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * -canvas.height,
+          size: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speedY: Math.random() * 3 + 2,
+          speedX: Math.random() * 2 - 1,
+          rotation: Math.random() * 360,
+          rotSpeed: Math.random() * 4 - 2
+        }));
+
+        let anim;
+        const draw = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particles.forEach(p => {
+            p.y += p.speedY;
+            p.x += p.speedX;
+            p.rotation += p.rotSpeed;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+            ctx.restore();
+            if (p.y > canvas.height) {
+              p.y = -10;
+              p.x = Math.random() * canvas.width;
+            }
+          });
+          anim = requestAnimationFrame(draw);
+        };
+        draw();
+        setTimeout(() => {
+          cancelAnimationFrame(anim);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }, 8000);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      new ImpostorApp();
+    });
+  </script>
+</body>
+</html>

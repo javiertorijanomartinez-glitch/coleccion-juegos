@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff2d55" />
+      <stop offset="100%" stop-color="#7928ca" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <!-- Background Circle -->
+  <circle cx="32" cy="32" r="30" fill="#121526" stroke="url(#grad1)" stroke-width="2.5" />
+  <!-- Hood / Head Silhouette -->
+  <path d="M18 42 C18 24 24 16 32 16 C40 16 46 24 46 42 C44 48 20 48 18 42 Z" fill="#1e2238" stroke="#ff2d55" stroke-width="1.5" />
+  <!-- Mask Visor / Shadow -->
+  <path d="M22 28 C26 31 38 31 42 28 C41 36 23 36 22 28 Z" fill="#0b0d18" />
+  <!-- Glowing Eye -->
+  <ellipse cx="32" cy="31" rx="6" ry="2.5" fill="#ff2d55" filter="url(#glow)" />
+  <circle cx="32" cy="31" r="1.5" fill="#ffffff" />
+</svg>

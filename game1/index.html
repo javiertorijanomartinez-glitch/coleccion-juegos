@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#1a1c2e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Colección nostálgica de minijuegos clásicos de la infancia para Android">
+  <title>Juegos de la Infancia — Colección Clásica</title>
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="/manifest.json">
+  
+  <!-- Tipografía Google Fonts moderna y con encanto lúdico -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/styles/hub.css">
+  <link rel="stylesheet" href="/src/styles/games.css">
+</head>
+<body>
+  <div id="app" class="app-container">
+    <!-- Barra superior de navegación y controles -->
+    <header class="app-header">
+      <div class="header-left">
+        <button id="btn-back" class="btn-icon hidden" aria-label="Volver al menú">
+          <span class="icon">◀</span>
+          <span class="btn-label">Menú</span>
+        </button>
+        <div id="brand-title" class="brand-title">
+          <span class="brand-badge">🎲 INFANCIA</span>
+          <h1 id="screen-title">Juegos Clásicos</h1>
+        </div>
+      </div>
+      
+      <div class="header-actions">
+        <button id="btn-sound" class="btn-icon" aria-label="Sonido activado" title="Activar/Desactivar sonido">
+          <span id="sound-icon" class="icon">🔊</span>
+        </button>
+        <button id="btn-restart" class="btn-icon hidden" aria-label="Reiniciar partida" title="Reiniciar partida">
+          <span class="icon">🔄</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Contenido dinámico -->
+    <main id="main-content" class="main-content">
+      <!-- 1. Menú Principal (Hub) -->
+      <section id="hub-screen" class="screen hub-screen active">
+        <div class="hub-hero">
+          <div class="hero-sparkle">✨</div>
+          <h2 class="hero-title">Revive los clásicos</h2>
+          <p class="hero-subtitle">Minijuegos de mesa de toda la vida, adaptados a tu móvil.</p>
+        </div>
+
+        <div class="games-grid" id="games-grid">
+          <!-- Las tarjetas de juego se inyectan dinámicamente -->
+        </div>
+
+        <footer class="hub-footer">
+          <p>💡 Consejo: Añade esta página a tu pantalla de inicio en tu móvil para jugar a pantalla completa.</p>
+        </footer>
+      </section>
+
+      <!-- 2. Pantalla del Juego Activo -->
+      <section id="game-screen" class="screen game-screen">
+        <div id="game-stage" class="game-stage">
+          <!-- El contenedor del minijuego activo se monta aquí -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal global para resultados / celebraciones -->
+    <div id="game-modal" class="modal-backdrop hidden">
+      <div class="modal-card">
+        <div class="modal-icon" id="modal-icon">🏆</div>
+        <h3 class="modal-title" id="modal-title">¡Victoria!</h3>
+        <p class="modal-desc" id="modal-desc">El Jugador 1 ha ganado la partida.</p>
+        <div class="modal-actions">
+          <button id="modal-btn-retry" class="btn btn-primary">Volver a jugar</button>
+          <button id="modal-btn-menu" class="btn btn-secondary">Menú principal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

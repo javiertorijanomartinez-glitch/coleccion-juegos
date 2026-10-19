@@ -1,0 +1,17 @@
+{
+  "name": "piano-movil",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "postbuild": "node -e \"const fs = require('fs'); fs.copyFileSync('dist/index.html', 'Piano_Movil.html'); fs.copyFileSync('dist/index.html', 'piano.html'); console.log('Sincronizados Piano_Movil.html y piano.html');\"",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
+    "vite": "^6.2.0",
+    "vite-plugin-singlefile": "^2.3.3"
+  }
+}

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#0a0e17" />
+  <title>Piano Móvil Horizontal - Pentagrama y Metrónomo</title>
+
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="./src/styles/main.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Aviso si el móvil está en orientación vertical -->
+    <div id="rotateDeviceOverlay" class="rotate-device-overlay">
+      <div class="rotate-phone-anim"></div>
+      <h2>Gira tu móvil en horizontal</h2>
+      <p>Para disfrutar de la experiencia del piano y tocar cómodamente con ambas manos, coloca el dispositivo en horizontal.</p>
+      <button id="btnDismissRotate" class="btn-dismiss-rotate">Continuar de todos modos</button>
+    </div>
+
+    <!-- Barra Superior / HUD -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="app-title">
+          <span>🎹</span>
+          <span class="piano-badge">Piano</span>
+        </div>
+
+        <!-- Selector de Canción -->
+        <button id="btnSelectSong" class="btn-pill song-selector-btn" title="Elegir o cargar canción">
+          <span id="currentSongTitle">Estrellita dónde estás</span> ▾
+        </button>
+
+        <!-- Selector de Modo -->
+        <div class="mode-group">
+          <button class="mode-btn active" data-mode="free" id="btnModeFree">Libre</button>
+          <button class="mode-btn" data-mode="learn" id="btnModeLearn">Guiado</button>
+          <button class="mode-btn" data-mode="demo" id="btnModeDemo">Escuchar</button>
+          <button class="mode-btn" data-mode="lesson" id="btnModeLesson">🎓 Lecciones</button>
+        </div>
+
+        <!-- Botón Rebobinar compás / ir hacia atrás -->
+        <button id="btnRewind" class="btn-pill btn-rewind" title="Rebobinar compás / ir hacia atrás (⏮️)">
+          ⏮️ <span class="rewind-label">Atrás</span>
+        </button>
+
+        <!-- Selector de Manos para Aprender (Ambas / Derecha / Izquierda) -->
+        <div id="handSelectorGroup" class="hand-group" title="Seleccionar mano para aprender">
+          <button class="hand-btn active" data-hand="both" id="btnHandBoth" title="Ambas manos simultáneas">🤚✋ Ambas</button>
+          <button class="hand-btn" data-hand="right" id="btnHandRight" title="Solo Mano Derecha (Clave de Sol)">🤚 Der</button>
+          <button class="hand-btn" data-hand="left" id="btnHandLeft" title="Solo Mano Izquierda (Clave de Fa)">✋ Izq</button>
+        </div>
+
+        <!-- Botón Rápido de Grabación -->
+        <button id="btnQuickRecord" class="btn-pill btn-quick-record" title="Grabar melodía">
+          🔴 <span class="quick-rec-text">Grabar</span>
+        </button>
+      </div>
+
+      <!-- Marcador central para Modo Guiado, Lecciones y Grabación -->
+      <div class="header-center">
+        <!-- HUD Didáctico de Lección Activa -->
+        <div id="lessonHudBar" class="lesson-hud-bar hidden">
+          <div class="lesson-hud-badge" id="lessonHudBadge">Módulo 1</div>
+          <div class="lesson-hud-text">
+            <div class="lesson-hud-title-row">
+              <span id="lessonHudTitle" class="lesson-hud-title">Lección 1: Conociendo el Teclado</span>
+              <span id="lessonHudStepCounter" class="lesson-hud-counter">Paso 1/3</span>
+            </div>
+            <div id="lessonHudTip" class="lesson-hud-tip">💡 Toca C4 con el dedo pulgar (1).</div>
+          </div>
+          <div class="lesson-hud-actions">
+            <button id="btnLessonPrevStep" class="btn-icon" style="width: 26px; height: 26px;" title="Paso anterior">◀</button>
+            <button id="btnOpenLessonsModal" class="btn-pill" style="height: 26px; padding: 0 8px; font-size: 0.74rem;" title="Ver todas las lecciones">📋 Plan</button>
+            <button id="btnLessonNextStep" class="btn-icon" style="width: 26px; height: 26px;" title="Paso siguiente">▶</button>
+          </div>
+        </div>
+
+        <div id="gameStatsOverlay" class="stat-chip hidden">
+          <span>Puntos: <strong id="statScore" class="stat-score">0</strong></span>
+          <span>•</span>
+          <span>Racha: <strong id="statStreak" class="stat-streak">0</strong> 🔥</span>
+        </div>
+
+        <!-- HUD de Grabación Activa sobre el Piano -->
+        <div id="recordingHudBar" class="recording-hud-bar hidden">
+          <span class="recording-dot-pulse"></span>
+          <span id="recordingHudInfo" class="recording-hud-text">0 notas</span>
+          <span id="recordingTimer" class="recording-hud-timer">00:00</span>
+          <button id="btnStopRecordHud" class="btn-pill btn-stop-hud" title="Guardar grabación">
+            ⏹️ Guardar
+          </button>
+          <button id="btnCancelRecordHud" class="btn-icon btn-cancel-hud" title="Descartar grabación">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Controles de Audio y Teclado a la derecha -->
+      <div class="header-right">
+        <!-- Metrónomo -->
+        <button id="btnMetronome" class="btn-pill btn-metronome" title="Metrónomo">
+          ⏱️ <span id="metronomeBpmLabel">100 BPM</span>
+        </button>
+
+        <!-- Pedal Sustain -->
+        <button id="btnSustain" class="btn-pill btn-sustain" title="Pedal de resonancia (Sustain)">
+          Pedal
+        </button>
+
+        <!-- Entrada MIDI Externa -->
+        <button id="btnMidi" class="btn-pill btn-midi" title="Conectar teclado o piano MIDI externo">
+          <span id="midiStatusDot" class="midi-status-dot"></span>
+          <span id="midiButtonLabel">MIDI</span>
+        </button>
+
+        <!-- Desplazar Octava -->
+        <div class="btn-pill" style="padding: 0 4px; gap: 2px;">
+          <button id="btnOctDown" class="btn-icon" style="width: 24px; height: 24px; border:none;" title="Bajar octava">-</button>
+          <span id="currentOctLabel" style="font-size: 0.75rem; font-weight:700; color:var(--accent-cyan);">C4-C6</span>
+          <button id="btnOctUp" class="btn-icon" style="width: 24px; height: 24px; border:none;" title="Subir octava">+</button>
+        </div>
+
+        <!-- Botón 88 Teclas / Piano Completo -->
+        <button id="btn88Keys" class="btn-pill" title="Alternar teclado de 88 teclas completas o adaptable">
+          🎹 <span id="keys88Label">88 Teclas</span>
+        </button>
+
+        <!-- Notación (Do-Re-Mi / C-D-E / Off) -->
+        <button id="btnNotation" class="btn-pill" title="Cambiar nombres de notas">
+          <span id="notationLabel">Do Re Mi</span>
+        </button>
+
+        <!-- Cargar Canciones / Grabadora -->
+        <button id="btnSongManager" class="btn-icon" title="Cargar canciones / Grabar">
+          📂
+        </button>
+
+        <!-- Pantalla Completa -->
+        <button id="btnFullscreen" class="btn-icon" title="Pantalla Completa">
+          ⛶
+        </button>
+      </div>
+    </header>
+
+    <!-- Área del Pentagrama SVG -->
+    <main class="staff-area">
+      <div id="staffContainer" class="staff-container"></div>
+      <!-- Barra de progreso para canciones guiadas o de demostración -->
+      <div class="song-progress-container">
+        <div id="songProgressBar" class="song-progress-bar"></div>
+      </div>
+    </main>
+
+    <!-- Área del Teclado de Piano -->
+    <footer class="keyboard-area">
+      <div id="pianoContainer" class="piano-container"></div>
+    </footer>
+
+    <!-- MODAL: METRÓNOMO -->
+    <div id="metronomeModal" class="modal-overlay">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>⏱️ Metrónomo Rítmico</h3>
+          <button class="btn-close-modal" data-close="metronomeModal">&times;</button>
+        </div>
+        <div class="metronome-panel">
+          <!-- Indicador visual de tiempos del compás -->
+          <div id="beatDotsContainer" class="beat-dots-container">
+            <div class="beat-dot" data-beat="0"></div>
+            <div class="beat-dot" data-beat="1"></div>
+            <div class="beat-dot" data-beat="2"></div>
+            <div class="beat-dot" data-beat="3"></div>
+          </div>
+
+          <div class="bpm-display-row">
+            <button id="btnBpmMinus" class="btn-icon" style="width: 38px; height: 38px; font-size: 1.2rem;">-</button>
+            <div style="text-align: center;">
+              <div id="modalBpmValue" class="bpm-value">100</div>
+              <div class="bpm-label">Pulsos por minuto (BPM)</div>
+            </div>
+            <button id="btnBpmPlus" class="btn-icon" style="width: 38px; height: 38px; font-size: 1.2rem;">+</button>
+          </div>
+
+          <div class="bpm-controls">
+            <input type="range" id="bpmSlider" class="bpm-slider" min="40" max="220" value="100" />
+          </div>
+
+          <div style="display: flex; gap: 8px; justify-content: space-between;">
+            <button id="btnTapTempo" class="btn-pill" style="flex: 1; height: 38px;">
+              👆 Tap Tempo
+            </button>
+            <button id="btnToggleMetronomePlay" class="btn-pill active" style="flex: 1; height: 38px; background: var(--accent-gold); color: #0f172a; font-weight: 700;">
+              ▶ Iniciar
+            </button>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-glass); padding-top: 10px;">
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Compás:</span>
+            <div style="display: flex; gap: 6px;">
+              <button class="time-sig-btn btn-pill active" data-sig="4" data-denom="4">4/4</button>
+              <button class="time-sig-btn btn-pill" data-sig="3" data-denom="4">3/4</button>
+              <button class="time-sig-btn btn-pill" data-sig="2" data-denom="4">2/4</button>
+              <button class="time-sig-btn btn-pill" data-sig="6" data-denom="8">6/8</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: GESTOR DE CANCIONES / CARGADOR -->
+    <div id="songModal" class="modal-overlay">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>🎵 Biblioteca y Canciones</h3>
+          <button class="btn-close-modal" data-close="songModal">&times;</button>
+        </div>
+
+        <div class="import-tabs">
+          <button class="import-tab-btn active" data-tab="tabLibrary">Canciones</button>
+          <button class="import-tab-btn" data-tab="tabOnline" style="color: var(--accent-cyan); font-weight: 700;">🌐 Explorar 113.000 Online</button>
+          <button class="import-tab-btn" data-tab="tabImport">Cargar Archivo</button>
+          <button class="import-tab-btn" data-tab="tabRecorder">Grabar Melodía</button>
+        </div>
+
+        <!-- Pestaña 1: Canciones de la biblioteca -->
+        <div id="tabLibrary" class="tab-content">
+          <div id="songListContainer" class="song-list"></div>
+        </div>
+
+        <!-- Pestaña Online: Catálogo de 113.000 canciones MIDI (BitMidi) -->
+        <div id="tabOnline" class="tab-content hidden">
+          <div class="online-explorer-panel">
+            <!-- Barra de búsqueda -->
+            <div class="online-search-box">
+              <input type="text" id="onlineSearchInput" class="online-search-input" placeholder="Buscar artista o canción (ej. Queen, Super Mario, Beethoven)..." />
+              <button id="btnOnlineSearch" class="btn-pill" style="height: 38px; padding: 0 16px; background: var(--accent-cyan); color: #0f172a; font-weight: 700; white-space: nowrap;">
+                🔍 Buscar
+              </button>
+            </div>
+
+            <!-- Chips de búsquedas sugeridas -->
+            <div class="online-chips-row">
+              <span style="font-size: 0.72rem; color: var(--text-muted);">Populares:</span>
+              <button class="chip-btn" data-query="Queen">Queen</button>
+              <button class="chip-btn" data-query="Super Mario">Super Mario</button>
+              <button class="chip-btn" data-query="Beethoven">Beethoven</button>
+              <button class="chip-btn" data-query="Coldplay">Coldplay</button>
+              <button class="chip-btn" data-query="Star Wars">Star Wars</button>
+              <button class="chip-btn" data-query="The Beatles">The Beatles</button>
+              <button class="chip-btn" data-query="Anime">Anime</button>
+            </div>
+
+            <!-- Estado de carga y mensajes -->
+            <div id="onlineSearchStatus" class="online-status-message">
+              Escribe el nombre de cualquier artista, videojuego o canción para buscar entre más de 113.000 archivos MIDI gratuitos.
+            </div>
+
+            <!-- Listado de resultados -->
+            <div id="onlineResultsContainer" class="online-results-list"></div>
+
+            <!-- Paginación -->
+            <div id="onlinePaginationRow" class="online-pagination-row hidden">
+              <button id="btnOnlinePrevPage" class="btn-pill" style="height: 30px; font-size: 0.75rem;" disabled>◀ Anterior</button>
+              <span id="onlinePageIndicator" style="font-size: 0.78rem; color: var(--text-muted);">Página 1</span>
+              <button id="btnOnlineNextPage" class="btn-pill" style="height: 30px; font-size: 0.75rem;">Siguiente ▶</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pestaña 2: Cargar Archivo (MIDI / JSON / Texto) -->
+        <div id="tabImport" class="tab-content hidden">
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div id="dropzone" class="file-dropzone">
+              <input type="file" id="fileInput" accept=".mid,.midi,.json" style="display: none;" />
+              <div style="font-size: 1.8rem; margin-bottom: 6px;">📥</div>
+              <div style="font-weight: 600; font-size: 0.95rem;">Selecciona o arrastra un archivo</div>
+              <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">Soporta archivos <strong>.mid / .midi</strong> y canciones en <strong>.json</strong></div>
+            </div>
+
+            <div style="border-top: 1px solid var(--border-glass); padding-top: 10px;">
+              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 6px;">O introduce notas en texto (ej. C4 D4 E4 C4):</label>
+              <input type="text" id="textSongTitle" placeholder="Título de la canción" style="width: 100%; padding: 8px; margin-bottom: 6px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-glass); border-radius: var(--radius-sm); color: #fff;" />
+              <textarea id="textSongNotes" class="text-import-area" placeholder="C4 C4 G4 G4 A4 A4 G4 F4 F4 E4 E4 D4 D4 C4"></textarea>
+              <button id="btnImportText" class="btn-pill" style="margin-top: 8px; width: 100%; background: var(--accent-cyan); color: #0f172a; font-weight: 700;">
+                Crear canción desde texto
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pestaña 3: Grabadora -->
+        <div id="tabRecorder" class="tab-content hidden">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 12px 0;">
+            <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">
+              Graba lo que tocas en el piano libremente para convertirlo en una canción jugable.
+            </p>
+            <div id="recordStatusIndicator" style="font-weight: 700; color: var(--text-muted);">
+              Listo para grabar
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button id="btnStartRecord" class="btn-pill" style="background: var(--accent-rose); color: #fff; font-weight: 700; height: 38px;">
+                🔴 Grabar
+              </button>
+              <button id="btnStopRecord" class="btn-pill" style="height: 38px;" disabled>
+                ⏹️ Detener y Guardar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: CANCIÓN COMPLETADA (Victoria / Puntuación) -->
+    <div id="celebrationModal" class="modal-overlay">
+      <div class="modal-card celebration-modal">
+        <h2 style="color: var(--accent-gold); font-size: 1.6rem;">🎉 ¡Excelente trabajo!</h2>
+        <div class="stars-row">⭐⭐⭐</div>
+        <p style="color: var(--text-muted); margin-bottom: 16px;">Has completado <strong id="completedSongTitle" style="color: var(--text-main);"></strong></p>
+        
+        <div style="background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-md); padding: 12px; margin-bottom: 20px;">
+          <div style="font-size: 0.85rem; color: var(--text-muted);">Puntuación final</div>
+          <div id="finalScore" style="font-size: 2.2rem; font-weight: 800; color: var(--accent-cyan);">0</div>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: center;">
+          <button id="btnReplaySong" class="btn-pill" style="height: 40px; padding: 0 16px;">
+            🔄 Repetir
+          </button>
+          <button id="btnNextSong" class="btn-pill" style="height: 40px; padding: 0 16px; background: var(--accent-cyan); color: #0f172a; font-weight: 700;">
+            Siguiente Canción ➔
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: CURRÍCULO DE 15 LECCIONES -->
+    <div id="lessonsModal" class="modal-overlay">
+      <div class="modal-card lessons-modal-card">
+        <div class="modal-header">
+          <div>
+            <h3 style="margin: 0; font-size: 1.25rem; display: flex; align-items: center; gap: 8px;">
+              🎓 Currículo de Piano para Principiantes
+            </h3>
+            <p style="margin: 4px 0 0 0; font-size: 0.8rem; color: var(--text-muted);">
+              15 lecciones pedagógicas progresivas organizadas en 4 módulos
+            </p>
+          </div>
+          <button class="btn-close-modal" data-close="lessonsModal">&times;</button>
+        </div>
+
+        <div class="lessons-modal-body">
+          <!-- Filtro de módulos -->
+          <div id="moduleTabsContainer" class="module-tabs-container"></div>
+
+          <!-- Listado de lecciones -->
+          <div id="lessonsListContainer" class="lessons-list-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: LECCIÓN COMPLETADA -->
+    <div id="lessonCompleteModal" class="modal-overlay">
+      <div class="modal-card celebration-modal">
+        <h2 style="color: var(--accent-gold); font-size: 1.6rem; margin-bottom: 6px;">🎉 ¡Lección Superada!</h2>
+        <div id="lessonCompleteStars" class="stars-row" style="font-size: 2rem; margin: 8px 0;">⭐⭐⭐</div>
+        <p style="color: var(--text-muted); margin-bottom: 6px;">Has completado con éxito:</p>
+        <h4 id="completedLessonTitle" style="color: var(--accent-cyan); font-size: 1.15rem; margin: 0 0 16px 0;"></h4>
+        
+        <div style="background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-md); padding: 12px; margin-bottom: 20px; display: flex; justify-content: space-around;">
+          <div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Puntuación</div>
+            <div id="lessonFinalScore" style="font-size: 1.8rem; font-weight: 800; color: var(--accent-gold);">1000</div>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Errores</div>
+            <div id="lessonFinalMistakes" style="font-size: 1.8rem; font-weight: 800; color: var(--accent-cyan);">0</div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: center;">
+          <button id="btnReplayLesson" class="btn-pill" style="height: 40px; padding: 0 16px;">
+            🔄 Repetir
+          </button>
+          <button id="btnNextLesson" class="btn-pill" style="height: 40px; padding: 0 16px; background: var(--accent-cyan); color: #0f172a; font-weight: 700;">
+            Siguiente Lección ➔
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: TECLADO MIDI EXTERNO -->
+    <div id="midiModal" class="modal-overlay">
+      <div class="modal-card midi-modal-card">
+        <div class="modal-header">
+          <h3>🎹 Teclado MIDI Externo</h3>
+          <button class="btn-close-modal" data-close="midiModal">&times;</button>
+        </div>
+
+        <div class="midi-modal-content">
+          <!-- Alerta dinámica (ej. protocolo file:// o permiso) -->
+          <div id="midiWarningBox" class="midi-warning-box hidden"></div>
+
+          <!-- Estado de conexión -->
+          <div class="midi-status-box">
+            <div class="midi-status-row">
+              <div class="midi-status-badge-container">
+                <span id="modalMidiStatusDot" class="midi-status-dot large"></span>
+                <div>
+                  <div id="modalMidiStatusTitle" class="midi-status-title">Buscando teclado MIDI...</div>
+                  <div id="modalMidiStatusSubtitle" class="midi-status-subtitle">Conecta un teclado USB o Bluetooth</div>
+                </div>
+              </div>
+              <button id="btnMidiReconnect" class="btn-pill" style="height: 34px; padding: 0 14px; font-size: 0.8rem;">
+                🔄 Reconectar
+              </button>
+            </div>
+
+            <div id="modalMidiErrorText" class="midi-error-text hidden"></div>
+
+            <!-- Selector de dispositivo si hay varios -->
+            <div id="midiDeviceSelectRow" class="midi-device-select-row hidden">
+              <label for="midiDeviceSelect" style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">
+                Entrada MIDI activa:
+              </label>
+              <select id="midiDeviceSelect" class="midi-select"></select>
+            </div>
+          </div>
+
+          <!-- Monitor de eventos en tiempo real -->
+          <div class="midi-monitor-box">
+            <div class="midi-monitor-header">
+              <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-main);">📡 Monitor en Tiempo Real</span>
+              <span id="midiActivityIndicator" class="midi-activity-tag">EN ESPERA</span>
+            </div>
+            <div class="midi-monitor-grid">
+              <div class="midi-monitor-item">
+                <span class="lbl">Última nota:</span>
+                <span id="midiLastNote" class="val">-</span>
+              </div>
+              <div class="midi-monitor-item">
+                <span class="lbl">Sensibilidad (Vel):</span>
+                <span id="midiLastVelocity" class="val">-</span>
+              </div>
+              <div class="midi-monitor-item">
+                <span class="lbl">Pedal Sustain:</span>
+                <span id="midiSustainStatus" class="val">Liberado</span>
+              </div>
+              <div class="midi-monitor-item">
+                <span class="lbl">Canal MIDI:</span>
+                <span id="midiChannel" class="val">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ajustes de Sensibilidad -->
+          <div class="midi-options-card">
+            <label class="midi-checkbox-label">
+              <input type="checkbox" id="checkMidiVelocity" checked />
+              <span>Sensibilidad a la velocidad (las teclas suenan más fuerte o suave según toques)</span>
+            </label>
+          </div>
+
+          <!-- Guía rápida de conexión móvil y PC -->
+          <div class="midi-guide-box">
+            <div style="font-weight: 700; margin-bottom: 8px; font-size: 0.85rem; color: var(--accent-cyan); display: flex; align-items: center; gap: 6px;">
+              <span>💡</span> Conexión en Móvil y PC
+            </div>
+            <ul class="midi-guide-items">
+              <li><strong>⚠️ Conflicto con Yousician / DAWs:</strong> En Windows, los teclados MIDI son de acceso exclusivo. <strong>Si tienes Yousician, FL Studio o Synthesia abiertos, ciérralos</strong> para que el navegador pueda acceder al piano.</li>
+              <li><strong>Móvil / Tablet Android:</strong> Conecta el cable USB de tu piano digital con un adaptador <strong>USB-C OTG</strong>. Abre esta web en Google Chrome.</li>
+              <li><strong>PC / Mac:</strong> Conecta tu teclado controlador por USB en Google Chrome, Edge u Opera.</li>
+              <li><strong>Bluetooth MIDI:</strong> Empareja primero tu teclado en los ajustes Bluetooth del sistema y pulsa "Reconectar".</li>
+            </ul>
+          </div>
+
+          <!-- Diagnóstico detallado del sistema -->
+          <div class="midi-diag-box">
+            <div class="midi-diag-header" id="btnToggleDiag">
+              <span>🔧 Diagnóstico del Sistema y Puertos</span>
+              <span id="diagArrow">▾</span>
+            </div>
+            <div id="midiDiagContent" class="midi-diag-content">
+              <div class="diag-line"><span>Protocolo:</span> <strong id="diagProtocol">-</strong></div>
+              <div class="diag-line"><span>Contexto Seguro:</span> <strong id="diagSecure">-</strong></div>
+              <div class="diag-line"><span>Web MIDI API:</span> <strong id="diagApi">-</strong></div>
+              <div class="diag-line"><span>Dispositivos encontrados:</span> <strong id="diagDevices">-</strong></div>
+              <div class="diag-line" id="diagLastErrorRow" style="display:none;"><span>Detalle error:</span> <strong id="diagLastError" style="color:var(--accent-rose); word-break:break-all;">-</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

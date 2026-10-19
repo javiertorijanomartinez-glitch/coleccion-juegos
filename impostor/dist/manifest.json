@@ -1,0 +1,17 @@
+{
+  "name": "Impostor",
+  "short_name": "Impostor",
+  "description": "Juego de deducción social y palabras secretas para móvil y web",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#090b12",
+  "theme_color": "#090b12",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

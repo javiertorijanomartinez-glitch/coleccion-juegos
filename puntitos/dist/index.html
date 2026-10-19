@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Puntitos Mágicos - Unir Puntos y Colorear</title>
+  <meta name="description" content="Juego divertido y relajante de unir puntos para crear y colorear hermosos dibujos en Android.">
+  <meta name="theme-color" content="#4361EE">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <script type="module" crossorigin>(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))i(s);new MutationObserver(s=>{for(const o of s)if(o.type==="childList")for(const n of o.addedNodes)n.tagName==="LINK"&&n.rel==="modulepreload"&&i(n)}).observe(document,{childList:!0,subtree:!0});function e(s){const o={};return s.integrity&&(o.integrity=s.integrity),s.referrerPolicy&&(o.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?o.credentials="include":s.crossOrigin==="anonymous"?o.credentials="omit":o.credentials="same-origin",o}function i(s){if(s.ep)return;s.ep=!0;const o=e(s);fetch(s.href,o)}})();const q=[{id:"estrella",title:"Estrella Mágica",category:"fantasia",categoryName:"Fantasía",difficulty:"facil",dotsCount:10,icon:"⭐",description:"¡Una estrella brillante que ilumina el cielo nocturno!",isClosed:!0,viewWidth:500,viewHeight:500,dots:[{id:1,x:250,y:40},{id:2,x:310,y:175},{id:3,x:460,y:175},{id:4,x:345,y:265},{id:5,x:390,y:420},{id:6,x:250,y:325},{id:7,x:110,y:420},{id:8,x:155,y:265},{id:9,x:40,y:175},{id:10,x:190,y:175}],outlinePath:"M 250 40 L 310 175 L 460 175 L 345 265 L 390 420 L 250 325 L 110 420 L 155 265 L 40 175 L 190 175 Z",colorArt:`
+      <polygon points="250,40 310,175 460,175 345,265 390,420 250,325 110,420 155,265 40,175 190,175" fill="#FFD166" stroke="#F4A261" stroke-width="8" stroke-linejoin="round" />
+      <circle cx="205" cy="220" r="14" fill="#2B2D42" />
+      <circle cx="295" cy="220" r="14" fill="#2B2D42" />
+      <circle cx="209" cy="216" r="4" fill="#FFFFFF" />
+      <circle cx="299" cy="216" r="4" fill="#FFFFFF" />
+      <path d="M 215 255 Q 250 285 285 255" fill="none" stroke="#2B2D42" stroke-width="6" stroke-linecap="round" />
+      <ellipse cx="180" cy="245" rx="14" ry="9" fill="#FF70A6" opacity="0.6" />
+      <ellipse cx="320" cy="245" rx="14" ry="9" fill="#FF70A6" opacity="0.6" />
+    `},{id:"manzana",title:"Manzana Dulce",category:"comida",categoryName:"Comida",difficulty:"facil",dotsCount:12,icon:"🍎",description:"¡Una deliciosa manzana roja con su hojita verde!",isClosed:!0,viewWidth:500,viewHeight:500,dots:[{id:1,x:250,y:120},{id:2,x:340,y:100},{id:3,x:410,y:160},{id:4,x:420,y:260},{id:5,x:380,y:380},{id:6,x:300,y:440},{id:7,x:250,y:420},{id:8,x:200,y:440},{id:9,x:120,y:380},{id:10,x:80,y:260},{id:11,x:90,y:160},{id:12,x:160,y:100}],outlinePath:"M 250 120 C 310 90 420 120 420 260 C 420 380 340 440 250 420 C 160 440 80 380 80 260 C 80 120 190 90 250 120 Z",colorArt:`
+      \x3C!-- Rabito -->
+      <path d="M 250 120 Q 255 60 280 40" fill="none" stroke="#6F4E37" stroke-width="12" stroke-linecap="round" />
+      \x3C!-- Hoja -->
+      <path d="M 260 90 Q 320 60 330 95 Q 290 120 260 90 Z" fill="#70E000" stroke="#38B000" stroke-width="4" />
+      \x3C!-- Cuerpo manzana -->
+      <path d="M 250 120 C 310 90 420 120 420 260 C 420 380 340 440 250 420 C 160 440 80 380 80 260 C 80 120 190 90 250 120 Z" fill="#EF233C" stroke="#D90429" stroke-width="8" />
+      \x3C!-- Brillo -->
+      <path d="M 130 180 Q 115 240 125 290" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" opacity="0.5" />
+      \x3C!-- Carita simpática -->
+      <circle cx="210" cy="260" r="10" fill="#2B2D42" />
+      <circle cx="290" cy="260" r="10" fill="#2B2D42" />
+      <circle cx="213" cy="257" r="3" fill="#FFFFFF" />
+      <circle cx="293" cy="257" r="3" fill="#FFFFFF" />
+      <path d="M 230 285 Q 250 305 270 285" fill="none" stroke="#2B2D42" stroke-width="5" stroke-linecap="round" />
+      <ellipse cx="185" cy="275" rx="10" ry="6" fill="#FF758F" opacity="0.6" />
+      <ellipse cx="315" cy="275" rx="10" ry="6" fill="#FF758F" opacity="0.6" />
+    `},{id:"barco",title:"Velero Aventurero",category:"vehiculos",categoryName:"Vehículos",difficulty:"facil",dotsCount:14,icon:"⛵",description:"¡Navega sobre las olas con este velero!",isClosed:!1,viewWidth:500,viewHeight:500,dots:[{id:1,x:250,y:70},{id:2,x:380,y:260},{id:3,x:255,y:260},{id:4,x:255,y:70},{id:5,x:130,y:240},{id:6,x:240,y:240},{id:7,x:240,y:300},{id:8,x:420,y:300},{id:9,x:360,y:390},{id:10,x:140,y:390},{id:11,x:80,y:300},{id:12,x:240,y:300},{id:13,x:240,y:440},{id:14,x:260,y:440}],outlinePath:"M 250 70 L 380 260 L 255 260 Z M 255 70 L 130 240 L 240 240 Z M 80 300 L 420 300 L 360 390 L 140 390 Z",colorArt:`
+      \x3C!-- Mástil -->
+      <line x1="248" y1="60" x2="248" y2="300" stroke="#7F4F24" stroke-width="8" stroke-linecap="round" />
+      \x3C!-- Vela Grande -->
+      <path d="M 255 70 L 380 260 L 255 260 Z" fill="#00B4D8" stroke="#0077B6" stroke-width="5" />
+      \x3C!-- Vela Pequeña -->
+      <path d="M 242 90 L 130 240 L 242 240 Z" fill="#90E0EF" stroke="#0096C7" stroke-width="5" />
+      \x3C!-- Casco del barco -->
+      <path d="M 80 300 L 420 300 L 360 390 L 140 390 Z" fill="#E76F51" stroke="#D9381E" stroke-width="6" />
+      <line x1="100" y1="330" x2="400" y2="330" stroke="#FFFFFF" stroke-width="6" />
+      \x3C!-- Olas del mar -->
+      <path d="M 30 420 Q 90 390 150 420 T 270 420 T 390 420 T 490 420" fill="none" stroke="#0077B6" stroke-width="8" stroke-linecap="round" />
+      <path d="M 60 450 Q 120 420 180 450 T 300 450 T 420 450" fill="none" stroke="#48CAE4" stroke-width="6" stroke-linecap="round" />
+    `},{id:"gato",title:"Gatito Sonriente",category:"animales",categoryName:"Animales",difficulty:"medio",dotsCount:18,icon:"🐱",description:"¡Un simpático minino que busca un amigo para jugar!",isClosed:!0,viewWidth:500,viewHeight:500,dots:[{id:1,x:250,y:150},{id:2,x:300,y:140},{id:3,x:340,y:70},{id:4,x:360,y:170},{id:5,x:390,y:220},{id:6,x:380,y:300},{id:7,x:340,y:360},{id:8,x:350,y:440},{id:9,x:290,y:450},{id:10,x:250,y:420},{id:11,x:210,y:450},{id:12,x:150,y:440},{id:13,x:160,y:360},{id:14,x:120,y:300},{id:15,x:110,y:220},{id:16,x:140,y:170},{id:17,x:160,y:70},{id:18,x:200,y:140}],outlinePath:"M 250 150 L 300 140 L 340 70 L 360 170 L 390 220 L 380 300 L 340 360 L 350 440 L 290 450 L 250 420 L 210 450 L 150 440 L 160 360 L 120 300 L 110 220 L 140 170 L 160 70 L 200 140 Z",colorArt:`
+      \x3C!-- Silueta gato -->
+      <path d="M 250 150 L 300 140 L 340 70 L 360 170 L 390 220 L 380 300 L 340 360 L 350 440 L 290 450 L 250 420 L 210 450 L 150 440 L 160 360 L 120 300 L 110 220 L 140 170 L 160 70 L 200 140 Z" fill="#F4A261" stroke="#E76F51" stroke-width="7" stroke-linejoin="round" />
+      \x3C!-- Interior orejas -->
+      <polygon points="175,100 195,145 155,145" fill="#FFB4A2" />
+      <polygon points="325,100 345,145 305,145" fill="#FFB4A2" />
+      \x3C!-- Ojos -->
+      <circle cx="190" cy="220" r="16" fill="#2B2D42" />
+      <circle cx="310" cy="220" r="16" fill="#2B2D42" />
+      <circle cx="195" cy="215" r="5" fill="#FFFFFF" />
+      <circle cx="315" cy="215" r="5" fill="#FFFFFF" />
+      \x3C!-- Nariz y boca -->
+      <polygon points="250,245 260,255 240,255" fill="#E76F51" />
+      <path d="M 240 255 Q 230 270 215 265 M 260 255 Q 270 270 285 265" fill="none" stroke="#2B2D42" stroke-width="4" stroke-linecap="round" />
+      \x3C!-- Bigotes -->
+      <line x1="170" y1="245" x2="90" y2="235" stroke="#2B2D42" stroke-width="4" stroke-linecap="round" />
+      <line x1="170" y1="255" x2="95" y2="260" stroke="#2B2D42" stroke-width="4" stroke-linecap="round" />
+      <line x1="330" y1="245" x2="410" y2="235" stroke="#2B2D42" stroke-width="4" stroke-linecap="round" />
+      <line x1="330" y1="255" x2="405" y2="260" stroke="#2B2D42" stroke-width="4" stroke-linecap="round" />
+      \x3C!-- Pecho blanco -->
+      <ellipse cx="250" cy="380" rx="45" ry="40" fill="#FFF1E6" />
+    `},{id:"cohete",title:"Cohete Cósmico",category:"vehiculos",categoryName:"Vehículos",difficulty:"medio",dotsCount:20,icon:"🚀",description:"¡Rumbo a las estrellas y más allá con este cohete veloz!",isClosed:!0,viewWidth:500,viewHeight:500,dots:[{id:1,x:250,y:40},{id:2,x:290,y:110},{id:3,x:310,y:180},{id:4,x:320,y:260},{id:5,x:390,y:340},{id:6,x:390,y:400},{id:7,x:320,y:370},{id:8,x:300,y:410},{id:9,x:280,y:410},{id:10,x:270,y:460},{id:11,x:250,y:490},{id:12,x:230,y:460},{id:13,x:220,y:410},{id:14,x:200,y:410},{id:15,x:180,y:370},{id:16,x:110,y:400},{id:17,x:110,y:340},{id:18,x:180,y:260},{id:19,x:190,y:180},{id:20,x:210,y:110}],outlinePath:"M 250 40 L 290 110 L 310 180 L 320 260 L 390 340 L 390 400 L 320 370 L 300 410 L 280 410 L 270 460 L 250 490 L 230 460 L 220 410 L 200 410 L 180 370 L 110 400 L 110 340 L 180 260 L 190 180 L 210 110 Z",colorArt:`
+      \x3C!-- Fuego propulsor -->
+      <polygon points="220,410 250,490 280,410" fill="#FF5400" />
+      <polygon points="235,410 250,470 265,410" fill="#FFD166" />
+      \x3C!-- Aletas -->
+      <polygon points="320,260 390,340 390,400 320,370" fill="#E63946" stroke="#C1121F" stroke-width="5" />
+      <polygon points="180,260 110,340 110,400 180,370" fill="#E63946" stroke="#C1121F" stroke-width="5" />
+      \x3C!-- Cuerpo del cohete -->
+      <path d="M 250 40 C 310 120 330 240 320 410 L 180 410 C 170 240 190 120 250 40 Z" fill="#F8F9FA" stroke="#495057" stroke-width="6" />
+      \x3C!-- Punta roja -->
+      <path d="M 250 40 C 275 75 285 110 285 110 L 215 110 C 215 110 225 75 250 40 Z" fill="#E63946" />
+      \x3C!-- Ventanilla Ojo de Buey -->
+      <circle cx="250" cy="200" r="38" fill="#48CAE4" stroke="#0077B6" stroke-width="8" />
+      <circle cx="250" cy="200" r="28" fill="#90E0EF" />
+      <path d="M 235 185 Q 260 180 265 195" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" fill="none" />
+    `},{id:"helado",title:"Helado Cucurucho",category:"comida",categoryName:"Comida",difficulty:"medio",dotsCount:16,icon:"🍦",description:"¡El helado más sabroso y refrescante del verano!",isClosed:!0,viewWidth:500,viewHeight:500,dots:[{id:1,x:250,y:50},{id:2,x:320,y:70},{id:3,x:360,y:130},{id:4,x:340,y:200},{id:5,x:370,y:250},{id:6,x:330,y:280},{id:7,x:250,y:470},{id:8,x:170,y:280},{id:9,x:130,y:250},{id:10,x:160,y:200},{id:11,x:140,y:130},{id:12,x:180,y:70},{id:13,x:210,y:140},{id:14,x:250,y:120},{id:15,x:290,y:140},{id:16,x:250,y:80}],outlinePath:"M 250 50 C 340 50 380 140 340 200 C 380 230 360 280 330 280 L 250 470 L 170 280 C 140 280 120 230 160 200 C 120 140 160 50 250 50 Z",colorArt:`
+      \x3C!-- Cono barquillo -->
+      <polygon points="170,260 330,260 250,470" fill="#E9C46A" stroke="#D4A373" stroke-width="6" />
+      <line x1="190" y1="260" x2="270" y2="420" stroke="#CCD5AE" stroke-width="3" />
+      <line x1="220" y1="260" x2="260" y2="450" stroke="#CCD5AE" stroke-width="3" />
+      <line x1="310" y1="260" x2="230" y2="420" stroke="#CCD5AE" stroke-width="3" />
+      \x3C!-- Bola de fresa -->
+      <path d="M 150 220 C 140 290 360 290 350 220 C 370 170 330 130 250 130 C 170 130 130 170 150 220 Z" fill="#FF70A6" stroke="#FF477E" stroke-width="5" />
+      \x3C!-- Bola de nata/menta superior -->
+      <circle cx="250" cy="120" r="70" fill="#A8DADC" stroke="#457B9D" stroke-width="5" />
+      \x3C!-- Cereza superior -->
+      <circle cx="250" cy="50" r="18" fill="#D90429" />
+      <path d="M 250 40 Q 280 15 295 25" fill="none" stroke="#6F4E37" stroke-width="4" stroke-linecap="round" />
+      \x3C!-- Fideos de colores -->
+      <line x1="220" y1="110" x2="235" y2="105" stroke="#FFD166" stroke-width="5" stroke-linecap="round" />
+      <line x1="270" y1="125" x2="285" y2="135" stroke="#06D6A0" stroke-width="5" stroke-linecap="round" />
+      <line x1="230" y1="140" x2="245" y2="145" stroke="#EF476F" stroke-width="5" stroke-linecap="round" />
+    `},{id:"mariposa",title:"Mariposa Tropical",category:"animales",categoryName:"Animales",difficulty:"medio",dotsCount:22,icon:"🦋",description:"¡Despliega sus alas brillantes entre las flores del jardín!",isClosed:!0,viewWidth:500,viewHeight:500,dots:[{id:1,x:250,y:120},{id:2,x:280,y:80},{id:3,x:370,y:60},{id:4,x:440,y:120},{id:5,x:440,y:220},{id:6,x:360,y:250},{id:7,x:420,y:330},{id:8,x:380,y:420},{id:9,x:310,y:400},{id:10,x:265,y:330},{id:11,x:260,y:400},{id:12,x:240,y:400},{id:13,x:235,y:330},{id:14,x:190,y:400},{id:15,x:120,y:420},{id:16,x:80,y:330},{id:17,x:140,y:250},{id:18,x:60,y:220},{id:19,x:60,y:120},{id:20,x:130,y:60},{id:21,x:220,y:80},{id:22,x:250,y:80}],outlinePath:"M 250 120 C 320 40 450 80 440 220 C 390 250 370 250 360 250 C 430 300 420 410 320 400 L 260 310 L 260 410 L 240 410 L 240 310 L 180 400 C 80 410 70 300 140 250 C 130 250 110 250 60 220 C 50 80 180 40 250 120 Z",colorArt:`
+      \x3C!-- Alas superiores -->
+      <path d="M 250 160 C 350 40 460 100 430 230 C 350 250 280 220 250 180 Z" fill="#7209B7" stroke="#3A0CA3" stroke-width="6" />
+      <path d="M 250 160 C 150 40 40 100 70 230 C 150 250 220 220 250 180 Z" fill="#7209B7" stroke="#3A0CA3" stroke-width="6" />
+      \x3C!-- Alas inferiores -->
+      <path d="M 250 200 C 320 230 420 280 370 390 C 300 420 260 300 250 250 Z" fill="#F72585" stroke="#B5179E" stroke-width="6" />
+      <path d="M 250 200 C 180 230 80 280 130 390 C 200 420 240 300 250 250 Z" fill="#F72585" stroke="#B5179E" stroke-width="6" />
+      \x3C!-- Detalles alas -->
+      <circle cx="340" cy="140" r="22" fill="#4CC9F0" />
+      <circle cx="160" cy="140" r="22" fill="#4CC9F0" />
+      <circle cx="320" cy="330" r="16" fill="#4CC9F0" />
+      <circle cx="180" cy="330" r="16" fill="#4CC9F0" />
+      \x3C!-- Cuerpo -->
+      <ellipse cx="250" cy="240" rx="14" ry="75" fill="#2B2D42" />
+      <circle cx="250" cy="145" r="18" fill="#2B2D42" />
+      \x3C!-- Antenas -->
+      <path d="M 245 130 Q 220 90 200 95" fill="none" stroke="#2B2D42" stroke-width="4" stroke-linecap="round" />
+      <circle cx="200" cy="95" r="5" fill="#FFD166" />
+      <path d="M 255 130 Q 280 90 300 95" fill="none" stroke="#2B2D42" stroke-width="4" stroke-linecap="round" />
+      <circle cx="300" cy="95" r="5" fill="#FFD166" />
+    `},{id:"dino",title:"Dino T-Rex Feliz",category:"animales",categoryName:"Animales",difficulty:"dificil",dotsCount:26,icon:"🦖",description:"¡El rey de la prehistoria ahora es tu mejor amigo!",isClosed:!0,viewWidth:500,viewHeight:500,dots:[{id:1,x:260,y:70},{id:2,x:350,y:70},{id:3,x:380,y:110},{id:4,x:360,y:160},{id:5,x:300,y:170},{id:6,x:320,y:220},{id:7,x:360,y:240},{id:8,x:350,y:270},{id:9,x:310,y:260},{id:10,x:320,y:340},{id:11,x:360,y:440},{id:12,x:310,y:450},{id:13,x:270,y:390},{id:14,x:230,y:450},{id:15,x:180,y:450},{id:16,x:210,y:360},{id:17,x:160,y:370},{id:18,x:70,y:350},{id:19,x:50,y:290},{id:20,x:130,y:280},{id:21,x:180,y:230},{id:22,x:200,y:170},{id:23,x:210,y:130},{id:24,x:180,y:100},{id:25,x:210,y:80},{id:26,x:240,y:90}],outlinePath:"M 260 70 L 350 70 L 380 110 L 360 160 L 300 170 L 320 220 L 360 240 L 350 270 L 310 260 L 320 340 L 360 440 L 310 450 L 270 390 L 230 450 L 180 450 L 210 360 L 160 370 L 70 350 L 50 290 L 130 280 L 180 230 L 200 170 L 210 130 L 180 100 L 210 80 Z",colorArt:`
+      \x3C!-- Cuerpo Dino -->
+      <path d="M 260 70 L 350 70 L 380 110 L 360 160 L 300 170 L 320 220 L 360 240 L 350 270 L 310 260 L 320 340 L 360 440 L 310 450 L 270 390 L 230 450 L 180 450 L 210 360 L 160 370 L 70 350 L 50 290 L 130 280 L 180 230 L 200 170 L 210 130 L 180 100 L 210 80 Z" fill="#52B788" stroke="#2D6A4F" stroke-width="7" stroke-linejoin="round" />
+      \x3C!-- Barriguita amarilla -->
+      <path d="M 230 230 C 270 230 290 320 260 370 C 220 360 210 300 230 230 Z" fill="#D8F3DC" />
+      \x3C!-- Ojo -->
+      <circle cx="300" cy="110" r="14" fill="#FFFFFF" />
+      <circle cx="304" cy="110" r="8" fill="#1B4332" />
+      <circle cx="306" cy="108" r="3" fill="#FFFFFF" />
+      \x3C!-- Dientes graciosos -->
+      <polygon points="340,160 345,150 350,160" fill="#FFFFFF" />
+      <polygon points="325,160 330,150 335,160" fill="#FFFFFF" />
+      \x3C!-- Espinas en la espalda -->
+      <polygon points="190,120 170,110 185,135" fill="#D90429" />
+      <polygon points="175,170 155,165 170,190" fill="#D90429" />
+      <polygon points="145,230 120,225 138,245" fill="#D90429" />
+      <polygon points="90,290 70,270 95,295" fill="#D90429" />
+    `},{id:"corona",title:"Corona Real",category:"fantasia",categoryName:"Fantasía",difficulty:"facil",dotsCount:12,icon:"👑",description:"¡La corona de los reyes y reinas del reino fantástico!",isClosed:!0,viewWidth:500,viewHeight:500,dots:[{id:1,x:90,y:180},{id:2,x:150,y:260},{id:3,x:250,y:130},{id:4,x:350,y:260},{id:5,x:410,y:180},{id:6,x:380,y:380},{id:7,x:320,y:380},{id:8,x:250,y:380},{id:9,x:180,y:380},{id:10,x:120,y:380},{id:11,x:100,y:280},{id:12,x:90,y:220}],outlinePath:"M 90 180 L 150 260 L 250 130 L 350 260 L 410 180 L 380 380 L 120 380 Z",colorArt:`
+      \x3C!-- Cuerpo corona dorada -->
+      <path d="M 90 180 L 150 260 L 250 130 L 350 260 L 410 180 L 380 380 L 120 380 Z" fill="#FFCA3A" stroke="#E09F3E" stroke-width="8" stroke-linejoin="round" />
+      \x3C!-- Banda inferior carmesí -->
+      <path d="M 125 340 L 375 340 L 370 380 L 120 380 Z" fill="#9E2A2B" />
+      \x3C!-- Joyas puntas -->
+      <circle cx="90" cy="175" r="16" fill="#1982C4" stroke="#FFFFFF" stroke-width="3" />
+      <circle cx="250" cy="125" r="22" fill="#FF595E" stroke="#FFFFFF" stroke-width="4" />
+      <circle cx="410" cy="175" r="16" fill="#8AC926" stroke="#FFFFFF" stroke-width="3" />
+      \x3C!-- Gemas frontales -->
+      <polygon points="250,290 265,310 250,330 235,310" fill="#6A4C93" />
+      <circle cx="180" cy="310" r="10" fill="#1982C4" />
+      <circle cx="320" cy="310" r="10" fill="#8AC926" />
+    `},{id:"letra-a",title:"Letra A de Avión",category:"aprende",categoryName:"Aprende",difficulty:"facil",dotsCount:10,icon:"🅰️",description:"¡Aprende la primera letra del abecedario conectando los puntos!",isClosed:!0,viewWidth:500,viewHeight:500,dots:[{id:1,x:250,y:70},{id:2,x:320,y:220},{id:3,x:390,y:420},{id:4,x:320,y:420},{id:5,x:285,y:310},{id:6,x:215,y:310},{id:7,x:180,y:420},{id:8,x:110,y:420},{id:9,x:180,y:220},{id:10,x:220,y:130}],outlinePath:"M 250 70 L 390 420 L 320 420 L 285 310 L 215 310 L 180 420 L 110 420 Z M 230 240 L 270 240 L 250 170 Z",colorArt:`
+      \x3C!-- Letra A tridimensional / colorida -->
+      <path d="M 250 70 L 390 420 L 320 420 L 285 310 L 215 310 L 180 420 L 110 420 Z" fill="#3A86FF" stroke="#023E8A" stroke-width="8" stroke-linejoin="round" />
+      <polygon points="230,240 270,240 250,160" fill="#FFFFFF" stroke="#023E8A" stroke-width="6" />
+      \x3C!-- Ojos divertidos -->
+      <circle cx="210" cy="180" r="12" fill="#FFFFFF" />
+      <circle cx="290" cy="180" r="12" fill="#FFFFFF" />
+      <circle cx="212" cy="180" r="6" fill="#2B2D42" />
+      <circle cx="292" cy="180" r="6" fill="#2B2D42" />
+      <path d="M 235 275 Q 250 295 265 275" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" />
+    `},{id:"delfin",title:"Delfín Saltarín",category:"animales",categoryName:"Animales",difficulty:"medio",dotsCount:18,icon:"🐬",description:"¡Salta sobre las olas del océano azul!",isClosed:!0,viewWidth:500,viewHeight:500,dots:[{id:1,x:100,y:310},{id:2,x:140,y:240},{id:3,x:210,y:170},{id:4,x:300,y:150},{id:5,x:340,y:110},{id:6,x:350,y:170},{id:7,x:420,y:230},{id:8,x:440,y:270},{id:9,x:410,y:280},{id:10,x:350,y:270},{id:11,x:310,y:320},{id:12,x:280,y:300},{id:13,x:240,y:280},{id:14,x:160,y:290},{id:15,x:80,y:330},{id:16,x:50,y:370},{id:17,x:80,y:360},{id:18,x:60,y:390}],outlinePath:"M 100 310 C 140 210 250 140 350 170 C 430 200 450 270 410 280 C 340 300 280 290 240 280 C 160 290 90 320 60 380 Z",colorArt:`
+      \x3C!-- Olas del mar de fondo -->
+      <path d="M 40 430 Q 110 390 180 430 T 320 430 T 460 430" fill="none" stroke="#0096C7" stroke-width="8" stroke-linecap="round" />
+      <path d="M 70 460 Q 140 420 210 460 T 350 460" fill="none" stroke="#48CAE4" stroke-width="6" stroke-linecap="round" />
+      \x3C!-- Cuerpo delfín -->
+      <path d="M 70 360 C 140 210 250 140 350 170 C 430 200 450 270 410 280 C 340 300 280 290 240 280 C 160 290 100 320 70 360 Z" fill="#00B4D8" stroke="#0077B6" stroke-width="7" stroke-linejoin="round" />
+      \x3C!-- Aleta dorsal -->
+      <path d="M 290 155 Q 330 110 345 165 Z" fill="#0096C7" stroke="#0077B6" stroke-width="5" />
+      \x3C!-- Aleta lateral -->
+      <path d="M 290 280 Q 320 330 270 305 Z" fill="#0077B6" />
+      \x3C!-- Cola -->
+      <path d="M 80 345 Q 40 320 50 370 Q 75 360 60 400 Z" fill="#0077B6" />
+      \x3C!-- Panza clara -->
+      <path d="M 160 290 C 230 280 340 290 390 275 C 340 300 240 295 160 290 Z" fill="#E0FBFC" />
+      \x3C!-- Ojo -->
+      <circle cx="370" cy="225" r="9" fill="#1D3557" />
+      <circle cx="372" cy="223" r="3" fill="#FFFFFF" />
+    `},{id:"coche",title:"Bólido Veloz",category:"vehiculos",categoryName:"Vehículos",difficulty:"medio",dotsCount:16,icon:"🏎️",description:"¡Un potente coche de carreras listo para el circuito!",isClosed:!0,viewWidth:500,viewHeight:500,dots:[{id:1,x:60,y:310},{id:2,x:90,y:250},{id:3,x:170,y:250},{id:4,x:230,y:160},{id:5,x:340,y:160},{id:6,x:410,y:250},{id:7,x:460,y:270},{id:8,x:460,y:340},{id:9,x:400,y:340},{id:10,x:330,y:340},{id:11,x:210,y:340},{id:12,x:140,y:340},{id:13,x:80,y:340},{id:14,x:50,y:330},{id:15,x:50,y:280},{id:16,x:70,y:270}],outlinePath:"M 60 310 L 90 250 L 170 250 L 230 160 L 340 160 L 410 250 L 460 270 L 460 340 L 60 340 Z",colorArt:`
+      \x3C!-- Chasis rojo brillante -->
+      <path d="M 60 310 L 90 250 L 170 250 L 230 160 L 340 160 L 410 250 L 460 270 L 460 340 L 60 340 Z" fill="#E63946" stroke="#BA181B" stroke-width="7" stroke-linejoin="round" />
+      \x3C!-- Ventanillas -->
+      <polygon points="180,245 230,175 285,175 285,245" fill="#A8DADC" stroke="#457B9D" stroke-width="4" />
+      <polygon points="295,175 335,175 390,245 295,245" fill="#A8DADC" stroke="#457B9D" stroke-width="4" />
+      \x3C!-- Ruedas -->
+      <circle cx="140" cy="340" r="42" fill="#1E293B" stroke="#64748B" stroke-width="8" />
+      <circle cx="140" cy="340" r="18" fill="#E2E8F0" />
+      <circle cx="370" cy="340" r="42" fill="#1E293B" stroke="#64748B" stroke-width="8" />
+      <circle cx="370" cy="340" r="18" fill="#E2E8F0" />
+      \x3C!-- Foco amarillo -->
+      <polygon points="450,275 460,275 460,295 445,295" fill="#FFD166" />
+      \x3C!-- Rayo decorativo -->
+      <polygon points="210,270 260,270 240,295 280,295 220,325 235,300 200,300" fill="#FFCA3A" />
+    `},{id:"flor",title:"Flor Encantada",category:"fantasia",categoryName:"Fantasía",difficulty:"facil",dotsCount:16,icon:"🌸",description:"¡Una flor mágica de pétalos brillantes y aroma dulce!",isClosed:!0,viewWidth:500,viewHeight:500,dots:[{id:1,x:250,y:70},{id:2,x:290,y:130},{id:3,x:370,y:110},{id:4,x:360,y:190},{id:5,x:430,y:250},{id:6,x:360,y:310},{id:7,x:370,y:390},{id:8,x:290,y:370},{id:9,x:250,y:430},{id:10,x:210,y:370},{id:11,x:130,y:390},{id:12,x:140,y:310},{id:13,x:70,y:250},{id:14,x:140,y:190},{id:15,x:130,y:110},{id:16,x:210,y:130}],outlinePath:"M 250 70 C 310 70 320 180 370 110 C 420 160 340 230 430 250 C 340 270 420 340 370 390 C 320 320 310 430 250 430 C 190 430 180 320 130 390 C 80 340 160 270 70 250 C 160 230 80 160 130 110 C 180 180 190 70 250 70 Z",colorArt:`
+      \x3C!-- Tallo verde -->
+      <path d="M 250 350 Q 240 450 250 480" fill="none" stroke="#2D6A4F" stroke-width="12" stroke-linecap="round" />
+      <path d="M 245 420 Q 180 400 170 430 Q 215 450 245 435 Z" fill="#52B788" stroke="#2D6A4F" stroke-width="4" />
+      \x3C!-- Pétalos rosas -->
+      <circle cx="250" cy="150" r="55" fill="#FF70A6" stroke="#FF477E" stroke-width="5" />
+      <circle cx="340" cy="200" r="55" fill="#FF70A6" stroke="#FF477E" stroke-width="5" />
+      <circle cx="340" cy="300" r="55" fill="#FF70A6" stroke="#FF477E" stroke-width="5" />
+      <circle cx="250" cy="350" r="55" fill="#FF70A6" stroke="#FF477E" stroke-width="5" />
+      <circle cx="160" cy="300" r="55" fill="#FF70A6" stroke="#FF477E" stroke-width="5" />
+      <circle cx="160" cy="200" r="55" fill="#FF70A6" stroke="#FF477E" stroke-width="5" />
+      \x3C!-- Centro amarillo -->
+      <circle cx="250" cy="250" r="55" fill="#FFD166" stroke="#F4A261" stroke-width="6" />
+      \x3C!-- Carita feliz -->
+      <circle cx="230" cy="240" r="7" fill="#2B2D42" />
+      <circle cx="270" cy="240" r="7" fill="#2B2D42" />
+      <path d="M 235 260 Q 250 275 265 260" fill="none" stroke="#2B2D42" stroke-width="4" stroke-linecap="round" />
+      <circle cx="215" cy="255" r="7" fill="#FF85A1" opacity="0.6" />
+      <circle cx="285" cy="255" r="7" fill="#FF85A1" opacity="0.6" />
+    `},{id:"numero-5",title:"Número 5 Saltarín",category:"aprende",categoryName:"Aprende",difficulty:"facil",dotsCount:12,icon:"5️⃣",description:"¡Conecta y aprende el simpático número 5!",isClosed:!1,viewWidth:500,viewHeight:500,dots:[{id:1,x:350,y:100},{id:2,x:200,y:100},{id:3,x:180,y:220},{id:4,x:240,y:200},{id:5,x:320,y:220},{id:6,x:370,y:280},{id:7,x:360,y:370},{id:8,x:300,y:430},{id:9,x:200,y:440},{id:10,x:140,y:390},{id:11,x:150,y:340},{id:12,x:200,y:370}],outlinePath:"M 350 100 L 200 100 L 180 220 C 240 180 370 200 360 340 C 350 430 220 460 140 390",colorArt:`
+      \x3C!-- Trazado del número 5 -->
+      <path d="M 350 100 L 200 100 L 180 220 C 240 180 370 200 360 340 C 350 430 220 460 140 390" fill="none" stroke="#7209B7" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M 350 100 L 200 100 L 180 220 C 240 180 370 200 360 340 C 350 430 220 460 140 390" fill="none" stroke="#F72585" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+      \x3C!-- Ojitos simpáticos -->
+      <circle cx="230" cy="140" r="14" fill="#FFFFFF" />
+      <circle cx="270" cy="140" r="14" fill="#FFFFFF" />
+      <circle cx="233" cy="140" r="7" fill="#1E293B" />
+      <circle cx="273" cy="140" r="7" fill="#1E293B" />
+      \x3C!-- Gorrito de fiesta -->
+      <polygon points="350,100 390,30 320,70" fill="#FFD166" stroke="#F4A261" stroke-width="4" />
+      <circle cx="390" cy="30" r="8" fill="#FF5964" />
+    `}];class Z{constructor(){this.ctx=null,this.enabled=!0,this.pentatonic=[261.63,293.66,329.63,392,440,523.25,587.33,659.25,783.99,880,1046.5,1174.66,1318.51,1567.98,1760]}init(){if(!this.ctx&&typeof window<"u"){const t=window.AudioContext||window.webkitAudioContext;t&&(this.ctx=new t)}this.ctx&&this.ctx.state==="suspended"&&this.ctx.resume()}toggleSound(){return this.enabled=!this.enabled,this.enabled}playDotConnect(t=0){if(!this.enabled||(this.init(),!this.ctx))return;const e=this.pentatonic[t%this.pentatonic.length]*(1+Math.floor(t/this.pentatonic.length)*.2),i=this.ctx.currentTime,s=this.ctx.createOscillator(),o=this.ctx.createGain();s.type="triangle",s.frequency.setValueAtTime(e,i),o.gain.setValueAtTime(.001,i),o.gain.linearRampToValueAtTime(.3,i+.01),o.gain.exponentialRampToValueAtTime(1e-4,i+.35);const n=this.ctx.createOscillator(),c=this.ctx.createGain();n.type="sine",n.frequency.setValueAtTime(e*2,i),c.gain.setValueAtTime(.001,i),c.gain.linearRampToValueAtTime(.12,i+.01),c.gain.exponentialRampToValueAtTime(1e-4,i+.25),s.connect(o),o.connect(this.ctx.destination),n.connect(c),c.connect(this.ctx.destination),s.start(i),n.start(i),s.stop(i+.36),n.stop(i+.26)}playWrongDot(){if(!this.enabled||(this.init(),!this.ctx))return;const t=this.ctx.currentTime,e=this.ctx.createOscillator(),i=this.ctx.createGain();e.type="sawtooth",e.frequency.setValueAtTime(140,t),e.frequency.exponentialRampToValueAtTime(90,t+.18),i.gain.setValueAtTime(.15,t),i.gain.exponentialRampToValueAtTime(.001,t+.2),e.connect(i),i.connect(this.ctx.destination),e.start(t),e.stop(t+.2)}playUiClick(){if(!this.enabled||(this.init(),!this.ctx))return;const t=this.ctx.currentTime,e=this.ctx.createOscillator(),i=this.ctx.createGain();e.type="sine",e.frequency.setValueAtTime(600,t),e.frequency.exponentialRampToValueAtTime(800,t+.04),i.gain.setValueAtTime(.1,t),i.gain.exponentialRampToValueAtTime(.001,t+.05),e.connect(i),i.connect(this.ctx.destination),e.start(t),e.stop(t+.05)}playVictory(){if(!this.enabled||(this.init(),!this.ctx))return;const t=this.ctx.currentTime,e=[523.25,659.25,783.99,987.77,1046.5,1318.51];e.forEach((i,s)=>{const o=t+s*.09,n=this.ctx.createOscillator(),c=this.ctx.createGain();n.type="triangle",n.frequency.setValueAtTime(i,o);const l=s===e.length-1?1.2:.4;c.gain.setValueAtTime(.001,o),c.gain.linearRampToValueAtTime(.28,o+.02),c.gain.exponentialRampToValueAtTime(1e-4,o+l),n.connect(c),c.connect(this.ctx.destination),n.start(o),n.stop(o+l+.05)})}playBrushStroke(){if(!this.enabled||(this.init(),!this.ctx))return;const t=this.ctx.currentTime,e=this.ctx.createOscillator(),i=this.ctx.createGain();e.type="sine",e.frequency.setValueAtTime(350+Math.random()*200,t),i.gain.setValueAtTime(.03,t),i.gain.exponentialRampToValueAtTime(1e-4,t+.08),e.connect(i),i.connect(this.ctx.destination),e.start(t),e.stop(t+.08)}}const h=new Z;class g{static isSupported(){return typeof navigator<"u"&&"vibrate"in navigator}static tap(){if(this.isSupported())try{navigator.vibrate(18)}catch{}}static success(){if(this.isSupported())try{navigator.vibrate([25,30,45])}catch{}}static error(){if(this.isSupported())try{navigator.vibrate([40,40,40])}catch{}}static win(){if(this.isSupported())try{navigator.vibrate([60,40,80,40,150])}catch{}}}class G{constructor(t){this.canvas=t,this.ctx=t?t.getContext("2d"):null,this.particles=[],this.animationFrame=null,this.colors=["#FF5964","#35A7FF","#FFE74C","#38B000","#FF9E00","#9D4EDD","#FF70A6","#70D6FF","#E9FF70"]}setCanvas(t){this.canvas=t,this.ctx=t?t.getContext("2d"):null}burst(t,e,i=70){if(!(!this.canvas||!this.ctx)){for(let s=0;s<i;s++){const o=Math.random()*Math.PI*2,n=3+Math.random()*9;this.particles.push({x:t||this.canvas.width/2,y:e||this.canvas.height/2,vx:Math.cos(o)*n,vy:Math.sin(o)*n-3.5,size:5+Math.random()*7,color:this.colors[Math.floor(Math.random()*this.colors.length)],rotation:Math.random()*Math.PI*2,rotationSpeed:(Math.random()-.5)*.3,opacity:1,life:1,decay:.016+Math.random()*.02,shape:Math.random()>.4?"rect":"circle"})}this.animationFrame||this.loop()}}loop(){if(!this.ctx){this.animationFrame=null;return}if(this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height),this.particles.length===0){this.animationFrame=null;return}this.ctx.save();for(let t=this.particles.length-1;t>=0;t--){const e=this.particles[t];if(e.x+=e.vx,e.y+=e.vy,e.vy+=.24,e.vx*=.97,e.rotation+=e.rotationSpeed,e.life-=e.decay,e.life<=0){this.particles.splice(t,1);continue}this.ctx.save(),this.ctx.translate(e.x,e.y),this.ctx.rotate(e.rotation),this.ctx.globalAlpha=Math.max(0,e.life),this.ctx.fillStyle=e.color,e.shape==="rect"?this.ctx.fillRect(-e.size/2,-e.size/2,e.size,e.size*1.3):(this.ctx.beginPath(),this.ctx.arc(0,0,e.size/2,0,Math.PI*2),this.ctx.fill()),this.ctx.restore()}this.ctx.restore(),this.animationFrame=requestAnimationFrame(()=>this.loop())}clear(){this.particles=[],this.animationFrame&&(cancelAnimationFrame(this.animationFrame),this.animationFrame=null),this.ctx&&this.canvas&&this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height)}}const I="puntitos_magicos_v1";class k{static getData(){try{const t=localStorage.getItem(I);if(t)return JSON.parse(t)}catch(t){console.error("Error al leer Storage:",t)}return{completedLevels:{},customLevels:[],soundEnabled:!0,hapticsEnabled:!0,selectedCategory:"all"}}static saveData(t){try{localStorage.setItem(I,JSON.stringify(t))}catch(e){console.error("Error al guardar Storage:",e)}}static markCompleted(t,e=3){const i=this.getData();i.completedLevels[t]?i.completedLevels[t].stars=Math.max(i.completedLevels[t].stars||0,e):i.completedLevels[t]={stars:e,completedAt:Date.now()},this.saveData(i)}static isCompleted(t){return!!this.getData().completedLevels[t]}static getStars(t){var i;return((i=this.getData().completedLevels[t])==null?void 0:i.stars)||0}static saveColoredArt(t,e){const i=this.getData();i.completedLevels[t]||(i.completedLevels[t]={stars:3,completedAt:Date.now()}),i.completedLevels[t].coloredImage=e,this.saveData(i)}static getColoredArt(t){var i;return((i=this.getData().completedLevels[t])==null?void 0:i.coloredImage)||null}static saveCustomLevel(t){const e=this.getData();e.customLevels=e.customLevels||[];const i=e.customLevels.findIndex(s=>s.id===t.id);i>=0?e.customLevels[i]=t:e.customLevels.push(t),this.saveData(e)}static getCustomLevels(){return this.getData().customLevels||[]}}class N{constructor(t,e={}){this.container=t,this.options=e,this.level=null,this.currentDotIndex=0,this.nextTargetIndex=1,this.isDragging=!1,this.dragPos={x:0,y:0},this.connectedDots=[],this.isCompleted=!1,this.showHintActive=!1,this.hintTimer=null,this.initDOM(),this.confetti=new G(this.fxCanvas),this.bindEvents(),this.startLoop()}initDOM(){this.container.innerHTML=`
+      <div class="dotgame-wrapper">
+        \x3C!-- SVG para ilustración coloreada y revelado -->
+        <svg class="dotgame-svg-reveal" viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet"></svg>
+        
+        \x3C!-- Canvas principal de puntos y trazos -->
+        <canvas class="dotgame-canvas"></canvas>
+
+        \x3C!-- Canvas secundario para efectos y confeti -->
+        <canvas class="dotgame-fx-canvas"></canvas>
+      </div>
+    `,this.wrapper=this.container.querySelector(".dotgame-wrapper"),this.revealSvg=this.container.querySelector(".dotgame-svg-reveal"),this.canvas=this.container.querySelector(".dotgame-canvas"),this.ctx=this.canvas.getContext("2d"),this.fxCanvas=this.container.querySelector(".dotgame-fx-canvas")}resize(){if(!this.wrapper||!this.canvas)return;const t=this.wrapper.getBoundingClientRect();if(t.width===0||t.height===0)return;const e=window.devicePixelRatio||1,i=Math.round(t.width*e),s=Math.round(t.height*e);(this.canvas.width!==i||this.canvas.height!==s)&&(this.canvas.width=i,this.canvas.height=s,this.canvas.style.width=`${t.width}px`,this.canvas.style.height=`${t.height}px`,this.fxCanvas.width=i,this.fxCanvas.height=s,this.fxCanvas.style.width=`${t.width}px`,this.fxCanvas.style.height=`${t.height}px`,this.confetti.setCanvas(this.fxCanvas))}loadLevel(t){this.level=t,this.currentDotIndex=0,this.nextTargetIndex=1,this.connectedDots=[],this.isCompleted=!1,this.isDragging=!1,this.showHintActive=!1,this.hintTimer&&clearTimeout(this.hintTimer),this.confetti&&this.confetti.clear(),this.revealSvg.innerHTML=t.colorArt||"",this.revealSvg.classList.remove("revealed"),this.resize(),this.render(),this.options.onProgress&&this.options.onProgress({current:0,total:t.dots.length,level:this.level})}getLogicalCoords(t){const e=this.wrapper.getBoundingClientRect(),i=t.touches&&t.touches.length?t.touches[0].clientX:t.clientX,s=t.touches&&t.touches.length?t.touches[0].clientY:t.clientY,o=i-e.left,n=s-e.top,c=e.width||480,l=e.height||480,a=Math.min(c/500,l/500)||1,r=(c-500*a)/2,y=(l-500*a)/2;return{x:(o-r)/a,y:(n-y)/a,scale:a,screenX:i,screenY:s}}bindEvents(){window.addEventListener("resize",()=>this.resize());const t=s=>{if(this.isCompleted||!this.level)return;h.init();const o=this.getLogicalCoords(s),n=this.level.dots.find(r=>r.id===this.nextTargetIndex),c=this.level.dots.find(r=>r.id===this.currentDotIndex),l=Math.max(48,44/(o.scale||1));if(n&&this.getDistance(o,n)<=l){this.connectNextDot(n),this.isDragging=!0,this.dragPos={x:n.x,y:n.y};return}if(c&&this.getDistance(o,c)<=l){this.isDragging=!0,this.dragPos={x:o.x,y:o.y};return}const a=this.level.dots.find(r=>this.getDistance(o,r)<=l);a&&a.id!==this.nextTargetIndex&&a.id>this.currentDotIndex&&(h.playWrongDot(),g.error())},e=s=>{if(this.isCompleted||!this.level)return;const o=this.getLogicalCoords(s),n=this.level.dots.find(l=>l.id===this.nextTargetIndex),c=Math.max(48,44/(o.scale||1));this.isDragging?(this.dragPos={x:o.x,y:o.y},n&&this.getDistance(o,n)<=c&&(this.connectNextDot(n),this.dragPos={x:n.x,y:n.y})):this.level.dots.find(a=>this.getDistance(o,a)<=c)?this.canvas.style.cursor="pointer":this.canvas.style.cursor="default"},i=()=>{this.isDragging=!1};this.wrapper.addEventListener("pointerdown",t),window.addEventListener("pointermove",e),window.addEventListener("pointerup",i),window.addEventListener("pointercancel",i)}getDistance(t,e){const i=t.x-e.x,s=t.y-e.y;return Math.sqrt(i*i+s*s)}connectNextDot(t){this.connectedDots.push(t),this.currentDotIndex=t.id,this.nextTargetIndex=t.id+1,h.playDotConnect(t.id-1),g.tap();const e=this.wrapper.getBoundingClientRect(),i=Math.min(e.width/500,e.height/500),s=(e.width-500*i)/2,o=(e.height-500*i)/2,n=t.x*i+s,c=t.y*i+o;this.confetti.burst(n,c,15),this.options.onProgress&&this.options.onProgress({current:this.connectedDots.length,total:this.level.dots.length,level:this.level}),this.connectedDots.length===this.level.dots.length&&this.finishLevel()}triggerHint(){if(this.isCompleted||!this.level)return;this.showHintActive=!0,h.playUiClick(),g.tap();const t=document.getElementById("btn-hint");t&&(t.classList.add("active"),setTimeout(()=>t.classList.remove("active"),2500)),this.hintTimer&&clearTimeout(this.hintTimer),this.hintTimer=setTimeout(()=>{this.showHintActive=!1},4e3)}finishLevel(){this.isCompleted=!0,this.isDragging=!1,k.markCompleted(this.level.id,3),setTimeout(()=>{this.revealSvg.classList.add("revealed"),h.playVictory(),g.win();const t=this.wrapper.getBoundingClientRect();this.confetti.burst(t.width*.5,t.height*.4,90),setTimeout(()=>{this.confetti.burst(t.width*.25,t.height*.5,60),this.confetti.burst(t.width*.75,t.height*.5,60)},400),this.options.onComplete&&setTimeout(()=>{this.options.onComplete(this.level)},1200)},300)}startLoop(){const t=()=>{this.render(),requestAnimationFrame(t)};requestAnimationFrame(t)}render(){if(!this.ctx||!this.level||!this.wrapper)return;const t=this.ctx,e=this.wrapper.getBoundingClientRect();if(e.width===0||e.height===0)return;const i=window.devicePixelRatio||1,s=Math.round(e.width*i),o=Math.round(e.height*i);(this.canvas.width!==s||this.canvas.height!==o)&&this.resize(),t.clearRect(0,0,this.canvas.width,this.canvas.height),t.save(),t.scale(i,i);const n=Math.min(e.width/500,e.height/500),c=(e.width-500*n)/2,l=(e.height-500*n)/2;t.translate(c,l),t.scale(n,n);const a=performance.now();if(this.connectedDots.length>1){t.beginPath(),t.moveTo(this.connectedDots[0].x,this.connectedDots[0].y);for(let r=1;r<this.connectedDots.length;r++)t.lineTo(this.connectedDots[r].x,this.connectedDots[r].y);this.isCompleted&&this.level.isClosed&&t.lineTo(this.connectedDots[0].x,this.connectedDots[0].y),t.lineWidth=6,t.lineCap="round",t.lineJoin="round",t.strokeStyle="#4361EE",t.shadowColor="rgba(67, 97, 238, 0.4)",t.shadowBlur=10,t.stroke(),t.shadowBlur=0}if(this.isDragging&&this.currentDotIndex>0&&!this.isCompleted){const r=this.level.dots.find(y=>y.id===this.currentDotIndex);r&&(t.beginPath(),t.moveTo(r.x,r.y),t.lineTo(this.dragPos.x,this.dragPos.y),t.lineWidth=4,t.setLineDash([8,6]),t.strokeStyle="#4CC9F0",t.stroke(),t.setLineDash([]),t.beginPath(),t.arc(this.dragPos.x,this.dragPos.y,8,0,Math.PI*2),t.fillStyle="#4CC9F0",t.fill())}if(this.showHintActive&&!this.isCompleted){const r=this.level.dots.find(x=>x.id===this.nextTargetIndex),y=this.currentDotIndex>0?this.level.dots.find(x=>x.id===this.currentDotIndex):null;if(r){const x=(Math.sin(a/100)+1)/2;t.beginPath(),t.arc(r.x,r.y,22+x*18,0,Math.PI*2),t.fillStyle="rgba(255, 190, 11, 0.35)",t.fill(),t.strokeStyle="#FFBE0B",t.lineWidth=3,t.stroke(),y&&(t.beginPath(),t.moveTo(y.x,y.y),t.lineTo(r.x,r.y),t.lineWidth=4,t.setLineDash([10,6]),t.strokeStyle="#FFBE0B",t.stroke(),t.setLineDash([]))}}this.isCompleted||this.level.dots.forEach(r=>{const y=r.id<=this.currentDotIndex,x=r.id===this.nextTargetIndex,v=this.showHintActive&&x;t.beginPath();const L=y?11:v?15:13;t.arc(r.x,r.y,L,0,Math.PI*2),y?(t.fillStyle="#38B000",t.fill(),t.strokeStyle="#FFFFFF",t.lineWidth=2.5,t.stroke()):v?(t.fillStyle="#FFBE0B",t.fill(),t.strokeStyle="#FFFFFF",t.lineWidth=3.5,t.stroke()):(t.fillStyle="#FFFFFF",t.fill(),t.strokeStyle="#3A0CA3",t.lineWidth=2.5,t.stroke()),t.fillStyle=y||v?"#FFFFFF":"#1E2238",t.font=`bold ${v?13:12}px "Outfit", system-ui, sans-serif`,t.textAlign="center",t.textBaseline="middle",t.fillText(r.id,r.x,r.y+.5)}),t.restore()}}class U{constructor(t,e={}){this.container=t,this.options=e,this.level=null,this.currentColor="#FF5964",this.brushSize=20,this.isErasing=!1,this.isDrawing=!1,this.lastPos=null,this.history=[],this.maxHistory=15,this.palette=["#EF476F","#F78C6B","#FFD166","#06D6A0","#118AB2","#073B4C","#7209B7","#F72585","#4CC9F0","#52B788","#E76F51","#2B2D42"],this.initDOM(),this.bindEvents()}initDOM(){this.container.innerHTML=`
+      <div class="coloring-studio">
+        \x3C!-- Barra de herramientas superior -->
+        <header class="coloring-header">
+          <button class="btn-icon btn-back-coloring" title="Volver al Menú">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </button>
+          <div class="coloring-title-box">
+            <span class="coloring-title">Colorear</span>
+            <span class="coloring-level-name"></span>
+          </div>
+          <div class="coloring-actions">
+            <button class="btn-icon btn-undo" title="Deshacer">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7v6h6M21 17a9 9 0 00-9-9 9 9 0 00-6 2.3L3 13"/></svg>
+            </button>
+            <button class="btn-icon btn-clear" title="Reiniciar pintura">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+            </button>
+            <button class="btn-icon btn-save" title="Descargar dibujo">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            </button>
+          </div>
+        </header>
+
+        \x3C!-- Área del lienzo -->
+        <div class="coloring-canvas-container">
+          \x3C!-- Guía tenue del modelo coloreado de fondo -->
+          <svg class="coloring-guide-svg" viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet"></svg>
+          \x3C!-- Canvas de fondo donde pinta el usuario -->
+          <canvas class="coloring-paint-canvas"></canvas>
+          \x3C!-- SVG superpuesto con las líneas de contorno (¡para no salirse ni borrar las líneas!) -->
+          <svg class="coloring-outline-svg" viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+
+        \x3C!-- Barra de herramientas inferior (Paleta y Tamaños) -->
+        <footer class="coloring-toolbar">
+          \x3C!-- Selector de tamaño de pincel, goma, arcoíris y modelo -->
+          <div class="brush-controls">
+            <button class="brush-size-btn ${this.brushSize===10?"active":""}" data-size="10" title="Fino">
+              <span class="dot-indicator" style="width: 8px; height: 8px;"></span>
+            </button>
+            <button class="brush-size-btn ${this.brushSize===22?"active":""}" data-size="22" title="Medio">
+              <span class="dot-indicator" style="width: 14px; height: 14px;"></span>
+            </button>
+            <button class="brush-size-btn ${this.brushSize===38?"active":""}" data-size="38" title="Grueso">
+              <span class="dot-indicator" style="width: 22px; height: 22px;"></span>
+            </button>
+            <div class="divider-vertical"></div>
+            <button class="btn-tool-rainbow ${this.isRainbow?"active":""}" title="Pincel Arcoíris Mágico">
+              🌈
+            </button>
+            <button class="btn-eraser ${this.isErasing?"active":""}" title="Goma de borrar">
+              🧹
+            </button>
+            <div class="divider-vertical"></div>
+            <button class="btn-toggle-guide" title="Ver modelo de ayuda">
+              👁️ Guía
+            </button>
+          </div>
+
+          \x3C!-- Paleta de colores deslizante para móviles -->
+          <div class="palette-slider">
+            ${this.palette.map((t,e)=>`
+              <button class="color-swatch ${e===0?"selected":""}" data-color="${t}" style="background-color: ${t};"></button>
+            `).join("")}
+          </div>
+        </footer>
+      </div>
+    `,this.wrapper=this.container.querySelector(".coloring-canvas-container"),this.guideSvg=this.container.querySelector(".coloring-guide-svg"),this.paintCanvas=this.container.querySelector(".coloring-paint-canvas"),this.ctx=this.paintCanvas.getContext("2d"),this.outlineSvg=this.container.querySelector(".coloring-outline-svg"),this.levelNameEl=this.container.querySelector(".coloring-level-name")}loadLevel(t){this.level=t,this.levelNameEl.textContent=t.title,this.history=[],this.isErasing=!1,this.isRainbow=!1,this.rainbowHue=0,this.showGuide=!1,this.currentColor=this.palette[0],this.outlineSvg.innerHTML=`
+      <g stroke="#1F2937" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="${t.outlinePath}" />
+      </g>
+    `,this.guideSvg.innerHTML=t.colorArt||"",this.guideSvg.style.opacity="0";const e=this.container.querySelector(".btn-toggle-guide");e&&e.classList.remove("active");const i=this.container.querySelector(".btn-tool-rainbow");i&&i.classList.remove("active"),this.resize(),this.clearCanvas(!1),this.saveState()}resize(){if(!this.wrapper)return;const t=this.wrapper.getBoundingClientRect();if(t.width===0||t.height===0)return;const e=window.devicePixelRatio||1;this.paintCanvas.width=Math.round(t.width*e),this.paintCanvas.height=Math.round(t.height*e),this.paintCanvas.style.width=`${t.width}px`,this.paintCanvas.style.height=`${t.height}px`,this.ctx.scale(e,e),this.ctx.fillStyle="#FFFFFF",this.ctx.fillRect(0,0,t.width,t.height)}clearCanvas(t=!0){const e=this.wrapper.getBoundingClientRect();this.ctx.fillStyle="#FFFFFF",this.ctx.fillRect(0,0,e.width,e.height),t&&this.saveState()}saveState(){this.history.length>=this.maxHistory&&this.history.shift();const t=this.wrapper.getBoundingClientRect(),e=window.devicePixelRatio||1,i=this.ctx.getImageData(0,0,t.width*e,t.height*e);this.history.push(i)}undo(){if(this.history.length>1){this.history.pop();const t=this.history[this.history.length-1];this.ctx.putImageData(t,0,0),h.playUiClick(),g.tap()}}getPointerPos(t){const e=this.paintCanvas.getBoundingClientRect(),i=t.touches&&t.touches.length?t.touches[0].clientX:t.clientX,s=t.touches&&t.touches.length?t.touches[0].clientY:t.clientY;return{x:i-e.left,y:s-e.top}}bindEvents(){this.container.querySelector(".btn-back-coloring").onclick=()=>{h.playUiClick(),this.options.onBack&&this.options.onBack()},this.container.querySelector(".btn-undo").onclick=()=>this.undo(),this.container.querySelector(".btn-clear").onclick=()=>{confirm("¿Quieres borrar todo el dibujo y empezar de nuevo?")&&(this.clearCanvas(!0),h.playUiClick())},this.container.querySelector(".btn-save").onclick=()=>this.downloadArtwork();const t=this.container.querySelectorAll(".brush-size-btn");t.forEach(a=>{a.onclick=()=>{t.forEach(r=>r.classList.remove("active")),a.classList.add("active"),this.brushSize=parseInt(a.dataset.size),this.isErasing=!1,this.container.querySelector(".btn-eraser").classList.remove("active"),h.playUiClick()}});const e=this.container.querySelector(".btn-tool-rainbow");e.onclick=()=>{this.isRainbow=!this.isRainbow,this.isErasing=!1,e.classList.toggle("active",this.isRainbow),this.container.querySelector(".btn-eraser").classList.remove("active"),h.playUiClick(),g.tap()};const i=this.container.querySelector(".btn-eraser");i.onclick=()=>{this.isErasing=!this.isErasing,this.isRainbow=!1,i.classList.toggle("active",this.isErasing),e.classList.remove("active"),h.playUiClick()};const s=this.container.querySelector(".btn-toggle-guide");s.onclick=()=>{this.showGuide=!this.showGuide,this.guideSvg.style.opacity=this.showGuide?"0.35":"0",s.classList.toggle("active",this.showGuide),h.playUiClick(),g.tap()};const o=this.container.querySelectorAll(".color-swatch");o.forEach(a=>{a.onclick=()=>{o.forEach(r=>r.classList.remove("selected")),a.classList.add("selected"),this.currentColor=a.dataset.color,this.isErasing=!1,this.isRainbow=!1,i.classList.remove("active"),e.classList.remove("active"),h.playUiClick(),g.tap()}});const n=a=>{a.preventDefault(),this.isDrawing=!0,this.lastPos=this.getPointerPos(a),this.drawStroke(this.lastPos,this.lastPos),h.playBrushStroke()},c=a=>{if(!this.isDrawing)return;a.preventDefault();const r=this.getPointerPos(a);this.drawStroke(this.lastPos,r),this.lastPos=r},l=()=>{this.isDrawing&&(this.isDrawing=!1,this.lastPos=null,this.saveState())};this.wrapper.addEventListener("pointerdown",n),window.addEventListener("pointermove",c),window.addEventListener("pointerup",l),window.addEventListener("pointercancel",l)}drawStroke(t,e){this.ctx.save(),this.ctx.beginPath(),this.ctx.moveTo(t.x,t.y),this.ctx.lineTo(e.x,e.y),this.ctx.lineCap="round",this.ctx.lineJoin="round",this.isRainbow?(this.rainbowHue=((this.rainbowHue||0)+6)%360,this.ctx.strokeStyle=`hsl(${this.rainbowHue}, 95%, 55%)`,this.ctx.lineWidth=this.brushSize):this.isErasing?(this.ctx.strokeStyle="#FFFFFF",this.ctx.lineWidth=this.brushSize*1.5):(this.ctx.strokeStyle=this.currentColor,this.ctx.lineWidth=this.brushSize),this.ctx.stroke(),this.ctx.restore()}downloadArtwork(){h.playUiClick(),g.tap(),this.wrapper.getBoundingClientRect();const t=document.createElement("canvas");t.width=600,t.height=600;const e=t.getContext("2d");e.fillStyle="#FFFFFF",e.fillRect(0,0,600,600),e.drawImage(this.paintCanvas,0,0,600,600);const i=new XMLSerializer().serializeToString(this.outlineSvg),s=new Blob([i],{type:"image/svg+xml;charset=utf-8"}),o=window.URL||window.webkitURL||window,n=o.createObjectURL(s),c=new Image;c.onload=()=>{e.drawImage(c,0,0,600,600),o.revokeObjectURL(n);const l=document.createElement("a");l.download=`dibujo_${this.level.id||"coloreado"}.png`,l.href=t.toDataURL("image/png"),l.click()},c.src=n}}class j{static convertSVG(t,e=20,i="Mi Plantilla",s="personalizado"){const c=new DOMParser().parseFromString(t,"image/svg+xml").querySelectorAll("path, polygon, polyline, rect, circle, ellipse");if(!c.length)throw new Error("No se encontraron trazados válidos en el SVG proporcionado.");const l="http://www.w3.org/2000/svg",a=document.createElementNS(l,"svg");a.style.position="absolute",a.style.visibility="hidden",document.body.appendChild(a);const r=[];if(c.forEach(d=>{let p="";if(d.tagName.toLowerCase()==="path")p=d.getAttribute("d")||"";else if(d.tagName.toLowerCase()==="polygon"||d.tagName.toLowerCase()==="polyline"){const u=d.getAttribute("points");if(u){const m=u.trim().split(/[\s,]+/);m.length>=4&&(p=`M ${m[0]} ${m[1]} `+m.slice(2).reduce((f,b,P,H)=>P%2===0?f+`L ${b} ${H[P+1]} `:f,"")+(d.tagName.toLowerCase()==="polygon"?"Z":""))}}else if(d.tagName.toLowerCase()==="rect"){const u=parseFloat(d.getAttribute("x")||0),m=parseFloat(d.getAttribute("y")||0),f=parseFloat(d.getAttribute("width")||100),b=parseFloat(d.getAttribute("height")||100);p=`M ${u} ${m} H ${u+f} V ${m+b} H ${u} Z`}else if(d.tagName.toLowerCase()==="circle"){const u=parseFloat(d.getAttribute("cx")||50),m=parseFloat(d.getAttribute("cy")||50),f=parseFloat(d.getAttribute("r")||40);p=`M ${u-f} ${m} A ${f} ${f} 0 1 0 ${u+f} ${m} A ${f} ${f} 0 1 0 ${u-f} ${m} Z`}if(p.trim()){const u=document.createElementNS(l,"path");u.setAttribute("d",p),a.appendChild(u),r.push(u)}}),r.length===0)throw document.body.removeChild(a),new Error("No se pudieron extraer trazados procesables.");let y=r[0],x=y.getTotalLength();for(let d=1;d<r.length;d++){const p=r[d].getTotalLength();p>x&&(x=p,y=r[d])}const v=[],L=Math.max(8,e);for(let d=0;d<L;d++){const p=d/L*x,u=y.getPointAtLength(p);v.push({x:u.x,y:u.y})}document.body.removeChild(a);const D=Math.min(...v.map(d=>d.x)),z=Math.max(...v.map(d=>d.x)),A=Math.min(...v.map(d=>d.y)),$=Math.max(...v.map(d=>d.y)),E=z-D||1,M=$-A||1,C=500,B=C-60*2,w=Math.min(B/E,B/M),R=(C-E*w)/2-D*w,V=(C-M*w)/2-A*w,S=v.map((d,p)=>({id:p+1,x:Math.round(d.x*w+R),y:Math.round(d.y*w+V)})),T=S.reduce((d,p,u)=>d+(u===0?`M ${p.x} ${p.y} `:`L ${p.x} ${p.y} `),"")+"Z";return{id:"custom_"+Date.now(),title:i||"Dibujo Creado",category:s||"personalizado",categoryName:"Personalizados",difficulty:L<=16?"facil":L<=30?"medio":"dificil",dotsCount:L,icon:"🎨",description:"¡Plantilla generada desde tu propio archivo SVG!",isClosed:!0,viewWidth:C,viewHeight:C,dots:S,outlinePath:T,colorArt:`<path d="${T}" fill="#70D6FF" stroke="#35A7FF" stroke-width="7" stroke-linejoin="round" opacity="0.9" />`}}}class O{constructor(){this.currentLevelIndex=0,this.currentLevel=null,this.selectedCategory="all",this.customGeneratedLevel=null,this.initEngines(),this.bindDOM(),this.renderLevelsGrid()}initEngines(){const t=document.getElementById("dotgame-mount");this.game=new N(t,{onProgress:({current:i,total:s,level:o})=>{const n=document.getElementById("game-progress");n&&(n.textContent=`Punto ${i+1} de ${s}`)},onComplete:i=>{const s=document.getElementById("victory-modal");s&&s.classList.add("active"),this.renderLevelsGrid()}});const e=document.getElementById("coloring-mount");this.studio=new U(e,{onBack:()=>{this.navigateTo("screen-levels")}})}navigateTo(t){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));const e=document.getElementById(t);e&&e.classList.add("active");const i=document.getElementById("victory-modal");i&&i.classList.remove("active"),t==="screen-game"?setTimeout(()=>this.game.resize(),50):t==="screen-coloring"&&setTimeout(()=>this.studio.resize(),50)}getAllLevels(){const t=k.getCustomLevels();return[...q,...t]}startLevel(t){this.currentLevel=t;const e=this.getAllLevels();this.currentLevelIndex=e.findIndex(i=>i.id===t.id),document.getElementById("game-title").textContent=t.title,document.getElementById("game-progress").textContent=`Punto 1 de ${t.dots.length}`,this.navigateTo("screen-game"),this.game.loadLevel(t)}nextLevel(){const t=this.getAllLevels(),e=(this.currentLevelIndex+1)%t.length;this.startLevel(t[e])}renderLevelsGrid(){const t=document.getElementById("levels-grid");if(!t)return;const e=this.getAllLevels(),i=this.selectedCategory==="all"?e:e.filter(s=>s.category===this.selectedCategory);t.innerHTML=i.map(s=>{const o=k.isCompleted(s.id),n=k.getStars(s.id);return`
+        <div class="level-card ${o?"completed":""}" data-level-id="${s.id}">
+          <div class="level-icon">${s.icon||"🎨"}</div>
+          <h3 class="level-name">${s.title}</h3>
+          <span class="level-dots-badge">${s.dotsCount||s.dots.length} Puntos</span>
+          <div class="level-stars">
+            <span class="${n>=1?"star-filled":""}">★</span>
+            <span class="${n>=2?"star-filled":""}">★</span>
+            <span class="${n>=3?"star-filled":""}">★</span>
+          </div>
+        </div>
+      `}).join(""),t.querySelectorAll(".level-card").forEach(s=>{s.onclick=()=>{const o=s.dataset.levelId,n=e.find(c=>c.id===o);n&&(h.playUiClick(),g.tap(),this.startLevel(n))}})}bindDOM(){document.getElementById("btn-quick-play").onclick=()=>{h.playUiClick(),g.tap();const l=this.getAllLevels();this.startLevel(l[0])},document.getElementById("btn-all-levels").onclick=()=>{h.playUiClick(),g.tap(),this.navigateTo("screen-levels")},document.getElementById("btn-go-lab").onclick=()=>{h.playUiClick(),g.tap(),this.navigateTo("screen-lab")},document.getElementById("btn-back-levels").onclick=()=>{h.playUiClick(),this.navigateTo("screen-home")},document.getElementById("btn-back-game").onclick=()=>{h.playUiClick(),this.navigateTo("screen-levels")},document.getElementById("btn-back-lab").onclick=()=>{h.playUiClick(),this.navigateTo("screen-home")};const t=document.getElementById("btn-toggle-sound");t.onclick=()=>{const l=h.toggleSound();t.textContent=l?"🔊":"🔇",g.tap()};const e=document.querySelectorAll("#categories-bar .chip");e.forEach(l=>{l.onclick=()=>{e.forEach(a=>a.classList.remove("active")),l.classList.add("active"),this.selectedCategory=l.dataset.category,h.playUiClick(),g.tap(),this.renderLevelsGrid()}}),document.getElementById("btn-hint").onclick=()=>{this.game.triggerHint()},document.getElementById("btn-victory-paint").onclick=()=>{h.playUiClick(),g.tap(),this.navigateTo("screen-coloring"),this.studio.loadLevel(this.currentLevel)},document.getElementById("btn-victory-next").onclick=()=>{h.playUiClick(),g.tap(),this.nextLevel()},document.getElementById("btn-victory-retry").onclick=()=>{h.playUiClick(),g.tap();const l=document.getElementById("victory-modal");l&&l.classList.remove("active"),this.game.loadLevel(this.currentLevel)};const i=document.getElementById("dots-count-slider"),s=document.getElementById("dots-count-label");i.oninput=()=>{s.textContent=i.value};const o=document.getElementById("svg-dropzone"),n=document.getElementById("svg-file-input");o.onclick=()=>n.click(),n.onchange=l=>{const a=l.target.files[0];if(a){const r=new FileReader;r.onload=y=>{document.getElementById("svg-code-input").value=y.target.result,o.querySelector("span").textContent=`📄 ${a.name}`,h.playUiClick()},r.readAsText(a)}};const c={corazon:'<svg viewBox="0 0 100 100"><path d="M 50 30 C 50 10 20 10 20 35 C 20 60 50 80 50 85 C 50 80 80 60 80 35 C 80 10 50 10 50 30 Z" /></svg>',pez:'<svg viewBox="0 0 100 100"><path d="M 15 50 C 35 25 70 25 85 50 C 70 75 35 75 15 50 Z M 15 50 L 5 35 L 5 65 Z" /></svg>',diamante:'<svg viewBox="0 0 100 100"><polygon points="50,15 85,40 50,85 15,40" /></svg>',sol:'<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" /></svg>'};document.querySelectorAll(".sample-btn").forEach(l=>{l.onclick=()=>{const a=l.dataset.sample;c[a]&&(document.getElementById("svg-code-input").value=c[a],o.querySelector("span").textContent=`✨ Ejemplo: ${l.textContent.trim()}`,h.playUiClick(),document.getElementById("btn-convert-svg").click())}}),document.getElementById("btn-convert-svg").onclick=()=>{const l=document.getElementById("svg-code-input").value.trim();if(!l){alert("Por favor pega código SVG o sube un archivo .svg");return}try{const a=parseInt(i.value,10),r=j.convertSVG(l,a,"Mi Creación SVG","personalizado");this.customGeneratedLevel=r;const y=document.getElementById("lab-preview");y.innerHTML=`
+          <svg viewBox="0 0 500 500" style="width: 100%; height: 100%;">
+            <path d="${r.outlinePath}" fill="none" stroke="#4361EE" stroke-width="4" stroke-dasharray="6,4" />
+            ${r.dots.map(x=>`
+              <circle cx="${x.x}" cy="${x.y}" r="8" fill="#FF5964" />
+              <text x="${x.x}" y="${x.y+4}" font-size="10" font-weight="bold" fill="#FFF" text-anchor="middle">${x.id}</text>
+            `).join("")}
+          </svg>
+        `,document.getElementById("btn-play-custom").style.display="flex",h.playUiClick(),g.success()}catch(a){alert("Error al convertir el SVG: "+a.message)}},document.getElementById("btn-play-custom").onclick=()=>{this.customGeneratedLevel&&(k.saveCustomLevel(this.customGeneratedLevel),this.renderLevelsGrid(),this.startLevel(this.customGeneratedLevel))}}}window.addEventListener("DOMContentLoaded",()=>{window.addEventListener("pointerdown",()=>h.init(),{once:!0}),new O});</script>
+  <style rel="stylesheet" crossorigin>@import"https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap";:root{--primary: #4361EE;--primary-light: #4CC9F0;--primary-gradient: linear-gradient(135deg, #4361EE 0%, #3A0CA3 100%);--accent: #FF5964;--accent-gold: #FFD166;--success: #06D6A0;--bg-gradient: linear-gradient(180deg, #F3F7FF 0%, #E6EEFA 100%);--surface: #FFFFFF;--surface-trans: rgba(255, 255, 255, .88);--text-main: #1E2238;--text-muted: #6B7280;--border: rgba(67, 97, 238, .12);--radius-sm: 12px;--radius-md: 18px;--radius-lg: 26px;--radius-full: 9999px;--shadow-sm: 0 4px 12px rgba(67, 97, 238, .08);--shadow-md: 0 8px 24px rgba(67, 97, 238, .14);--shadow-lg: 0 16px 36px rgba(67, 97, 238, .22)}*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}html,body{width:100%;height:100%;overflow:hidden;font-family:Outfit,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg-gradient);color:var(--text-main);touch-action:manipulation}#app{width:100%;height:100%;display:flex;flex-direction:column;position:relative;overflow:hidden;padding-top:env(safe-area-inset-top,0);padding-bottom:env(safe-area-inset-bottom,0)}.screen{position:absolute;top:0;right:0;bottom:0;left:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:scale(.98);transition:opacity .28s ease,transform .28s ease;overflow:hidden;background:var(--bg-gradient)}.screen.active{opacity:1;pointer-events:auto;transform:scale(1);z-index:10}button{font-family:inherit;border:none;cursor:pointer;outline:none;display:inline-flex;align-items:center;justify-content:center;transition:transform .15s ease,background .15s ease,box-shadow .15s ease}button:active{transform:scale(.94)}.btn-icon{width:44px;height:44px;border-radius:var(--radius-full);background:var(--surface);color:var(--text-main);box-shadow:var(--shadow-sm);border:1px solid var(--border)}.btn-primary{background:var(--primary-gradient);color:#fff;padding:14px 28px;border-radius:var(--radius-full);font-size:1.05rem;font-weight:700;box-shadow:var(--shadow-md);gap:8px}.screen-home{justify-content:space-between;align-items:center;padding:24px 20px;text-align:center}.home-header{margin-top:15px}.home-badge{display:inline-block;background:#4361ee1a;color:var(--primary);padding:6px 16px;border-radius:var(--radius-full);font-size:.88rem;font-weight:700;margin-bottom:12px;letter-spacing:.5px}.home-title{font-size:2.5rem;font-weight:900;line-height:1.15;background:linear-gradient(135deg,#4361ee,#ff5964);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}.home-subtitle{color:var(--text-muted);font-size:1.05rem;font-weight:600}.home-hero-art{width:240px;height:240px;margin:10px 0;position:relative;display:flex;align-items:center;justify-content:center;animation:float 4s ease-in-out infinite}.home-hero-art svg{width:100%;height:100%;filter:drop-shadow(0 12px 20px rgba(67,97,238,.2))}@keyframes float{0%,to{transform:translateY(0)}50%{transform:translateY(-12px)}}.home-buttons{width:100%;max-width:330px;display:flex;flex-direction:column;gap:14px;margin-bottom:15px}.btn-big-play{background:linear-gradient(135deg,#06d6a0,#118ab2);color:#fff;padding:18px;border-radius:var(--radius-lg);font-size:1.3rem;font-weight:800;box-shadow:0 10px 24px #06d6a059;display:flex;align-items:center;justify-content:center;gap:12px}.btn-secondary{background:var(--surface);color:var(--text-main);padding:14px;border-radius:var(--radius-md);font-size:1.02rem;font-weight:700;border:1.5px solid var(--border);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;gap:8px}.screen-levels{padding:20px 16px}.levels-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}.levels-title{font-size:1.45rem;font-weight:800}.categories-bar{display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;margin-bottom:12px;scrollbar-width:none}.categories-bar::-webkit-scrollbar{display:none}.chip{padding:8px 16px;border-radius:var(--radius-full);background:var(--surface);color:var(--text-muted);font-size:.9rem;font-weight:700;white-space:nowrap;border:1px solid var(--border);box-shadow:var(--shadow-sm)}.chip.active{background:var(--primary-gradient);color:#fff;border-color:transparent;box-shadow:var(--shadow-md)}.levels-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;overflow-y:auto;padding-bottom:30px;flex:1}.level-card{background:var(--surface);border-radius:var(--radius-md);padding:16px 12px;display:flex;flex-direction:column;align-items:center;border:1.5px solid var(--border);box-shadow:var(--shadow-sm);position:relative;transition:transform .15s ease,box-shadow .15s ease}.level-card:active{transform:scale(.96)}.level-card.completed{border-color:var(--success)}.level-icon{font-size:2.6rem;margin-bottom:8px}.level-name{font-size:1.05rem;font-weight:800;text-align:center;margin-bottom:4px}.level-dots-badge{font-size:.78rem;font-weight:700;background:#4361ee14;color:var(--primary);padding:3px 10px;border-radius:var(--radius-full);margin-bottom:8px}.level-stars{display:flex;gap:3px;color:#e2e8f0;font-size:1rem}.level-stars .star-filled{color:var(--accent-gold)}.screen-lab{padding:20px 18px;overflow-y:auto}.lab-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.lab-content{display:flex;flex-direction:column;gap:16px;padding-bottom:40px}.lab-box{background:var(--surface);padding:16px;border-radius:var(--radius-md);box-shadow:var(--shadow-sm);border:1px solid var(--border)}.lab-box h3{font-size:1.05rem;margin-bottom:8px}.lab-box p{font-size:.88rem;color:var(--text-muted);margin-bottom:12px}.svg-dropzone{border:2px dashed var(--primary-light);background:#4cc9f00f;border-radius:var(--radius-sm);padding:24px 14px;text-align:center;cursor:pointer;font-weight:700;color:var(--primary);margin-bottom:12px}.svg-textarea{width:100%;height:90px;border-radius:var(--radius-sm);border:1px solid var(--border);padding:10px;font-family:monospace;font-size:.8rem;resize:none}.slider-group{display:flex;flex-direction:column;gap:6px;margin-top:10px}.slider-group label{font-size:.88rem;font-weight:700;display:flex;justify-content:space-between}.lab-preview-area{width:100%;height:230px;background:#f8fafc;border-radius:var(--radius-sm);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-top:10px}.screen-game{display:flex;flex-direction:column;height:100%;position:relative}.game-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--surface-trans);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);z-index:20}.game-title-info{display:flex;flex-direction:column;align-items:center}.game-level-name{font-size:1.15rem;font-weight:800;color:var(--text-main)}.game-progress-badge{font-size:.8rem;font-weight:700;color:var(--primary);background:#4361ee1a;padding:2px 10px;border-radius:var(--radius-full);margin-top:2px}.btn-hint{background:#fffbeb;color:#d97706;border:1.5px solid #FDE68A;font-size:1.25rem}.btn-hint.active{animation:pulse-ring 1s infinite}@keyframes pulse-ring{0%{transform:scale(1);box-shadow:0 0 #f59e0b66}70%{transform:scale(1.08);box-shadow:0 0 0 10px #f59e0b00}to{transform:scale(1)}}.game-board-container{flex:1;width:100%;display:flex;align-items:center;justify-content:center;padding:12px;position:relative;overflow:hidden}#dotgame-mount{width:100%;height:100%;display:flex;align-items:center;justify-content:center}.dotgame-wrapper{width:min(92vw,480px,calc(100vh - 190px));height:min(92vw,480px,calc(100vh - 190px));min-width:260px;min-height:260px;aspect-ratio:1 / 1;position:relative;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-md);border:2.5px solid var(--border);overflow:hidden;touch-action:none;cursor:crosshair}.dotgame-svg-reveal{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;opacity:0;transform:scale(.92);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);pointer-events:none;z-index:5}.dotgame-svg-reveal.revealed{opacity:1;transform:scale(1)}.dotgame-canvas{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;z-index:10;pointer-events:auto}.dotgame-fx-canvas{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;z-index:15;pointer-events:none}.victory-overlay{position:absolute;top:0;right:0;bottom:0;left:0;background:#1e2238a6;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:24px;z-index:100;opacity:0;pointer-events:none;transition:opacity .35s ease}.victory-overlay.active{opacity:1;pointer-events:auto}.victory-card{background:#fff;width:100%;max-width:360px;border-radius:var(--radius-lg);padding:28px 22px;text-align:center;box-shadow:var(--shadow-lg);display:flex;flex-direction:column;align-items:center;transform:translateY(30px) scale(.92);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}.victory-overlay.active .victory-card{transform:translateY(0) scale(1)}.victory-star-icon{font-size:3.8rem;margin-bottom:8px;animation:victory-wobble 1s ease infinite alternate}@keyframes victory-wobble{0%{transform:rotate(-8deg) scale(1)}to{transform:rotate(8deg) scale(1.1)}}.victory-title{font-size:1.85rem;font-weight:900;color:#1e2238;margin-bottom:4px}.victory-subtitle{color:var(--text-muted);font-size:.95rem;font-weight:600;margin-bottom:22px}.victory-buttons{width:100%;display:flex;flex-direction:column;gap:12px}.btn-victory-paint{background:linear-gradient(135deg,#ff5964,#ff9e00);color:#fff;padding:16px;border-radius:var(--radius-md);font-size:1.15rem;font-weight:800;box-shadow:0 8px 20px #ff596459;display:flex;align-items:center;justify-content:center;gap:10px}.btn-victory-next{background:var(--primary-gradient);color:#fff;padding:14px;border-radius:var(--radius-md);font-size:1.05rem;font-weight:700}.btn-victory-retry{background:#f1f5f9;color:var(--text-main);padding:12px;border-radius:var(--radius-md);font-size:.95rem;font-weight:700}.screen-coloring{display:flex;flex-direction:column;height:100%;background:#f8fafc}#coloring-mount{width:100%;height:100%;display:flex;flex-direction:column}.coloring-studio{display:flex;flex-direction:column;height:100%;width:100%;justify-content:space-between}.coloring-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#fff;border-bottom:1px solid var(--border);z-index:10}.coloring-title-box{display:flex;flex-direction:column;align-items:center}.coloring-title{font-size:.78rem;font-weight:800;text-transform:uppercase;color:var(--primary);letter-spacing:.6px}.coloring-level-name{font-size:1.05rem;font-weight:800;color:var(--text-main)}.coloring-actions{display:flex;gap:8px}.coloring-canvas-container{flex:1;width:100%;display:flex;align-items:center;justify-content:center;padding:12px;position:relative;overflow:hidden}.coloring-paint-canvas{width:min(92vw,480px,calc(100vh - 210px));height:min(92vw,480px,calc(100vh - 210px));min-width:260px;min-height:260px;aspect-ratio:1 / 1;background:#fff;border-radius:var(--radius-md);box-shadow:var(--shadow-sm);border:1.5px solid var(--border);touch-action:none}.coloring-outline-svg{position:absolute;width:min(92vw,480px,calc(100vh - 210px));height:min(92vw,480px,calc(100vh - 210px));min-width:260px;min-height:260px;aspect-ratio:1 / 1;pointer-events:none;z-index:10}.coloring-guide-svg{position:absolute;width:min(92vw,480px,calc(100vh - 210px));height:min(92vw,480px,calc(100vh - 210px));min-width:260px;min-height:260px;aspect-ratio:1 / 1;pointer-events:none;z-index:5;opacity:0;transition:opacity .3s ease}.coloring-toolbar{background:#fff;border-top:1px solid var(--border);padding:12px 16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 -4px 16px #0000000a}.brush-controls{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}.btn-tool-rainbow{width:40px;height:40px;border-radius:var(--radius-full);background:#f1f5f9;font-size:1.2rem;border:2px solid transparent}.btn-tool-rainbow.active{background:#ff9e0033;border-color:#ff9e00;transform:scale(1.1)}.btn-toggle-guide{padding:8px 14px;border-radius:var(--radius-full);background:#f1f5f9;font-size:.85rem;font-weight:700;color:var(--text-main);border:1.5px solid transparent}.btn-toggle-guide.active{background:#4361ee26;border-color:var(--primary);color:var(--primary)}.brush-size-btn{width:38px;height:38px;border-radius:var(--radius-full);background:#f1f5f9;display:flex;align-items:center;justify-content:center;border:2px solid transparent}.brush-size-btn.active{border-color:var(--primary);background:#4361ee1f}.dot-indicator{border-radius:var(--radius-full);background:var(--text-main)}.divider-vertical{width:1px;height:24px;background:var(--border)}.btn-eraser{width:42px;height:42px;border-radius:var(--radius-full);background:#f1f5f9;font-size:1.25rem;border:2px solid transparent}.btn-eraser.active{background:#ff596426;border-color:var(--accent)}.palette-slider{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:none}.palette-slider::-webkit-scrollbar{display:none}.color-swatch{min-width:38px;height:38px;border-radius:var(--radius-full);box-shadow:0 2px 6px #00000026;border:3px solid #FFFFFF;transition:transform .15s ease}.color-swatch.selected{transform:scale(1.18);box-shadow:0 0 0 2.5px var(--text-main)}</style>
+</head>
+<body>
+  <div id="app">
+    <!-- PANTALLA 1: INICIO (HOME) -->
+    <section id="screen-home" class="screen screen-home active">
+      <div class="home-header">
+        <span class="home-badge">✨ Juego Creativo</span>
+        <h1 class="home-title">Puntitos<br>Mágicos</h1>
+        <p class="home-subtitle">¡Une los puntos y crea arte!</p>
+      </div>
+
+      <div class="home-hero-art">
+        <svg viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="85" fill="#EEF2FF" />
+          <path d="M 100 25 L 122 75 L 175 75 L 132 110 L 150 165 L 100 130 L 50 165 L 68 110 L 25 75 L 78 75 Z" fill="#FFD166" stroke="#F4A261" stroke-width="4" stroke-linejoin="round" />
+          <circle cx="82" cy="95" r="7" fill="#1E2238" />
+          <circle cx="118" cy="95" r="7" fill="#1E2238" />
+          <circle cx="84" cy="93" r="2.5" fill="#FFFFFF" />
+          <circle cx="120" cy="93" r="2.5" fill="#FFFFFF" />
+          <path d="M 90 112 Q 100 122 110 112" fill="none" stroke="#1E2238" stroke-width="3.5" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <div class="home-buttons">
+        <button id="btn-quick-play" class="btn-big-play">
+          <span>▶</span> ¡Jugar Ahora!
+        </button>
+        <button id="btn-all-levels" class="btn-secondary">
+          <span>📚</span> Elegir Nivel
+        </button>
+        <button id="btn-go-lab" class="btn-secondary">
+          <span>🧪</span> Taller de Plantillas SVG
+        </button>
+      </div>
+    </section>
+
+    <!-- PANTALLA 2: SELECTOR DE NIVELES -->
+    <section id="screen-levels" class="screen screen-levels">
+      <header class="levels-header">
+        <button id="btn-back-levels" class="btn-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+        <h2 class="levels-title">Elige un Dibujo</h2>
+        <button id="btn-toggle-sound" class="btn-icon" title="Sonido">
+          🔊
+        </button>
+      </header>
+
+      <div id="categories-bar" class="categories-bar">
+        <button class="chip active" data-category="all">Todos</button>
+        <button class="chip" data-category="animales">Animales</button>
+        <button class="chip" data-category="vehiculos">Vehículos</button>
+        <button class="chip" data-category="comida">Comida</button>
+        <button class="chip" data-category="fantasia">Fantasía</button>
+        <button class="chip" data-category="aprende">Aprende</button>
+      </div>
+
+      <div id="levels-grid" class="levels-grid">
+        <!-- Rellenado dinámicamente por main.js -->
+      </div>
+    </section>
+
+    <!-- PANTALLA 3: TABLERO DE JUEGO (DOTGAME) -->
+    <section id="screen-game" class="screen screen-game">
+      <header class="game-header">
+        <button id="btn-back-game" class="btn-icon" title="Volver">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+        <div class="game-title-info">
+          <span id="game-title" class="game-level-name">Estrella Mágica</span>
+          <span id="game-progress" class="game-progress-badge">Punto 1 de 10</span>
+        </div>
+        <button id="btn-hint" class="btn-icon btn-hint" title="Pista">
+          💡
+        </button>
+      </header>
+
+      <div class="game-board-container">
+        <div id="dotgame-mount"></div>
+      </div>
+
+      <!-- MODAL DE VICTORIA / COMPLETADO -->
+      <div id="victory-modal" class="victory-overlay">
+        <div class="victory-card">
+          <div class="victory-star-icon">🌟</div>
+          <h2 class="victory-title">¡Fantástico!</h2>
+          <p class="victory-subtitle">¡Has descubierto el dibujo completo!</p>
+          <div class="victory-buttons">
+            <button id="btn-victory-paint" class="btn-victory-paint">
+              <span>🎨</span> ¡Colorear este dibujo!
+            </button>
+            <button id="btn-victory-next" class="btn-victory-next">
+              Siguiente Nivel ➔
+            </button>
+            <button id="btn-victory-retry" class="btn-victory-retry">
+              Repetir Puntos 🔁
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 4: ESTUDIO DE COLOREADO (COLORING STUDIO) -->
+    <section id="screen-coloring" class="screen screen-coloring">
+      <div id="coloring-mount"></div>
+    </section>
+
+    <!-- PANTALLA 5: TALLER / LABORATORIO SVG -->
+    <section id="screen-lab" class="screen screen-lab">
+      <header class="lab-header">
+        <button id="btn-back-lab" class="btn-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+        <h2 class="levels-title">Taller de Plantillas</h2>
+        <div style="width: 44px;"></div>
+      </header>
+
+      <div class="lab-content">
+        <div class="lab-box">
+          <h3>Convierte cualquier SVG en puntos</h3>
+          <p>Sube un archivo .svg o pega su código aquí para generar un nivel interactivo al instante.</p>
+          
+          <div class="lab-samples-bar" style="display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; align-items: center;">
+            <span style="font-size: 0.84rem; font-weight: 700; color: var(--text-muted); width: 100%;">O prueba un ejemplo con 1 clic:</span>
+            <button class="chip sample-btn" data-sample="corazon">💖 Corazón</button>
+            <button class="chip sample-btn" data-sample="pez">🐟 Pez</button>
+            <button class="chip sample-btn" data-sample="diamante">💎 Diamante</button>
+            <button class="chip sample-btn" data-sample="sol">☀️ Sol Radiante</button>
+          </div>
+
+          <div id="svg-dropzone" class="svg-dropzone">
+            <span>📁 Toca para seleccionar un archivo .SVG</span>
+            <input type="file" id="svg-file-input" accept=".svg" style="display: none;">
+          </div>
+
+          <textarea id="svg-code-input" class="svg-textarea" placeholder="O pega el código <svg>...</svg> aquí..."></textarea>
+
+          <div class="slider-group">
+            <label>
+              <span>Número de puntos deseados:</span>
+              <strong id="dots-count-label">20</strong>
+            </label>
+            <input type="range" id="dots-count-slider" min="10" max="60" value="20" step="2">
+          </div>
+
+          <button id="btn-convert-svg" class="btn-primary" style="width: 100%; margin-top: 14px;">
+            ⚡ Convertir a Plantilla
+          </button>
+        </div>
+
+        <div class="lab-box">
+          <h3>Vista Previa del Trazado</h3>
+          <div id="lab-preview" class="lab-preview-area">
+            <span style="color: #94A3B8; font-size: 0.9rem;">El resultado aparecerá aquí</span>
+          </div>
+          <button id="btn-play-custom" class="btn-big-play" style="width: 100%; margin-top: 14px; display: none;">
+            ▶ ¡Jugar Esta Plantilla!
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</body>
+</html>

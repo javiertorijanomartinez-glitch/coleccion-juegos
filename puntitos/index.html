@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Puntitos Mágicos - Unir Puntos y Colorear</title>
+  <meta name="description" content="Juego divertido y relajante de unir puntos para crear y colorear hermosos dibujos en Android.">
+  <meta name="theme-color" content="#4361EE">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="./src/styles/main.css">
+  <link rel="stylesheet" href="./src/styles/game.css">
+</head>
+<body>
+  <div id="app">
+    <!-- PANTALLA 1: INICIO (HOME) -->
+    <section id="screen-home" class="screen screen-home active">
+      <div class="home-header">
+        <span class="home-badge">✨ Juego Creativo</span>
+        <h1 class="home-title">Puntitos<br>Mágicos</h1>
+        <p class="home-subtitle">¡Une los puntos y crea arte!</p>
+      </div>
+
+      <div class="home-hero-art">
+        <svg viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="85" fill="#EEF2FF" />
+          <path d="M 100 25 L 122 75 L 175 75 L 132 110 L 150 165 L 100 130 L 50 165 L 68 110 L 25 75 L 78 75 Z" fill="#FFD166" stroke="#F4A261" stroke-width="4" stroke-linejoin="round" />
+          <circle cx="82" cy="95" r="7" fill="#1E2238" />
+          <circle cx="118" cy="95" r="7" fill="#1E2238" />
+          <circle cx="84" cy="93" r="2.5" fill="#FFFFFF" />
+          <circle cx="120" cy="93" r="2.5" fill="#FFFFFF" />
+          <path d="M 90 112 Q 100 122 110 112" fill="none" stroke="#1E2238" stroke-width="3.5" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <div class="home-buttons">
+        <button id="btn-quick-play" class="btn-big-play">
+          <span>▶</span> ¡Jugar Ahora!
+        </button>
+        <button id="btn-all-levels" class="btn-secondary">
+          <span>📚</span> Elegir Nivel
+        </button>
+        <button id="btn-go-lab" class="btn-secondary">
+          <span>🧪</span> Taller de Plantillas SVG
+        </button>
+      </div>
+    </section>
+
+    <!-- PANTALLA 2: SELECTOR DE NIVELES -->
+    <section id="screen-levels" class="screen screen-levels">
+      <header class="levels-header">
+        <button id="btn-back-levels" class="btn-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+        <h2 class="levels-title">Elige un Dibujo</h2>
+        <button id="btn-toggle-sound" class="btn-icon" title="Sonido">
+          🔊
+        </button>
+      </header>
+
+      <div id="categories-bar" class="categories-bar">
+        <button class="chip active" data-category="all">Todos</button>
+        <button class="chip" data-category="animales">Animales</button>
+        <button class="chip" data-category="vehiculos">Vehículos</button>
+        <button class="chip" data-category="comida">Comida</button>
+        <button class="chip" data-category="fantasia">Fantasía</button>
+        <button class="chip" data-category="aprende">Aprende</button>
+      </div>
+
+      <div id="levels-grid" class="levels-grid">
+        <!-- Rellenado dinámicamente por main.js -->
+      </div>
+    </section>
+
+    <!-- PANTALLA 3: TABLERO DE JUEGO (DOTGAME) -->
+    <section id="screen-game" class="screen screen-game">
+      <header class="game-header">
+        <button id="btn-back-game" class="btn-icon" title="Volver">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+        <div class="game-title-info">
+          <span id="game-title" class="game-level-name">Estrella Mágica</span>
+          <span id="game-progress" class="game-progress-badge">Punto 1 de 10</span>
+        </div>
+        <button id="btn-hint" class="btn-icon btn-hint" title="Pista">
+          💡
+        </button>
+      </header>
+
+      <div class="game-board-container">
+        <div id="dotgame-mount"></div>
+      </div>
+
+      <!-- MODAL DE VICTORIA / COMPLETADO -->
+      <div id="victory-modal" class="victory-overlay">
+        <div class="victory-card">
+          <div class="victory-star-icon">🌟</div>
+          <h2 class="victory-title">¡Fantástico!</h2>
+          <p class="victory-subtitle">¡Has descubierto el dibujo completo!</p>
+          <div class="victory-buttons">
+            <button id="btn-victory-paint" class="btn-victory-paint">
+              <span>🎨</span> ¡Colorear este dibujo!
+            </button>
+            <button id="btn-victory-next" class="btn-victory-next">
+              Siguiente Nivel ➔
+            </button>
+            <button id="btn-victory-retry" class="btn-victory-retry">
+              Repetir Puntos 🔁
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 4: ESTUDIO DE COLOREADO (COLORING STUDIO) -->
+    <section id="screen-coloring" class="screen screen-coloring">
+      <div id="coloring-mount"></div>
+    </section>
+
+    <!-- PANTALLA 5: TALLER / LABORATORIO SVG -->
+    <section id="screen-lab" class="screen screen-lab">
+      <header class="lab-header">
+        <button id="btn-back-lab" class="btn-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+        <h2 class="levels-title">Taller de Plantillas</h2>
+        <div style="width: 44px;"></div>
+      </header>
+
+      <div class="lab-content">
+        <div class="lab-box">
+          <h3>Convierte cualquier SVG en puntos</h3>
+          <p>Sube un archivo .svg o pega su código aquí para generar un nivel interactivo al instante.</p>
+          
+          <div class="lab-samples-bar" style="display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; align-items: center;">
+            <span style="font-size: 0.84rem; font-weight: 700; color: var(--text-muted); width: 100%;">O prueba un ejemplo con 1 clic:</span>
+            <button class="chip sample-btn" data-sample="corazon">💖 Corazón</button>
+            <button class="chip sample-btn" data-sample="pez">🐟 Pez</button>
+            <button class="chip sample-btn" data-sample="diamante">💎 Diamante</button>
+            <button class="chip sample-btn" data-sample="sol">☀️ Sol Radiante</button>
+          </div>
+
+          <div id="svg-dropzone" class="svg-dropzone">
+            <span>📁 Toca para seleccionar un archivo .SVG</span>
+            <input type="file" id="svg-file-input" accept=".svg" style="display: none;">
+          </div>
+
+          <textarea id="svg-code-input" class="svg-textarea" placeholder="O pega el código <svg>...</svg> aquí..."></textarea>
+
+          <div class="slider-group">
+            <label>
+              <span>Número de puntos deseados:</span>
+              <strong id="dots-count-label">20</strong>
+            </label>
+            <input type="range" id="dots-count-slider" min="10" max="60" value="20" step="2">
+          </div>
+
+          <button id="btn-convert-svg" class="btn-primary" style="width: 100%; margin-top: 14px;">
+            ⚡ Convertir a Plantilla
+          </button>
+        </div>
+
+        <div class="lab-box">
+          <h3>Vista Previa del Trazado</h3>
+          <div id="lab-preview" class="lab-preview-area">
+            <span style="color: #94A3B8; font-size: 0.9rem;">El resultado aparecerá aquí</span>
+          </div>
+          <button id="btn-play-custom" class="btn-big-play" style="width: 100%; margin-top: 14px; display: none;">
+            ▶ ¡Jugar Esta Plantilla!
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
